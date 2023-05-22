@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E782A1BF8DC0028929F /* AppDelegate.swift */; };
+		93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */; };
+		93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7C2A1BF8DC0028929F /* ViewController.swift */; };
+		93A22E802A1BF8DC0028929F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E7E2A1BF8DC0028929F /* Main.storyboard */; };
+		93A22E822A1BF8DF0028929F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E812A1BF8DF0028929F /* Assets.xcassets */; };
+		93A22E852A1BF8DF0028929F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */; };
+		93A22E902A1BF8DF0028929F /* AltonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E8F2A1BF8DF0028929F /* AltonTests.swift */; };
+		93A22E9A2A1BF8DF0028929F /* AltonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E992A1BF8DF0028929F /* AltonUITests.swift */; };
+		93A22E9C2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		93A22E8C2A1BF8DF0028929F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93A22E6D2A1BF8DC0028929F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93A22E742A1BF8DC0028929F;
+			remoteInfo = Alton;
+		};
+		93A22E962A1BF8DF0028929F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93A22E6D2A1BF8DC0028929F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93A22E742A1BF8DC0028929F;
+			remoteInfo = Alton;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		93A22E752A1BF8DC0028929F /* Alton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A22E782A1BF8DC0028929F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		93A22E7C2A1BF8DC0028929F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		93A22E7F2A1BF8DC0028929F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		93A22E812A1BF8DF0028929F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		93A22E842A1BF8DF0028929F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		93A22E862A1BF8DF0028929F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93A22E8B2A1BF8DF0028929F /* AltonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A22E8F2A1BF8DF0028929F /* AltonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonTests.swift; sourceTree = "<group>"; };
+		93A22E952A1BF8DF0028929F /* AltonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A22E992A1BF8DF0028929F /* AltonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITests.swift; sourceTree = "<group>"; };
+		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		93A22E722A1BF8DC0028929F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E882A1BF8DF0028929F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E922A1BF8DF0028929F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		93A22E6C2A1BF8DC0028929F = {
+			isa = PBXGroup;
+			children = (
+				93A22E772A1BF8DC0028929F /* Alton */,
+				93A22E8E2A1BF8DF0028929F /* AltonTests */,
+				93A22E982A1BF8DF0028929F /* AltonUITests */,
+				93A22E762A1BF8DC0028929F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		93A22E762A1BF8DC0028929F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E752A1BF8DC0028929F /* Alton.app */,
+				93A22E8B2A1BF8DF0028929F /* AltonTests.xctest */,
+				93A22E952A1BF8DF0028929F /* AltonUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		93A22E772A1BF8DC0028929F /* Alton */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E782A1BF8DC0028929F /* AppDelegate.swift */,
+				93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */,
+				93A22E7C2A1BF8DC0028929F /* ViewController.swift */,
+				93A22E7E2A1BF8DC0028929F /* Main.storyboard */,
+				93A22E812A1BF8DF0028929F /* Assets.xcassets */,
+				93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */,
+				93A22E862A1BF8DF0028929F /* Info.plist */,
+			);
+			path = Alton;
+			sourceTree = "<group>";
+		};
+		93A22E8E2A1BF8DF0028929F /* AltonTests */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E8F2A1BF8DF0028929F /* AltonTests.swift */,
+			);
+			path = AltonTests;
+			sourceTree = "<group>";
+		};
+		93A22E982A1BF8DF0028929F /* AltonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E992A1BF8DF0028929F /* AltonUITests.swift */,
+				93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */,
+			);
+			path = AltonUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		93A22E742A1BF8DC0028929F /* Alton */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93A22E9F2A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "Alton" */;
+			buildPhases = (
+				93A22E712A1BF8DC0028929F /* Sources */,
+				93A22E722A1BF8DC0028929F /* Frameworks */,
+				93A22E732A1BF8DC0028929F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Alton;
+			productName = Alton;
+			productReference = 93A22E752A1BF8DC0028929F /* Alton.app */;
+			productType = "com.apple.product-type.application";
+		};
+		93A22E8A2A1BF8DF0028929F /* AltonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93A22EA22A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "AltonTests" */;
+			buildPhases = (
+				93A22E872A1BF8DF0028929F /* Sources */,
+				93A22E882A1BF8DF0028929F /* Frameworks */,
+				93A22E892A1BF8DF0028929F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93A22E8D2A1BF8DF0028929F /* PBXTargetDependency */,
+			);
+			name = AltonTests;
+			productName = AltonTests;
+			productReference = 93A22E8B2A1BF8DF0028929F /* AltonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		93A22E942A1BF8DF0028929F /* AltonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93A22EA52A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "AltonUITests" */;
+			buildPhases = (
+				93A22E912A1BF8DF0028929F /* Sources */,
+				93A22E922A1BF8DF0028929F /* Frameworks */,
+				93A22E932A1BF8DF0028929F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93A22E972A1BF8DF0028929F /* PBXTargetDependency */,
+			);
+			name = AltonUITests;
+			productName = AltonUITests;
+			productReference = 93A22E952A1BF8DF0028929F /* AltonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		93A22E6D2A1BF8DC0028929F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					93A22E742A1BF8DC0028929F = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					93A22E8A2A1BF8DF0028929F = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 93A22E742A1BF8DC0028929F;
+					};
+					93A22E942A1BF8DF0028929F = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 93A22E742A1BF8DC0028929F;
+					};
+				};
+			};
+			buildConfigurationList = 93A22E702A1BF8DC0028929F /* Build configuration list for PBXProject "Alton" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 93A22E6C2A1BF8DC0028929F;
+			productRefGroup = 93A22E762A1BF8DC0028929F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				93A22E742A1BF8DC0028929F /* Alton */,
+				93A22E8A2A1BF8DF0028929F /* AltonTests */,
+				93A22E942A1BF8DF0028929F /* AltonUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		93A22E732A1BF8DC0028929F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A22E852A1BF8DF0028929F /* LaunchScreen.storyboard in Resources */,
+				93A22E822A1BF8DF0028929F /* Assets.xcassets in Resources */,
+				93A22E802A1BF8DC0028929F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E892A1BF8DF0028929F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E932A1BF8DF0028929F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		93A22E712A1BF8DC0028929F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
+				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
+				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E872A1BF8DF0028929F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A22E902A1BF8DF0028929F /* AltonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93A22E912A1BF8DF0028929F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93A22E9A2A1BF8DF0028929F /* AltonUITests.swift in Sources */,
+				93A22E9C2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		93A22E8D2A1BF8DF0028929F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93A22E742A1BF8DC0028929F /* Alton */;
+			targetProxy = 93A22E8C2A1BF8DF0028929F /* PBXContainerItemProxy */;
+		};
+		93A22E972A1BF8DF0028929F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93A22E742A1BF8DC0028929F /* Alton */;
+			targetProxy = 93A22E962A1BF8DF0028929F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		93A22E7E2A1BF8DC0028929F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93A22E7F2A1BF8DC0028929F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				93A22E842A1BF8DF0028929F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		93A22E9D2A1BF8DF0028929F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		93A22E9E2A1BF8DF0028929F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		93A22EA02A1BF8DF0028929F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Alton/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.Alton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93A22EA12A1BF8DF0028929F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Alton/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.Alton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		93A22EA32A1BF8DF0028929F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Alton";
+			};
+			name = Debug;
+		};
+		93A22EA42A1BF8DF0028929F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Alton";
+			};
+			name = Release;
+		};
+		93A22EA62A1BF8DF0028929F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Alton;
+			};
+			name = Debug;
+		};
+		93A22EA72A1BF8DF0028929F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 56S32J5CWV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Alton;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		93A22E702A1BF8DC0028929F /* Build configuration list for PBXProject "Alton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A22E9D2A1BF8DF0028929F /* Debug */,
+				93A22E9E2A1BF8DF0028929F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93A22E9F2A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "Alton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A22EA02A1BF8DF0028929F /* Debug */,
+				93A22EA12A1BF8DF0028929F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93A22EA22A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "AltonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A22EA32A1BF8DF0028929F /* Debug */,
+				93A22EA42A1BF8DF0028929F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93A22EA52A1BF8DF0028929F /* Build configuration list for PBXNativeTarget "AltonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93A22EA62A1BF8DF0028929F /* Debug */,
+				93A22EA72A1BF8DF0028929F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 93A22E6D2A1BF8DC0028929F /* Project object */;
+}
