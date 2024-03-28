@@ -17,18 +17,16 @@ class ViewController: UIViewController {
         
 //        testPermute()
         
-//        let solver = Solver(1,2,3,4) // 120 operands
+        let solver = Solver(1,2,3,4) // 120 operands
 //        let solver = Solver(2,2,4,4) // 30 operands
 //        let solver = Solver(5,5,5,9) // 20 operands
 //        let solver = Solver(6,7,7,7) // 20 operands
 //        let solver = Solver(8,8,8,8) // 5 operands
 //        let solver = Solver(0,11,22,333) // 108 operands
 //        let solver = Solver(1,11,22,333) // 110 operands
-        let solver = Solver(5,11,22,333) // 120 operands
-        
-        solver.printOperands()
-        
-//        print(solver.operands)
+//        let solver = Solver(5,11,22,333) // 120 operands
+
+        solver.solutions.forEach{ $0.value.forEach{ print("\($0)") } }
         
     }
     
