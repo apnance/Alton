@@ -10,104 +10,6 @@ import APNUtil
 
 struct Solver{
     
-    enum Operator: String, CaseIterable, CustomStringConvertible {
-        
-        case add = "+"
-        case sub = "-"
-        case div = "/"
-        case mlt = "*"
-        
-        func operate(_ lhs: Int, _ rhs: Int) -> Int {
-            
-            switch self {
-                    
-                case .add: return lhs + rhs
-                case .sub: return lhs - rhs
-                case .div: return lhs + rhs
-                case .mlt: return lhs + rhs
-                    
-            }
-            
-        }
-        
-        var description: String { self.rawValue }
-        
-    }
-    
-    struct Solution: CustomStringConvertible, Equatable {
-        
-        static func == (lhs: Self, rhs: Self) -> Bool {
-        
-            return lhs.description == rhs.description
-            
-        }
-        
-        var operands:   [Int]
-        var operators:  [Operator]
-        var value       = -1279
-        
-        init(operands: [Int], operators: [Operator]) {
-            
-            self.operands = operands
-            self.operators = operators
-            
-            value = computeValue()
-            
-        }
-        
-        fileprivate func computeValue() -> Int {
-            
-            var computed = operands[0]
-            
-            for i in 0..<operators.count {
-                
-                if i == operands.lastUsableIndex { break /*BREAK*/ }
-                let lhs = computed
-                let rhs = operands[i+1]
-                let `operator` = operators[i]
-                
-                computed = `operator`.operate(lhs, rhs)
-                
-            }
-            
-            return computed
-            
-        }
-        
-        var description: String {
-            
-            switch operands.count {
-                
-                case 2:
-                    
-                    return
-                        """
-                        \(operands[0]) \(operators[0]) \(operands[1]) = \(value)
-                        """
-                    
-                case 3:
-                    
-                    return
-                        """
-                        (\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])  = \(value)
-                        """
-                    
-                case 4:
-                    
-                    return
-                        """
-                        (\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])) \(operators[2]) \(operands[3]) = \(value)
-                        """
-                    
-                default: fatalError()
-                    
-            }
-            
-            
-        }
-        
-    }
-    
     var solutions = [Int : [Solution]]()
     
     init(_ operand1: Int,
@@ -116,6 +18,9 @@ struct Solver{
          _ operand4: Int) {
         
         solve([operand1, operand2, operand3, operand4])
+        
+        // TODO: Clean Up - delete
+        echoResults([operand1, operand2, operand3, operand4])
         
     }
     
@@ -128,10 +33,12 @@ struct Solver{
     
     fileprivate func generateSolutions(_ operands: [[Int]]) -> [Int : [Solution]] {
         
-        var solutions       = [Int : [Solution]]()
         var operatorsAll    = [[Operator]]()
+        var solutions       = [Int : [Solution]]()
         
-        // TODO: generate solutions
+        // initialize solutions
+        (1...10).forEach{ solutions[$0] = [Solution]() }
+        
         for op1 in Operator.allCases {
             
             var operatorCollection = [op1,.add,.add]
@@ -158,14 +65,13 @@ struct Solver{
                 let solution    = Solution(operands: operand, operators: operators)
                 let value       = solution.value
                 
-                if value >= 1 && value <= 10 {
+                if  solution.isValid
+                    && value >= 1
+                    && value <= 10 {
                     
-                    if solutions[value].isNil { solutions[value] = [Solution]() }
+                    solutions[solution.value]?.appendUnique(solution)
                     
-                    solutions[solution.value]?.append(solution)
-                    
-                }
-                
+                }  
             }
             
         }
@@ -177,7 +83,6 @@ struct Solver{
     fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
         
         var operands = [[Int]]()
-        var originals = originals
         
         // Single Digit Combinations
         operands += (originals.permuteDeduped())
@@ -216,28 +121,25 @@ struct Solver{
     
 }
 
-
+// TODO: Clean Up - delete
 // - MARK: Dev Crap
 extension Solver {
     
-    //    // TODO: Clean Up - delete this test function eventually
-    //    func printOperands() {
-    //
-    //        func format<Permutable: Equatable &
-    //                        CustomStringConvertible>(_ array: [[Permutable]]) -> String {
-    //
-    //            array.map{$0.map{ $0.description }.joined(separator: " > ") }.joined(separator: "\n")
-    //
-    //        }
-    //
-    //        Swift.print("""
-    //        =======================
-    //        Results [\(operands.count)]:
-    //        -------
-    //        \(format(operands))
-    //        =======================
-    //
-    //        """)
-    //    }
+    func echoResults(_ operands: [Int]) {
+        
+        // TODO: Clean Up - delete
+        print("~\(operands)~")
+        for key in solutions.keys.sorted() {
+            
+            print("\(key) has \(solutions[key]!.count) solutions")
+            
+        }
+            
+
+        
+        print("------")
+        print("")
+        
+    }
     
 }

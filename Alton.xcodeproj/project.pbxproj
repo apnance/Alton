@@ -19,6 +19,8 @@
 		93A22EB02A1BF99C0028929F /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EAF2A1BF99C0028929F /* Configs.swift */; };
 		93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EB12A1BF9BE0028929F /* Solver.swift */; };
 		93A22EB52A1BFA820028929F /* APNUtil in Frameworks */ = {isa = PBXBuildFile; productRef = 93A22EB42A1BFA820028929F /* APNUtil */; };
+		93D747522BB62327007A2F52 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747512BB62327007A2F52 /* Solution.swift */; };
+		93D747542BB63433007A2F52 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747532BB63433007A2F52 /* Int.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		93A22EAF2A1BF99C0028929F /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		93A22EB12A1BF9BE0028929F /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
+		93D747512BB62327007A2F52 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
+		93D747532BB63433007A2F52 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,7 @@
 			children = (
 				93A22EAC2A1BF93C0028929F /* iOS */,
 				93A22EB12A1BF9BE0028929F /* Solver.swift */,
+				93D747512BB62327007A2F52 /* Solution.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				93A22E812A1BF8DF0028929F /* Assets.xcassets */,
+				93D747532BB63433007A2F52 /* Int.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -330,6 +336,8 @@
 			files = (
 				93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */,
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
+				93D747522BB62327007A2F52 /* Solution.swift in Sources */,
+				93D747542BB63433007A2F52 /* Int.swift in Sources */,
 				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
