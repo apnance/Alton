@@ -16,6 +16,9 @@
 		93A22E902A1BF8DF0028929F /* AltonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E8F2A1BF8DF0028929F /* AltonTests.swift */; };
 		93A22E9A2A1BF8DF0028929F /* AltonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E992A1BF8DF0028929F /* AltonUITests.swift */; };
 		93A22E9C2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */; };
+		93A22EB02A1BF99C0028929F /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EAF2A1BF99C0028929F /* Configs.swift */; };
+		93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EB12A1BF9BE0028929F /* Solver.swift */; };
+		93A22EB52A1BFA820028929F /* APNUtil in Frameworks */ = {isa = PBXBuildFile; productRef = 93A22EB42A1BFA820028929F /* APNUtil */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,8 @@
 		93A22E952A1BF8DF0028929F /* AltonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A22E992A1BF8DF0028929F /* AltonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITests.swift; sourceTree = "<group>"; };
 		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		93A22EAF2A1BF99C0028929F /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
+		93A22EB12A1BF9BE0028929F /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A22EB52A1BFA820028929F /* APNUtil in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,13 +105,11 @@
 		93A22E772A1BF8DC0028929F /* Alton */ = {
 			isa = PBXGroup;
 			children = (
-				93A22E782A1BF8DC0028929F /* AppDelegate.swift */,
-				93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */,
-				93A22E7C2A1BF8DC0028929F /* ViewController.swift */,
-				93A22E7E2A1BF8DC0028929F /* Main.storyboard */,
-				93A22E812A1BF8DF0028929F /* Assets.xcassets */,
-				93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */,
-				93A22E862A1BF8DF0028929F /* Info.plist */,
+				93A22EAA2A1BF90A0028929F /* M */,
+				93A22EA92A1BF9060028929F /* V */,
+				93A22EA82A1BF9020028929F /* C */,
+				93A22EAE2A1BF9750028929F /* Resources */,
+				93A22EAD2A1BF94B0028929F /* Supporting Files */,
 			);
 			path = Alton;
 			sourceTree = "<group>";
@@ -127,6 +131,66 @@
 			path = AltonUITests;
 			sourceTree = "<group>";
 		};
+		93A22EA82A1BF9020028929F /* C */ = {
+			isa = PBXGroup;
+			children = (
+				93A22EAC2A1BF93C0028929F /* iOS */,
+				93A22EB12A1BF9BE0028929F /* Solver.swift */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		93A22EA92A1BF9060028929F /* V */ = {
+			isa = PBXGroup;
+			children = (
+				93A22EAB2A1BF92D0028929F /* iOS */,
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		93A22EAA2A1BF90A0028929F /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		93A22EAB2A1BF92D0028929F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E7E2A1BF8DC0028929F /* Main.storyboard */,
+				93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		93A22EAC2A1BF93C0028929F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E7C2A1BF8DC0028929F /* ViewController.swift */,
+				93A22E782A1BF8DC0028929F /* AppDelegate.swift */,
+				93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		93A22EAD2A1BF94B0028929F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E862A1BF8DF0028929F /* Info.plist */,
+				93A22EAF2A1BF99C0028929F /* Configs.swift */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93A22EAE2A1BF9750028929F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				93A22E812A1BF8DF0028929F /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +207,9 @@
 			dependencies = (
 			);
 			name = Alton;
+			packageProductDependencies = (
+				93A22EB42A1BFA820028929F /* APNUtil */,
+			);
 			productName = Alton;
 			productReference = 93A22E752A1BF8DC0028929F /* Alton.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +282,9 @@
 				Base,
 			);
 			mainGroup = 93A22E6C2A1BF8DC0028929F;
+			packageReferences = (
+				93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */,
+			);
 			productRefGroup = 93A22E762A1BF8DC0028929F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,7 +328,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */,
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
+				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
 			);
@@ -602,6 +674,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apnance/APNUtil";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		93A22EB42A1BFA820028929F /* APNUtil */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */;
+			productName = APNUtil;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 93A22E6D2A1BF8DC0028929F /* Project object */;
 }
