@@ -9,28 +9,29 @@ import XCTest
 @testable import Alton
 
 final class AltonTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testSolver1() {
+        
+        
+        let testOperands =  [
+            
+            [3,5,7,8],  // Probably requires fractional solution
+            [4,4,4,4],  // Requires deferred/parenthetical processing of mult/division operations
+            [1,2,3,4],
+            [2,2,4,4],
+            [3,3,6,7]
+        ]
+        
+        for op in testOperands {
+            
+            let solver = Solver(op[0],op[1],op[2],op[3])
+            
+            solver.echoResults(op)
+            
+            XCTAssert(solver.fullySolved, "\(op) missing solution(s) for: \(solver.missingSolution)")
+            
         }
+        
     }
-
+    
 }

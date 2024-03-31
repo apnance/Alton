@@ -19,8 +19,8 @@
 		93A22EB02A1BF99C0028929F /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EAF2A1BF99C0028929F /* Configs.swift */; };
 		93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EB12A1BF9BE0028929F /* Solver.swift */; };
 		93A22EB52A1BFA820028929F /* APNUtil in Frameworks */ = {isa = PBXBuildFile; productRef = 93A22EB42A1BFA820028929F /* APNUtil */; };
-		93D747522BB62327007A2F52 /* Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747512BB62327007A2F52 /* Solution.swift */; };
-		93D747542BB63433007A2F52 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747532BB63433007A2F52 /* Int.swift */; };
+		93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADC66F2BB6425A00E7C25B /* Operator.swift */; };
+		93D747522BB62327007A2F52 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747512BB62327007A2F52 /* Expression.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9361BF9C2BBA05E500425C95 /* Alton.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Alton.xctestplan; sourceTree = "<group>"; };
 		93A22E752A1BF8DC0028929F /* Alton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A22E782A1BF8DC0028929F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,8 +57,8 @@
 		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		93A22EAF2A1BF99C0028929F /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		93A22EB12A1BF9BE0028929F /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
-		93D747512BB62327007A2F52 /* Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution.swift; sourceTree = "<group>"; };
-		93D747532BB63433007A2F52 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		93ADC66F2BB6425A00E7C25B /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		93D747512BB62327007A2F52 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +90,7 @@
 		93A22E6C2A1BF8DC0028929F = {
 			isa = PBXGroup;
 			children = (
+				9361BF9C2BBA05E500425C95 /* Alton.xctestplan */,
 				93A22E772A1BF8DC0028929F /* Alton */,
 				93A22E8E2A1BF8DF0028929F /* AltonTests */,
 				93A22E982A1BF8DF0028929F /* AltonUITests */,
@@ -140,7 +142,6 @@
 			children = (
 				93A22EAC2A1BF93C0028929F /* iOS */,
 				93A22EB12A1BF9BE0028929F /* Solver.swift */,
-				93D747512BB62327007A2F52 /* Solution.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -156,6 +157,8 @@
 		93A22EAA2A1BF90A0028929F /* M */ = {
 			isa = PBXGroup;
 			children = (
+				93D747512BB62327007A2F52 /* Expression.swift */,
+				93ADC66F2BB6425A00E7C25B /* Operator.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -192,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				93A22E812A1BF8DF0028929F /* Assets.xcassets */,
-				93D747532BB63433007A2F52 /* Int.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -336,9 +338,9 @@
 			files = (
 				93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */,
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
-				93D747522BB62327007A2F52 /* Solution.swift in Sources */,
-				93D747542BB63433007A2F52 /* Int.swift in Sources */,
+				93D747522BB62327007A2F52 /* Expression.swift in Sources */,
 				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
+				93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
 			);

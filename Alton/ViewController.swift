@@ -11,66 +11,78 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     
+    // MARK: - Outlets
+    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var displayTextView: UITextView!
+    
+    // MARK: - Actions
+    
     // MARK: - Overrides
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        
-        let testOperands =  [
-//                            [1,2,3,4],
-//                            [2,2,4,4],
-//                            [5,5,5,9],
-//                            [6,7,7,7],
-//                            [8,8,8,8],
-                            [0,11,22,333],
-                            [1,11,22,333],
-                            [5,11,22,333]
-                            ]
-        
-        
-        assert(1.isBetween(1, 1))
-        assert(1.isBetween(0, 1))
-        assert(1.isBetween(10, 1))
-        assert(1.isBetween(-1000, 15333))
-        assert(1.isBetween(Int.min, Int.max))
-        assert(1.isBetween(0, Int.max))
-
-        assert(!1.isBetween(Int.min, 0))
-        assert(!1.isBetween(Int.max, 2))
-        assert(!1.isBetween(0, 0))
-        assert(!1.isBetween(2, 2))
-        
-        for op in testOperands {
-            
-            let _ = Solver(op[0],op[1],op[2],op[3])
-            
-        }
-        
-//        let solver = Solver(2,2,4,4) // 30 operands
-        
-//        let solver = Solver(5,5,5,9) // 20 operands
-//        let solver = Solver(6,7,7,7) // 20 operands
-//        let solver = Solver(8,8,8,8) // 5 operands
-//        let solver = Solver(0,11,22,333) // 108 operands
-//        let solver = Solver(1,11,22,333) // 110 operands
-//        let solver = Solver(5,11,22,333) // 120 operands
-
-// TODO: Clean Up - uncomment below for testing
-//        solver.solutions.forEach{ $0.value.forEach{ print("\($0)") } }        
-        print("Finito!")
-        
-// TESTING SOLUTION
-//        let solution1 = Solution(operands: [4,2,2,4], operators: [.add, .sub, .mlt])
-//        print(solution1)
-//        (4 + 2) - 2) * 4 = 8
-//        (4 + 2) / 2) - 4 = 4
-//        (4 + 2) * 2) - 4 = 4
-        
-        
-        
+        uiInit()
         
     }
     
     // MARK: - Custom Methods
+    func processInput() -> Bool {
+        
+        let text = inputTextField.text!
+        var operands = [Int]()
+        
+        for char in text {
+            
+            if let digit = Int(String(char)) {
+                operands.append(digit)
+            }
+            
+        }
+        
+        if operands.count == 4 {
+            
+            let solver = Solver(operands[0],operands[1],operands[2],operands[3])
+            
+            displayTextView.text = solver.generateDisplay()
+            
+            return true
+            
+        } else {
+            
+            displayTextView.text = "Error - Bad Input [\(text)]"
+            
+            return false
+            
+        }
+        
+    }
+    
+    func uiInit() {
+        
+        inputTextField.addTarget(self,
+                                 action: #selector(handleTap(sender:)), for: .editingChanged)
+        
+        inputTextField.layer.borderColor    = UIColor.gray.cgColor
+        inputTextField.layer.borderWidth    = 1
+        inputTextField.layer.cornerRadius   = 4
+        inputTextField.clipsToBounds        = true
+        
+        displayTextView.layer.borderColor   = UIColor.gray.cgColor
+        displayTextView.layer.borderWidth   = 1
+        displayTextView.layer.cornerRadius  = 4
+        displayTextView.clipsToBounds       = true
+        
+    }
+    
+    @objc func handleTap(sender: UITextField) {
+        
+        if processInput() {
+            
+            inputTextField.resignFirstResponder()
+            
+        }
+        
+    }
     
 }

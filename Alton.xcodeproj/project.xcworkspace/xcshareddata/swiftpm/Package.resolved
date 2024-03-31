@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apnance/APNUtil",
       "state" : {
-        "revision" : "237c5d958647d47de330a28ba68126db0fe33b00",
-        "version" : "1.0.6"
+        "revision" : "a62048b896ddff2a2ab45f4e473b295e411c78fe",
+        "version" : "1.0.7"
       }
     }
   ],

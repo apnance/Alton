@@ -9,4 +9,10 @@ import Foundation
 
 struct Configs {
     
+    struct Test {
+        
+        static var printTestMessage = false
+        
+    }
+    
 }

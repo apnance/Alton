@@ -1,5 +1,5 @@
 //
-//  Solution.swift
+//  Expression.swift
 //  Alton
 //
 //  Created by Aaron Nance on 3/28/24.
@@ -7,48 +7,7 @@
 
 import Foundation
 
-enum OperatorError: Error, LocalizedError {
-    case divideByZero
-    
-    var errorDescription: String? {
-        switch self {
-            case .divideByZero: return NSLocalizedString("Attempted to divide by zero.", comment: "Divide By Zero")
-        }
-    }
-    
-}
-
-enum Operator: String, CaseIterable, CustomStringConvertible {
-    
-    case add = "+"
-    case sub = "-"
-    case div = "/"
-    case mlt = "*"
-    
-    func operate(_ lhs: Int, _ rhs: Int) throws -> Int {
-        
-        switch self {
-                
-            case .add: return lhs + rhs
-            case .sub: return lhs - rhs
-            case .div: 
-                
-                if rhs == 0 { throw OperatorError.divideByZero }
-                
-                return lhs / rhs
-                
-                
-            case .mlt: return lhs * rhs
-                
-        }
-        
-    }
-    
-    var description: String { self.rawValue }
-    
-}
-
-struct Solution: CustomStringConvertible, Equatable {
+struct Expression: CustomStringConvertible, Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
     
@@ -81,19 +40,26 @@ struct Solution: CustomStringConvertible, Equatable {
             let rhs = operands[i+1]
             let `operator` = operators[i]
             
-            
             do {
                 
                 computed = try `operator`.operate(lhs, rhs)
                 
             } catch {
                 
-                // print("Error occured: \(error.localizedDescription) in solution '\(self)'")
+                if Configs.Test.printTestMessage {
+                    
+                     print("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
+                    
+                }
+                
                 isValid = false
                 
             }
             
+            
         }
+        
+        if !computed.isBetween(1, 10) { isValid = false }
         
         return computed
         
@@ -101,27 +67,29 @@ struct Solution: CustomStringConvertible, Equatable {
     
     var description: String {
         
+        let val = value == 10 ? " \(value) = " : "  \(value) = "
+        
         switch operands.count {
-            
+                
             case 2:
                 
                 return
                     """
-                    \(operands[0]) \(operators[0]) \(operands[1]) = \(value)
+                    \(val)\(operands[0]) \(operators[0]) \(operands[1])
                     """
                 
             case 3:
                 
                 return
                     """
-                    (\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])  = \(value)
+                    \(val)(\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])
                     """
                 
             case 4:
                 
                 return
                     """
-                    (\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])) \(operators[2]) \(operands[3]) = \(value)
+                    \(val)(\(operands[0]) \(operators[0]) \(operands[1])) \(operators[1]) \(operands[2])) \(operators[2]) \(operands[3])
                     """
                 
             default: fatalError()

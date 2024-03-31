@@ -10,7 +10,14 @@ import APNUtil
 
 struct Solver{
     
-    var solutions = [Int : [Solution]]()
+    /// All viable expressions found for each possible answer(1-10)
+    var solutions = [Int : [Expression]]()
+    
+    /// `Array` of possible answers for which no solutions were found.
+    var missingSolution = [Int]()
+    
+    /// Boolean value indicating if solutions have been found for all possible answer(1-10).
+    var fullySolved : Bool { missingSolution.count == 0 }
     
     init(_ operand1: Int,
          _ operand2: Int,
@@ -19,8 +26,6 @@ struct Solver{
         
         solve([operand1, operand2, operand3, operand4])
         
-        // TODO: Clean Up - delete
-        echoResults([operand1, operand2, operand3, operand4])
         
     }
     
@@ -29,54 +34,21 @@ struct Solver{
         let operands    = generateOperands(originals)
         solutions       = generateSolutions(operands)
         
+        for key in solutions.keys {
+            
+            if solutions[key]?.count == 0 {
+                
+                missingSolution.append(key)
+                
+            }
+            
+        }
+        
     }
     
-    fileprivate func generateSolutions(_ operands: [[Int]]) -> [Int : [Solution]] {
+    func sampleSolutionFor(_ num: Int) -> String {
         
-        var operatorsAll    = [[Operator]]()
-        var solutions       = [Int : [Solution]]()
-        
-        // initialize solutions
-        (1...10).forEach{ solutions[$0] = [Solution]() }
-        
-        for op1 in Operator.allCases {
-            
-            var operatorCollection = [op1,.add,.add]
-            
-            for op2 in Operator.allCases {
-                
-                operatorCollection[1] = op2
-                
-                for op3 in Operator.allCases {
-                    
-                    operatorCollection[2] = op3
-                    operatorsAll.append(operatorCollection)
-                    
-                }
-                
-            }
-            
-        }
-        
-        for operand in operands {
-            
-            for operators in operatorsAll {
-                
-                let solution    = Solution(operands: operand, operators: operators)
-                let value       = solution.value
-                
-                if  solution.isValid
-                    && value >= 1
-                    && value <= 10 {
-                    
-                    solutions[solution.value]?.appendUnique(solution)
-                    
-                }  
-            }
-            
-        }
-        
-        return solutions
+        solutions[num]?.first?.description ?? "NA"
         
     }
     
@@ -112,6 +84,9 @@ struct Solver{
         
         operands.append(contentsOf: doubleDigits)
         
+        // TODO: compute parenthetical variants for multiplation and division containing solutions
+        // e.g. 4 - ((4 + 4) / 4) = 2  <- this is currently not possible with the simplistic left to right operand processing algo
+        
         // TODO: Add Fractional Combinations
         
         
@@ -119,26 +94,81 @@ struct Solver{
         
     }
     
+    fileprivate func generateSolutions(_ operands: [[Int]]) -> [Int : [Expression]] {
+        
+        var operatorsAll    = [[Operator]]()
+        var solutions       = [Int : [Expression]]()
+        
+        // initialize expressions
+        (1...10).forEach{ solutions[$0] = [Expression]() }
+        
+        for op1 in Operator.allCases {
+            
+            var operatorCollection = [op1,.add,.add]
+            
+            for op2 in Operator.allCases {
+                
+                operatorCollection[1] = op2
+                
+                for op3 in Operator.allCases {
+                    
+                    operatorCollection[2] = op3
+                    operatorsAll.append(operatorCollection)
+                    
+                }
+                
+            }
+            
+        }
+        
+        for operand in operands {
+            
+            for operators in operatorsAll {
+                
+                let expression  = Expression(operands: operand, operators: operators)
+                
+                if  expression.isValid {
+                    
+                    solutions[expression.value]?.appendUnique(expression)
+                    
+                }
+            }
+            
+        }
+        
+        return solutions
+        
+    }
+    
+    func generateDisplay() -> String {
+        
+        var display = ""
+        
+        for key in solutions.keys.sorted() {
+            
+            display += "\(sampleSolutionFor(key)) [Found: \(solutions[key]!.count)]\n"
+            
+        }
+        
+        return display
+    }
+    
 }
 
-// TODO: Clean Up - delete
-// - MARK: Dev Crap
+// - MARK: Utils
 extension Solver {
     
     func echoResults(_ operands: [Int]) {
         
-        // TODO: Clean Up - delete
-        print("~\(operands)~")
-        for key in solutions.keys.sorted() {
+        print("""
+            ========================================
+            \t\(operands)
+            ----------------------------------------
             
-            print("\(key) has \(solutions[key]!.count) solutions")
+            \(generateDisplay())
             
-        }
-            
-
-        
-        print("------")
-        print("")
+            ========================================
+            """)
         
     }
     
