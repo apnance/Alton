@@ -10,6 +10,12 @@ import APNUtil
 
 struct Solver{
     
+// TODO: Clean Up - LOOOOPCOUNT
+    var LOOOOPCOUNT = 0
+    
+    /// Stores the original game digits
+    private(set) var originalOperands: [Int]
+    
     /// All viable expressions found for each possible answer(1-10)
     var solutions = [Int : [Expression]]()
     
@@ -19,20 +25,22 @@ struct Solver{
     /// Boolean value indicating if solutions have been found for all possible answer(1-10).
     var fullySolved : Bool { missingSolution.count == 0 }
     
-    init(_ operand1: Int,
-         _ operand2: Int,
-         _ operand3: Int,
-         _ operand4: Int) {
+    init(_ originals: [Int]) {
         
-        solve([operand1, operand2, operand3, operand4])
+        assert(originals.count == 4,
+               "Expected Digit Count: 4 - Actual: \(originals.count)")
+        
+        originalOperands = originals
+        
+        solve()
         
         
     }
     
-    mutating func solve(_ originals: [Int]) {
+    mutating func solve() {
         
-        let operands    = generateOperands(originals)
-        solutions       = generateSolutions(operands)
+        let operands    = generateOperands(originalOperands)
+        solutions       = generateExpressions(operands)
         
         for key in solutions.keys {
             
@@ -48,11 +56,11 @@ struct Solver{
     
     func sampleSolutionFor(_ num: Int) -> String {
         
-        solutions[num]?.first?.description ?? "NA"
+        solutions[num]?.first?.description ?? "-NA-"
         
     }
     
-    fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
+mutating    fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
         
         var operands = [[Int]]()
         
@@ -78,14 +86,13 @@ struct Solver{
             doubleDigits.append([d1,    d2,    dd3])
             doubleDigits.append([dd1,   dd3])
             
+            LOOOOPCOUNT += 1
+            
         }
         
         doubleDigits = doubleDigits.dedupe()
         
         operands.append(contentsOf: doubleDigits)
-        
-        // TODO: compute parenthetical variants for multiplation and division containing solutions
-        // e.g. 4 - ((4 + 4) / 4) = 2  <- this is currently not possible with the simplistic left to right operand processing algo
         
         // TODO: Add Fractional Combinations
         
@@ -94,26 +101,105 @@ struct Solver{
         
     }
     
-    fileprivate func generateSolutions(_ operands: [[Int]]) -> [Int : [Expression]] {
+    /// Generates all possible Expression combinations  for the given `operands`
+mutating    fileprivate func generateExpressions(_ operands: [[Int]]) -> [Int : [Expression]] {
         
         var operatorsAll    = [[Operator]]()
-        var solutions       = [Int : [Expression]]()
+        var expressions     = [Int : [Expression]]()
         
         // initialize expressions
-        (1...10).forEach{ solutions[$0] = [Expression]() }
+        (1...10).forEach{ expressions[$0] = [Expression]() }
         
-        for op1 in Operator.allCases {
+        for op1 in Operator.nonParen {
             
-            var operatorCollection = [op1,.add,.add]
-            
-            for op2 in Operator.allCases {
+            for op2 in Operator.nonParen {
                 
-                operatorCollection[1] = op2
-                
-                for op3 in Operator.allCases {
+                for op3 in Operator.nonParen {
                     
-                    operatorCollection[2] = op3
-                    operatorsAll.append(operatorCollection)
+                    operatorsAll.append([op1,op2,op3])
+                    
+                    LOOOOPCOUNT += 1
+                    
+                }
+                
+            }
+            
+        }
+    
+    let (OP, CL) = (Operator.ope, Operator.clo)
+    
+        for D in operands { // digits
+            
+            let D1 = D[0]
+            let D2 = D[1]
+            let D3 = D.count > 2 ? D[2] : -1279
+            let D4 = D.count > 3 ? D[3] : -1279
+            
+            for X in operatorsAll { // symbols
+                
+                let X1 = X[0]
+                let X2 = X[1]
+                let X3 = X[2]
+                
+                var exprs = [Expression]()
+                
+                switch D.count {
+                    
+                    case 2:
+                        
+                        // 12x12
+                        exprs.append(Expression([D1, X1, D2]))
+                        
+                    case 3: 
+                        
+                        // 12x3x4
+                        exprs.append(Expression([D1, X1, D2, X2, D3]))
+                        
+                        // (12x3)x4
+                        exprs.append(Expression([OP, D1, X1, D2, CL, X2, D3]))
+                        
+                        // 12x(3x4)
+                        exprs.append(Expression([D1, X1, OP, D2, X2, D3, CL]))
+                        
+                    case 4:
+                        
+                        // 1x2x3x4
+                        exprs.append(Expression([D1, X1, D2, X2, D3, X3, D4]))
+                        
+                        // (1x2)x3x4
+                        exprs.append(Expression([OP, D1, X1, D2, CL, X2, D3, X3, D4]))
+                            
+                        // ((1x2)x3)x4
+                        exprs.append(Expression([OP,OP, D1, X1, D2, CL, X2, D3, CL, X3, D4]))
+                        
+                        // 1x(2x3)x4
+                        exprs.append(Expression([D1, X1, OP, D2, X2, D3, CL, X3, D4]))
+                        
+                        // 1x2x(3x4)
+                        exprs.append(Expression([D1, X1, D2, X2, OP, D3, X3, D4, CL]))
+                        
+                        // 1x((2x3)x4)
+                        exprs.append(Expression([D1, X1, OP, OP, D2, X2, D3, CL, X3, D4, CL]))
+                        
+                        // 1x(2x(3x4))
+                        exprs.append(Expression([D1, X1, OP, D2, X2, OP, D3, X3, D4, CL, CL]))
+                        
+                    default: fatalError()
+                        
+                }
+                
+                
+                LOOOOPCOUNT += 1
+                
+                for expression in exprs {
+                    
+                    LOOOOPCOUNT += 1
+                    
+                    if expression.isValid {
+                        
+                        expressions[expression.value]?.append(expression)
+                        
+                    }
                     
                 }
                 
@@ -121,36 +207,27 @@ struct Solver{
             
         }
         
-        for operand in operands {
-            
-            for operators in operatorsAll {
-                
-                let expression  = Expression(operands: operand, operators: operators)
-                
-                if  expression.isValid {
-                    
-                    solutions[expression.value]?.appendUnique(expression)
-                    
-                }
-            }
-            
-        }
-        
-        return solutions
+        return expressions
         
     }
     
     func generateDisplay() -> String {
         
-        var display = ""
+        var rows    = [[String]]()
+        let headers = ["#","Ex.", "Found"]
         
         for key in solutions.keys.sorted() {
             
-            display += "\(sampleSolutionFor(key)) [Found: \(solutions[key]!.count)]\n"
+            let row = [key.description,"\(sampleSolutionFor(key))", "\(solutions[key]!.count)"]
+            
+            rows.append(row)
             
         }
         
-        return display
+        return Report.columnateAutoWidth(rows,
+                                         headers: headers,
+                                         dataPadType: .center, showSeparators: false)
+        
     }
     
 }
@@ -158,16 +235,27 @@ struct Solver{
 // - MARK: Utils
 extension Solver {
     
-    func echoResults(_ operands: [Int]) {
+    func echoResults() {
+        
+        let report          = generateDisplay()
+        let reportWidth     = report.split(separator: "\n")[1].count
+        let sep1            = String(repeating: "=", count: reportWidth)
+        let sep2            = String(repeating: "-", count: reportWidth)
+        let title           = "\(originalOperands)".centerPadded(toLength: reportWidth)
+        
+        let loopCountText   = ("Loop Count: \(LOOOOPCOUNT)").centerPadded(toLength: reportWidth)
+        let solvedText      = "Fully Solved?: \(fullySolved)".centerPadded(toLength: reportWidth)
         
         print("""
-            ========================================
-            \t\(operands)
-            ----------------------------------------
+            \(sep1)
+            \(title)
+            \(sep1)
+            \(report)\
+            \(sep2)
+            \(loopCountText)
+            \(solvedText)
+            \(sep1)
             
-            \(generateDisplay())
-            
-            ========================================
             """)
         
     }

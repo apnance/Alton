@@ -18,26 +18,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="B4m-ZV-oop">
-                                <rect key="frame" x="10" y="103" width="373" height="450"/>
+                                <rect key="frame" x="10" y="201" width="373" height="450"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="29.333333333333332"/>
-                                        <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="25"/>
-                                        <color key="textColor" systemColor="systemYellowColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Your Operands" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-gH-Yth">
-                                        <rect key="frame" x="0.0" y="32.333333333333343" width="373" height="34"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gimme yer digits, ya cheat..." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-gH-Yth">
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="34"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="16"/>
+                                        <color key="textColor" systemColor="systemOrangeColor"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="---" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
-                                        <rect key="frame" x="0.0" y="69.333333333333343" width="373" height="380.66666666666663"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
+                                        <rect key="frame" x="0.0" y="37" width="373" height="413"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                                     </textView>
                                 </subviews>
@@ -46,13 +40,35 @@
                                     <constraint firstAttribute="height" constant="450" id="OAm-R5-kT1"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AltOn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
+                                <rect key="frame" x="159" y="148.66666666666666" width="75.333333333333314" height="29.333333333333343"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75.329999999999998" id="2bk-Dt-jPH"/>
+                                    <constraint firstAttribute="height" constant="29.329999999999998" id="7ax-9m-0e2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="25"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
+                                <rect key="frame" x="96.666666666666686" y="168.66666666666666" width="200" height="50"/>
+                                <color key="tintColor" red="1" green="0.86322344559999997" blue="0.0016834623899999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="T7D-Hb-2tj"/>
+                                    <constraint firstAttribute="height" constant="50" id="us9-FN-fzC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FEf-wx-zOp"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="IPE-3z-LRH"/>
+                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="23.000000000000057" id="LL3-VB-udT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B4m-ZV-oop" secondAttribute="trailing" constant="10" id="Skq-Nc-fOP"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="lkd-SD-zpy"/>
+                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ubk-mW-lez"/>
+                            <constraint firstItem="B4m-ZV-oop" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j56-uk-kdE"/>
+                            <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-9.3333333333333144" id="yv1-61-Efd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -66,6 +82,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="mustache" width="666.66668701171875" height="327.33334350585938"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

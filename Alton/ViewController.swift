@@ -24,6 +24,20 @@ class ViewController: UIViewController {
         
         uiInit()
         
+        let expressions = [" 1   +  1 + 24    ",
+                           "(1+1+24)",
+                           "1+(2+3)/5",
+                           "(5 + 5)",
+                           "4+4+++++---(((())))",]
+        
+        for exp in expressions {
+            
+            print(Expression(exp).evaluatedDescription)
+            
+        }
+        
+        // test()
+        
     }
     
     // MARK: - Custom Methods
@@ -42,9 +56,10 @@ class ViewController: UIViewController {
         
         if operands.count == 4 {
             
-            let solver = Solver(operands[0],operands[1],operands[2],operands[3])
+            let solver = Solver(operands)
             
             displayTextView.text = solver.generateDisplay()
+//            displayTextView.text = solver.generateDisplay()
             
             return true
             
@@ -63,12 +78,12 @@ class ViewController: UIViewController {
         inputTextField.addTarget(self,
                                  action: #selector(handleTap(sender:)), for: .editingChanged)
         
-        inputTextField.layer.borderColor    = UIColor.gray.cgColor
+        inputTextField.layer.borderColor    = UIColor.orange.halfAlpha.cgColor
         inputTextField.layer.borderWidth    = 1
         inputTextField.layer.cornerRadius   = 4
         inputTextField.clipsToBounds        = true
         
-        displayTextView.layer.borderColor   = UIColor.gray.cgColor
+        displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
         displayTextView.layer.borderWidth   = 1
         displayTextView.layer.cornerRadius  = 4
         displayTextView.clipsToBounds       = true
@@ -82,6 +97,25 @@ class ViewController: UIViewController {
             inputTextField.resignFirstResponder()
             
         }
+        
+    }
+    
+}
+
+// TODO: Clean Up - delete
+// - MARK: TEST DELETE THIS SECTION
+extension ViewController {
+    
+    func test() {
+        
+        // Parenthetical Solutions
+        Solver([2,4,4,8]).echoResults() // Requires parenthetical sub-expressions
+        Solver([4,4,4,4]).echoResults() // Requires parenthetical sub-expressions
+        
+        // Fractional Solutions
+        Solver([3,5,7,8]).echoResults() // Requires fractional operands!
+        
+        Solver([1,2,3,4]).echoResults()
         
     }
     

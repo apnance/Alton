@@ -19,7 +19,7 @@ enum OperatorError: Error, LocalizedError {
                 
             case .remainderInDivision:
                 return NSLocalizedString("Result of division has remainder and is not a valid solution", comment: "Division With Remainder")
-
+                
         }
     }
     
@@ -29,8 +29,12 @@ enum Operator: String, CaseIterable, CustomStringConvertible {
     
     case add = "+"
     case sub = "-"
-    case div = "÷"
+    case div = "/" // "÷"
     case mlt = "×"
+    case ope = "("
+    case clo = ")"
+    
+    static let nonParen = [Operator.add, .sub, .div, .mlt]
     
     func operate(_ lhs: Int, _ rhs: Int) throws -> Int {
         
@@ -47,6 +51,10 @@ enum Operator: String, CaseIterable, CustomStringConvertible {
                 
                 
             case .mlt: return lhs * rhs
+                
+            case .ope: fatalError("Implement")
+                
+            case .clo: fatalError("Implement")
                 
         }
         
