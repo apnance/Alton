@@ -24,18 +24,7 @@ class ViewController: UIViewController {
         
         uiInit()
         
-        let expressions = [" 1   +  1 + 24    ",
-                           "(1+1+24)",
-                           "1+(2+3)/5",
-                           "(5 + 5)",
-                           "4+4+++++---(((())))",]
-        
-        for exp in expressions {
-            
-            print(Expression(exp).evaluatedDescription)
-            
-        }
-        
+        // TODO: Clean Up - delete
         // test()
         
     }
@@ -59,7 +48,6 @@ class ViewController: UIViewController {
             let solver = Solver(operands)
             
             displayTextView.text = solver.generateDisplay()
-//            displayTextView.text = solver.generateDisplay()
             
             return true
             
@@ -116,6 +104,11 @@ extension ViewController {
         Solver([3,5,7,8]).echoResults() // Requires fractional operands!
         
         Solver([1,2,3,4]).echoResults()
+     
+        let (actual, 
+             expected) = (Expression("1 + 1 + 1 + 24").value, 27)
+        
+        assert(expected == actual, "Expected: \(expected) - Actual: \(actual)")
         
     }
     
