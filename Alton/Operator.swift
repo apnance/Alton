@@ -25,7 +25,9 @@ enum OperatorError: Error, LocalizedError {
     
 }
 
-enum Operator: String, CaseIterable, CustomStringConvertible {
+enum Operator: String, CaseIterable {
+    
+    enum Precendence { case addSub, mltDiv, opeClo }
     
     case add = "+"
     case sub = "-"
@@ -33,6 +35,16 @@ enum Operator: String, CaseIterable, CustomStringConvertible {
     case mlt = "×"
     case ope = "("
     case clo = ")"
+    
+    var precedence: Precendence {
+        switch self {
+                
+            case .add, .sub: return .addSub
+            case .mlt, .div: return .mltDiv
+            case .ope, .clo: return .opeClo
+                
+        }
+    }
     
     static let nonParen = [Operator.add, .sub, .div, .mlt]
     
@@ -59,6 +71,10 @@ enum Operator: String, CaseIterable, CustomStringConvertible {
         }
         
     }
+    
+}
+
+extension Operator: CustomStringConvertible {
     
     var description: String { self.rawValue }
     
