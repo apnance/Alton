@@ -186,7 +186,7 @@ extension Expression {
             
         }
         
-        // 1. Replace Parentheticals with Their Values
+        // 1. Evaluate Parentheticals
         for component in exp {
             
             if component.isOpenParen() {
@@ -233,7 +233,7 @@ extension Expression {
         
         if sansParens.count == 1 { return sansParens[0] as! Int /*EXIT*/ }
         
-        // 2. Work Through currentExp doing mult/div first
+        // 2. Evaluate/Replace Mult/Div Sub-Expressions
         var sansMltDiv      = [Component]()
         var i               = 0
         
@@ -270,7 +270,7 @@ extension Expression {
         
         if sansMltDiv.count == 1 { return sansMltDiv[0] as! Int /*EXIT*/ }
         
-        // 3. Finish with remaining addition/subtraction
+        // 3. Finish Remaining Add/Sub Operations
         var finalVal        = 0
         i                   = 0
         
