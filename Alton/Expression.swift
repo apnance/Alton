@@ -88,79 +88,7 @@ struct Expression {
         
     }
     
-}
-
-extension Expression: Equatable {
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        
-        return lhs.description == rhs.description
-        
-    }
-    
-}
-
-extension Expression: CustomStringConvertible {
-    
-    var description: String {
-        
-        "\(components.reduce(""){ $0 + $1.description + " " })"
-        
-    }
-    
-    var evaluatedDescription: String {
-        
-        "\(components.reduce(""){ $0 + $1.description + " " }) = \(value)"
-        
-    }
-    
-}
-
-/// Expression-specific Stack data structure
-fileprivate struct ComponentStack {
-    
-    private var items: [Component] = [] // Array to hold stack values
-    
-    func peek() -> Component? {
-        return items.last // Peek at the top-most element
-    }
-    
-    mutating func pop() -> Component? {
-        printLocal("pop:\t\(peek()!)")
-        return items.popLast() // Remove and return the top item
-    }
-    
-    mutating func push(_ item: Component) {
-        printLocal("push:\t\(item)")
-        items.append(item) // Add a value to the top of the stack
-    }
-    
-}
-
-/// Data structure for managing the simplest atomic `Expression` comprised
-/// entire of a left and right hand `Int` operands and an `Operator`
-/// e.g. 1+2, 9/3, 10-5, 2 *10, etc.
-fileprivate struct SubExpression {
-    
-    var rhs: Int?
-    var lhs: Int?
-    var `operator`: Operator?
-    
-    func evaluate() throws -> Int {
-        
-        let value = try `operator`!.operate(lhs!, rhs!)
-        
-        printLocal("SubExpression: \(lhs!) \(self.operator!) \(rhs!) = \(value)")
-        
-        return value
-        
-    }
-    
-}
-
-// TODO: Clean Up - move up into main scope out of extension
-extension Expression {
-    
+    /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
     mutating func evaluate() -> Int {
         
         // Replace parentheticals with their evalated selves
@@ -301,7 +229,7 @@ extension Expression {
         
     }
     
-    
+    /// Utility function for processing error prone evals
     func tryEval(lhs: Int, optor: Operator, rhs: Int) -> (success: Bool, value: Int) {
         
         do {
@@ -321,5 +249,79 @@ extension Expression {
         }
         
     }
+
+}
+
+
+// - MARK: Protocol Adoption Extensions
+extension Expression: Equatable {
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        
+        return lhs.description == rhs.description
+        
+    }
+    
+}
+
+
+extension Expression: CustomStringConvertible {
+    
+    var description: String {
+        
+        "\(components.reduce(""){ $0 + $1.description + " " })"
+        
+    }
+    
+    var evaluatedDescription: String {
+        
+        "\(components.reduce(""){ $0 + $1.description + " " }) = \(value)"
+        
+    }
+    
+}
+
+
+// - MARK: Helper Data Structures
+/// Data structure for managing the simplest atomic `Expression` comprised
+/// entire of a left and right hand `Int` operands and an `Operator`
+/// e.g. 1+2, 9/3, 10-5, 2 *10, etc.
+fileprivate struct SubExpression {
+    
+    var rhs: Int?
+    var lhs: Int?
+    var `operator`: Operator?
+    
+    func evaluate() throws -> Int {
+        
+        let value = try `operator`!.operate(lhs!, rhs!)
+        
+        printLocal("SubExpression: \(lhs!) \(self.operator!) \(rhs!) = \(value)")
+        
+        return value
+        
+    }
+    
+/// Expression-specific Stack data structure
+fileprivate struct ComponentStack {
+    
+    private var items: [Component] = [] // Array to hold stack values
+    
+    func peek() -> Component? {
+        return items.last // Peek at the top-most element
+    }
+    
+    mutating func pop() -> Component? {
+        printLocal("pop:\t\(peek()!)")
+        return items.popLast() // Remove and return the top item
+    }
+    
+    mutating func push(_ item: Component) {
+        printLocal("push:\t\(item)")
+        items.append(item) // Add a value to the top of the stack
+    }
+    
+}
+
     
 }
