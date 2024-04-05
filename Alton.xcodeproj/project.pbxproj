@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BF9D2BBC7C2300425C95 /* Component.swift */; };
+		9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA12BBE004100425C95 /* ExpressionTests.swift */; };
 		93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E782A1BF8DC0028929F /* AppDelegate.swift */; };
 		93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */; };
 		93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7C2A1BF8DC0028929F /* ViewController.swift */; };
 		93A22E802A1BF8DC0028929F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E7E2A1BF8DC0028929F /* Main.storyboard */; };
 		93A22E822A1BF8DF0028929F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E812A1BF8DF0028929F /* Assets.xcassets */; };
 		93A22E852A1BF8DF0028929F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A22E832A1BF8DF0028929F /* LaunchScreen.storyboard */; };
-		93A22E902A1BF8DF0028929F /* AltonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E8F2A1BF8DF0028929F /* AltonTests.swift */; };
+		93A22E902A1BF8DF0028929F /* SolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E8F2A1BF8DF0028929F /* SolverTests.swift */; };
 		93A22E9A2A1BF8DF0028929F /* AltonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E992A1BF8DF0028929F /* AltonUITests.swift */; };
 		93A22E9C2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */; };
 		93A22EB02A1BF99C0028929F /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EAF2A1BF99C0028929F /* Configs.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		9361BF9C2BBA05E500425C95 /* Alton.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Alton.xctestplan; sourceTree = "<group>"; };
 		9361BF9D2BBC7C2300425C95 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		9361BFA12BBE004100425C95 /* ExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
 		93A22E752A1BF8DC0028929F /* Alton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A22E782A1BF8DC0028929F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,7 +55,7 @@
 		93A22E842A1BF8DF0028929F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93A22E862A1BF8DF0028929F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93A22E8B2A1BF8DF0028929F /* AltonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A22E8F2A1BF8DF0028929F /* AltonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonTests.swift; sourceTree = "<group>"; };
+		93A22E8F2A1BF8DF0028929F /* SolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolverTests.swift; sourceTree = "<group>"; };
 		93A22E952A1BF8DF0028929F /* AltonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AltonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A22E992A1BF8DF0028929F /* AltonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITests.swift; sourceTree = "<group>"; };
 		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -125,7 +127,8 @@
 		93A22E8E2A1BF8DF0028929F /* AltonTests */ = {
 			isa = PBXGroup;
 			children = (
-				93A22E8F2A1BF8DF0028929F /* AltonTests.swift */,
+				93A22E8F2A1BF8DF0028929F /* SolverTests.swift */,
+				9361BFA12BBE004100425C95 /* ExpressionTests.swift */,
 			);
 			path = AltonTests;
 			sourceTree = "<group>";
@@ -354,7 +357,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93A22E902A1BF8DF0028929F /* AltonTests.swift in Sources */,
+				93A22E902A1BF8DF0028929F /* SolverTests.swift in Sources */,
+				9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

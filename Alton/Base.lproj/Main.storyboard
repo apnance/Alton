@@ -40,14 +40,42 @@
                                     <constraint firstAttribute="height" constant="450" id="OAm-R5-kT1"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AltOn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                <rect key="frame" x="159" y="148.66666666666666" width="75.333333333333314" height="29.333333333333343"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
+                                <rect key="frame" x="156.66666666666666" y="148" width="80" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75.329999999999998" id="2bk-Dt-jPH"/>
-                                    <constraint firstAttribute="height" constant="29.329999999999998" id="7ax-9m-0e2"/>
+                                    <constraint firstAttribute="width" constant="80" id="2bk-Dt-jPH"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="IHT-J1-R8d"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="25"/>
-                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="A">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="systemYellowColor"/>
+                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="lt">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="O">
+                                        <attributes>
+                                            <color key="NSColor" systemColor="systemYellowColor"/>
+                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="n">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
@@ -78,7 +106,90 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="132" y="-34"/>
+            <point key="canvasLocation" x="-155" y="-239"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="aBm-7J-sqT">
+            <objects>
+                <viewController id="ftM-P0-Ysx" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Z4-sI-6Nj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khH-6a-Aa9" userLabel="Icon View">
+                                <rect key="frame" x="0.0" y="209.66666666666663" width="393" height="433"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9b-Dd-rBF">
+                                        <rect key="frame" x="63" y="102.33333333333334" width="300" height="85"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="85" id="7FI-Ve-D6v"/>
+                                            <constraint firstAttribute="width" constant="300" id="f21-MH-q7F"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="A">
+                                                <attributes>
+                                                    <color key="NSColor" systemColor="systemYellowColor"/>
+                                                    <font key="NSFont" size="89" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="lt">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <font key="NSFont" size="89" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="O">
+                                                <attributes>
+                                                    <color key="NSColor" systemColor="systemYellowColor"/>
+                                                    <font key="NSFont" size="89" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="n">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <font key="NSFont" size="89" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="uxV-xv-a2l">
+                                        <rect key="frame" x="0.0" y="64" width="393" height="393"/>
+                                        <color key="tintColor" systemColor="systemYellowColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="393" id="CBL-up-wVn"/>
+                                            <constraint firstAttribute="width" constant="393" id="GFA-0D-u8Q"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="uxV-xv-a2l" firstAttribute="top" secondItem="s9b-Dd-rBF" secondAttribute="bottom" constant="-123.33333333333337" id="61y-wf-gRa"/>
+                                    <constraint firstAttribute="height" constant="433" id="FZU-i5-eEy"/>
+                                    <constraint firstItem="uxV-xv-a2l" firstAttribute="centerX" secondItem="khH-6a-Aa9" secondAttribute="centerX" id="HwT-jJ-8Sc"/>
+                                    <constraint firstItem="s9b-Dd-rBF" firstAttribute="leading" secondItem="uxV-xv-a2l" secondAttribute="trailing" constant="-330" id="PZb-33-XOw"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="393" id="WGn-yv-eSF"/>
+                                    <constraint firstItem="uxV-xv-a2l" firstAttribute="centerY" secondItem="khH-6a-Aa9" secondAttribute="centerY" constant="44" id="i5h-W2-cJR"/>
+                                    <constraint firstAttribute="width" constant="393" id="wDF-2J-Oak"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Qzb-kL-KCr"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="khH-6a-Aa9" firstAttribute="centerX" secondItem="2Z4-sI-6Nj" secondAttribute="centerX" id="N5u-Ja-KQR"/>
+                            <constraint firstItem="khH-6a-Aa9" firstAttribute="centerY" secondItem="2Z4-sI-6Nj" secondAttribute="centerY" id="goJ-4p-J91"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oor-pm-waP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-156" y="412"/>
         </scene>
     </scenes>
     <resources>
