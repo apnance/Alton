@@ -1,5 +1,5 @@
 //
-//  AltonTests.swift
+//  SolverTests.swift
 //  AltonTests
 //
 //  Created by Aaron Nance on 5/22/23.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import Alton
 
-final class AltonTests: XCTestCase {
+final class SolverTests: XCTestCase {
     
     private func echoAssert(_ originals: [Int]...) {
         

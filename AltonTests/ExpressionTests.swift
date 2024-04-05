@@ -58,35 +58,29 @@ final class ExpressionTests: XCTestCase {
                                     // So here we calculate (3 + 3), then 3 + 1, then (3 + 3) / (3 + 1)
         
     }
-//    
-//    func testMultDivPrecedence() {
-//        
-//        
-//        test("2 × 2 × 3 × 4", 48)
-//        test("((2 × 5) / 2) × 3", 15)
-//        
-//        test("(2 × 4) + 3 / 3 + 1", 10)
-//        test("2 × 4 + 3 / 3", 9)
-//        test("50 / 2 / 5 / 5", 1)
-//        
-//    }
-//    
-//    func testExtraneousButCorrectParens() {
-//        
-//        test("((3) + (((3) × (3))) + 2)", 14)
-//        
-//    }
+    
+    func testMultDivPrecedence() {
+        
+        
+        test("2 × 2 × 3 × 4", 48)
+        test("((2 × 5) / 2) × 3", 15)
+        
+        test("(2 × 4) + 3 / 3 + 1", 10)
+        test("2 × 4 + 3 / 3", 9)
+        test("50 / 2 / 5 / 5", 1)
+        
+    }
+    
+    func testExtraneousButCorrectParens() {
+        
+        test("((3) + (((3) × (3))) + 2)", 14)
+        
+    }
     
     func testMisc() {
-test("2 × 4 + 3 / 3", 9)
         
-    test("(2+1) / 3", 1)
-        
-//printLocal(Expression("2 × 4 + 3 / 3").evaluatedDescription)
-//print(Expression("(2 × 4) + 3 / 3").evaluatedDescription)
-
-        
-//print(Expression("(2 × 4) + 3 / 3 + 1").evaluatedDescription)
+        test("2 × 4 + 3 / 3", 9)
+        test("(2+1) / 3", 1)
         
     }
     

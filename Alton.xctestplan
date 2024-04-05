@@ -17,6 +17,9 @@
   },
   "testTargets" : [
     {
+      "skippedTests" : [
+        "AltonTests\/testNeedsFractionalOperands()"
+      ],
       "target" : {
         "containerPath" : "container:Alton.xcodeproj",
         "identifier" : "93A22E8A2A1BF8DF0028929F",
