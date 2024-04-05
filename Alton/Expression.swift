@@ -158,16 +158,6 @@ fileprivate struct SubExpression {
     
 }
 
-// TODO: Clean Up - delete after fixing the multipilcation/division precedence bug
-/// A utility method for printing purely test messages with ability to silence all attempts to print via
-/// `Configs.Test.printTestMessage` flag in configs.
-/// - Parameter toPrint: `String` to print
-func printLocal(_ toPrint: String) {
-    
-    if Configs.Test.printTestMessage { print("PL: \(toPrint)") }
-    
-}
-
 // TODO: Clean Up - move up into main scope out of extension
 extension Expression {
     
