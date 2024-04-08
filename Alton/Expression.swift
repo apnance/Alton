@@ -302,26 +302,4 @@ fileprivate struct SubExpression {
         
     }
     
-/// Expression-specific Stack data structure
-fileprivate struct ComponentStack {
-    
-    private var items: [Component] = [] // Array to hold stack values
-    
-    func peek() -> Component? {
-        return items.last // Peek at the top-most element
-    }
-    
-    mutating func pop() -> Component? {
-        printLocal("pop:\t\(peek()!)")
-        return items.popLast() // Remove and return the top item
-    }
-    
-    mutating func push(_ item: Component) {
-        printLocal("push:\t\(item)")
-        items.append(item) // Add a value to the top of the stack
-    }
-    
-}
-
-    
 }
