@@ -32,7 +32,7 @@ enum Operator: String, CaseIterable {
     case add = "+"
     case sub = "-"
     case div = "/" // "÷"
-    case mlt = "×"
+    case mlt = "*" // "×"
     case ope = "("
     case clo = ")"
     
@@ -76,6 +76,6 @@ enum Operator: String, CaseIterable {
 
 extension Operator: CustomStringConvertible {
     
-    var description: String { self.rawValue }
+    var description: String { self == .mlt ? "×" : self.rawValue }
     
 }
