@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9335D2F62BC48E7C009CF74A /* Fraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F52BC48E7C009CF74A /* Fraction.swift */; };
+		9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F72BC49125009CF74A /* FractionalMathTests.swift */; };
 		9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BF9D2BBC7C2300425C95 /* Component.swift */; };
 		9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA12BBE004100425C95 /* ExpressionTests.swift */; };
 		9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA32BC0B6B300425C95 /* Globals.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9335D2F52BC48E7C009CF74A /* Fraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fraction.swift; sourceTree = "<group>"; };
+		9335D2F72BC49125009CF74A /* FractionalMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionalMathTests.swift; sourceTree = "<group>"; };
 		9361BF9C2BBA05E500425C95 /* Alton.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Alton.xctestplan; sourceTree = "<group>"; };
 		9361BF9D2BBC7C2300425C95 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		9361BFA12BBE004100425C95 /* ExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			children = (
 				93A22E8F2A1BF8DF0028929F /* SolverTests.swift */,
 				9361BFA12BBE004100425C95 /* ExpressionTests.swift */,
+				9335D2F72BC49125009CF74A /* FractionalMathTests.swift */,
 			);
 			path = AltonTests;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 				93D747512BB62327007A2F52 /* Expression.swift */,
 				93ADC66F2BB6425A00E7C25B /* Operator.swift */,
 				9361BF9D2BBC7C2300425C95 /* Component.swift */,
+				9335D2F52BC48E7C009CF74A /* Fraction.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -354,6 +360,7 @@
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
 				9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */,
+				9335D2F62BC48E7C009CF74A /* Fraction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A22E902A1BF8DF0028929F /* SolverTests.swift in Sources */,
+				9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */,
 				9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
