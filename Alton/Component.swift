@@ -11,7 +11,7 @@ protocol Component: CustomStringConvertible {
     
     func isCloseParen() -> Bool
     func isOpenParen() -> Bool
-    func isNum() -> Bool
+    var complexity: Int { get }
     
 }
 
@@ -19,12 +19,19 @@ extension Component {
     
     func isCloseParen() -> Bool { false }
     func isOpenParen() -> Bool { false }
-    func isNum() -> Bool { false }
+    
 }
 
 extension Int: Component {
     
-    func isNum() -> Bool { true }
+    var complexity: Int { self > 9 ? 2 : 0 }
+    
+}
+
+extension Fraction: Component {
+    
+    var complexity: Int { 6 }
+    
     
 }
 
@@ -32,5 +39,20 @@ extension Operator: Component {
     
     func isCloseParen() -> Bool { self == .clo }
     func isOpenParen() -> Bool { self == .ope }
+    
+    var complexity: Int {
+        
+        switch self {
+                
+            case .add: return 1
+            case .sub: return 2
+            case .mlt: return 3
+            case .div: return 4
+            case .ope: return 5
+            case .clo: return 0
+                
+        }
+        
+    }
     
 }

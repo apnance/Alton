@@ -14,6 +14,14 @@ struct Expression {
     var value       = -1279
     var isValid     = true
     
+    /// Simple means for comparing the relative complexity of generated `Expressions`.
+    /// The higher the number the greater the relative complexity.
+    var complexity: Int {
+        
+        components.reduce(0){ $0 + $1.complexity }
+        
+    }
+    
     /// Initializes an `Expression` from the input.
     init(_ components: [Component]) {
         
@@ -279,6 +287,12 @@ extension Expression: CustomStringConvertible {
         
     }
     
+    var evaluatedWithComplexityDescription: String {
+        
+        "\(components.reduce(""){ $0 + $1.description + " " }) = \(value) :: complexity: \(self.complexity)"
+        
+    }
+    
 }
 
 
@@ -286,20 +300,21 @@ extension Expression: CustomStringConvertible {
 /// Data structure for managing the simplest atomic `Expression` comprised
 /// entire of a left and right hand `Int` operands and an `Operator`
 /// e.g. 1+2, 9/3, 10-5, 2 *10, etc.
-fileprivate struct SubExpression {
-    
-    var rhs: Int?
-    var lhs: Int?
-    var `operator`: Operator?
-    
-    func evaluate() throws -> Int {
-        
-        let value = try `operator`!.operate(lhs!, rhs!)
-        
-        printLocal("SubExpression: \(lhs!) \(self.operator!) \(rhs!) = \(value)")
-        
-        return value
-        
-    }
-    
-}
+// TODO: Clean Up - delete?
+//fileprivate struct SubExpression {
+//    
+//    var rhs: Int?
+//    var lhs: Int?
+//    var `operator`: Operator?
+//    
+//    func evaluate() throws -> Int {
+//        
+//        let value = try `operator`!.operate(lhs!, rhs!)
+//        
+//        printLocal("SubExpression: \(lhs!) \(self.operator!) \(rhs!) = \(value)")
+//        
+//        return value
+//        
+//    }
+//    
+//}

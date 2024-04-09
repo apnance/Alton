@@ -10,8 +10,8 @@ import APNUtil
 
 struct Solver{
     
-// TODO: Clean Up - LOOOOPCOUNT
-    var LOOOOPCOUNT = 0
+// TODO: Clean Up - delete LOOOOPCOUNT when done developing
+var LOOOOPCOUNT = 0
     
     /// Stores the original game digits
     private(set) var originalOperands: [Int]
@@ -56,11 +56,12 @@ struct Solver{
     
     func sampleSolutionFor(_ num: Int) -> String {
         
-        solutions[num]?.first?.description ?? "-NA-"
+        solutions[num]?.sorted{$0.complexity < $1.complexity}.first?.description ?? "-NA-"
         
     }
     
-mutating    fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
+    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is removed from generateOperands
+    mutating fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
         
         var operands = [[Int]]()
         
@@ -101,8 +102,9 @@ mutating    fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
         
     }
     
+    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is no longer being modified in generateExpressions
     /// Generates all possible Expression combinations  for the given `operands`
-mutating    fileprivate func generateExpressions(_ operands: [[Int]]) -> [Int : [Expression]] {
+    mutating fileprivate func generateExpressions(_ operands: [[Int]]) -> [Int : [Expression]] {
         
         var operatorsAll    = [[Operator]]()
         var expressions     = [Int : [Expression]]()
