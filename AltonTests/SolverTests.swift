@@ -54,6 +54,7 @@ final class SolverTests: XCTestCase {
     
     func testSpeed1() {
         
+        // ran in 1.624s 04/06/24
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
@@ -63,6 +64,9 @@ final class SolverTests: XCTestCase {
     
     func testSpeed2() {
         
+        // ran in 13.090s 04/06/24
+        // ran in 17.094s 04/06/24
+        // ran in 13.749s 04/06/24
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
