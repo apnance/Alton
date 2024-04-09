@@ -37,6 +37,7 @@ enum Operator: String, CaseIterable {
     case clo = ")"
     
     var precedence: Precendence {
+        
         switch self {
                 
             case .add, .sub: return .addSub
@@ -54,6 +55,7 @@ enum Operator: String, CaseIterable {
                 
             case .add: return lhs + rhs
             case .sub: return lhs - rhs
+            case .mlt: return lhs * rhs
             case .div:
                 
                 if rhs == 0 { throw OperatorError.divideByZero }
@@ -61,12 +63,8 @@ enum Operator: String, CaseIterable {
                 
                 return lhs / rhs
                 
-                
-            case .mlt: return lhs * rhs
-                
-            case .ope: fatalError("Implement")
-                
-            case .clo: fatalError("Implement")
+            case .ope: fatalError("Bad turn at Albuquerque?")
+            case .clo: fatalError("Bad turn at Albuquerque?")
                 
         }
         
