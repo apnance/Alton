@@ -10,8 +10,12 @@ import APNUtil
 
 struct Expression {
     
+    // TODO: Clean Up - move invalidValue to Configs.swift
+    static var invalidValue = -1279
+    
     var components  = [Component]()
-    var value       = -1279
+    fileprivate (set) var value         = Expression.invalidValue
+    fileprivate var result: any Operand = Expression.invalidValue
     var isValid     = true
     
     /// Simple means for comparing the relative complexity of generated `Expressions`.
@@ -26,7 +30,25 @@ struct Expression {
     init(_ components: [Component]) {
         
         self.components = components
-        value           = evaluate()
+        
+        result  = evaluate()
+        value   = (try? result.integerEquivalent()) ?? value
+        
+//// TODO: Clean Up - delete
+//        if let value = try? evaluate().integerEquivalent() {
+//            
+//            self.value = value
+//            
+//        }
+//        
+////        if let value = try? evaluate().integerEquivalent() {
+////            
+////            self.value = value
+////            
+////        } else {
+////            
+////            isValid = false
+////        }
         
     }
     
@@ -96,8 +118,9 @@ struct Expression {
         
     }
     
+    // TODO: Clean Up - Refactor evaluate, factor into sub-funcs
     /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
-    mutating func evaluate() -> Int {
+    fileprivate mutating func evaluate() -> any Operand {
         
         // Replace parentheticals with their evalated selves
         var parenCount = 0
@@ -108,9 +131,9 @@ struct Expression {
         
         if exp.count == 3 {
             
-            let lhs     = exp[0] as! Int
+            let lhs     = exp[0] as! any Operand
             let optor   = exp[1] as! Operator
-            let rhs     = exp[2] as! Int
+            let rhs     = exp[2] as! any Operand
             
             let (success, subVal)   = tryEval(lhs: lhs,
                                               optor: optor,
@@ -119,8 +142,10 @@ struct Expression {
             if !success { isValid   = false }
             return subVal /*EXIT*/
             
-            
         }
+        
+// TODO: Clean Up - delete
+printLocal("\n-----Ante Parens:\n\(components)")
         
         // 1. Evaluate Parentheticals
         for component in exp {
@@ -148,9 +173,11 @@ struct Expression {
                         
                     }
                     
-                    let subResult = sub.value
+// TODO: Clean Up - delete
+//                    let subResult = sub.result
+//                    sansParens.append(subResult)
                     
-                    sansParens.append(subResult)
+                    sansParens.append(sub.result)
                     
                     // Reset Sub-Expression
                     subExp = []
@@ -167,17 +194,58 @@ struct Expression {
             
         }
         
-        if sansParens.count == 1 { return sansParens[0] as! Int /*EXIT*/ }
+        if sansParens.count == 1 { return sansParens[0] as! any Operand /*EXIT*/ }
         
-        // 2. Evaluate/Replace Mult/Div Sub-Expressions
-        var sansMltDiv      = [Component]()
+// TODO: Clean Up - delete
+printLocal("\n-----Post Parens:\n\(sansParens)")
+        
+        // 2. Evaluate/Replace Fractional Sub-Expressions
+        var sansFractions   = [Component]()
         var i               = 0
         
         while i <= sansParens.lastUsableIndex - 2 {
             
-            let lhs         = sansParens[i]     as! Int
-            let optor  = sansParens[i + 1] as! Operator
-            let rhs         = sansParens[i + 2] as! Int
+            let lhs         = sansParens[i]     as! any Operand
+            let optor       = sansParens[i + 1] as! Operator
+            let rhs         = sansParens[i + 2] as! any Operand
+            
+            if optor.precedence == .fraction {
+                
+                let (success, subVal)   = tryEval(lhs: lhs,
+                                                  optor: optor,
+                                                  rhs: rhs)
+                
+                if !success { isValid   = false; return value /*EXIT*/ }
+                
+                sansParens[i + 2]       = subVal
+                
+                i += 2
+                
+            } else {
+                
+                sansFractions.append(lhs)
+                sansFractions.append(optor)
+                
+                i += 2
+                
+            }
+            
+        }
+        
+        sansFractions.append(sansParens.last as! any Operand)
+        
+// TODO: Clean Up - delete
+printLocal("\n-----Post Fractions:\n\(sansFractions)")
+        
+        // 3. Evaluate/Replace Mult/Div Sub-Expressions
+        var sansMltDiv  = [Component]()
+        i               = 0
+        
+        while i <= sansFractions.lastUsableIndex - 2 {
+            
+            let lhs         = sansFractions[i]      as! any Operand
+            let optor  = sansFractions[i + 1]       as! Operator
+            let rhs         = sansFractions[i + 2]  as! any Operand
             
             if optor.precedence == .mltDiv {
                 
@@ -187,7 +255,7 @@ struct Expression {
                 
                 if !success { isValid   = false; return value /*EXIT*/ }
                 
-                sansParens[i + 2]       = subVal
+                sansFractions[i + 2]       = subVal
                 
                 i += 2
                 
@@ -202,20 +270,23 @@ struct Expression {
             
         }
         
-        sansMltDiv.append(sansParens.last as! Int)
+        sansMltDiv.append(sansFractions.last as! any Operand)
         
-        if sansMltDiv.count == 1 { return sansMltDiv[0] as! Int /*EXIT*/ }
+// TODO: Clean Up - delete
+printLocal("\n-----Post Mult/Div:\n\(sansMltDiv)")
         
-        // 3. Finish Remaining Add/Sub Operations
-        var finalVal        = 0
+        if sansMltDiv.count == 1 { return sansMltDiv[0] as! any Operand /*EXIT*/ }
+        
+        // 4. Finish Remaining Add/Sub Operations
+        var finalVal: any Operand = 0
         i                   = 0
         
-        var lhs         = sansMltDiv[i] as! Int
+        var lhs         = sansMltDiv[i] as! any Operand
         
         while i <= sansMltDiv.lastUsableIndex - 2 {
             
             let optor       = sansMltDiv[i + 1] as! Operator
-            let rhs         = sansMltDiv[i + 2] as! Int
+            let rhs         = sansMltDiv[i + 2] as! any Operand
             
             var success     = true
             (success, finalVal) = tryEval(lhs: lhs, optor: optor, rhs: rhs)
@@ -233,12 +304,18 @@ struct Expression {
             
         }
         
+// TODO: Clean Up - delete
+printLocal("\n-----Final:\n\(sansMltDiv)")
+
+        
         return finalVal /*EXIT*/
         
     }
     
     /// Utility function for processing error prone evals
-    func tryEval(lhs: Int, optor: Operator, rhs: Int) -> (success: Bool, value: Int) {
+    func tryEval(lhs: any Operand, 
+                 optor: Operator, 
+                 rhs: any Operand) -> (success: Bool, value: any Operand) {
         
         do {
             
@@ -246,11 +323,7 @@ struct Expression {
             
         } catch {
             
-            if Configs.Test.printTestMessage {
-                
-                print("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
-                
-            }
+            printLocal("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
             
             return (false, value) /*EXIT*/
             

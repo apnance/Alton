@@ -14,6 +14,8 @@ protocol Operand: Component {
     static func * (lhs: Self, rhs: any Operand) -> any Operand
     static func / (lhs: Self, rhs: any Operand) throws -> any Operand
     
+    // TODO: Clean Up - Refactor: change integerEquivalent func to asInteger var.
+    // var asInteger: Int { get throws }
     func integerEquivalent() throws -> Int
 }
 
@@ -112,6 +114,7 @@ extension Fraction: Operand {
             
         } else {
             
+// TODO: Clean Up - delete
 //            bug here.. getting caught in infinite loop
             return lhs + (rhs as! Fraction)
             

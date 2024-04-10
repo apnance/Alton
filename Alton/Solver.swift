@@ -118,6 +118,9 @@ var LOOOOPCOUNT = 0
                 
                 for op3 in Operator.nonParen {
                     
+                    // TODO: Clean Up - delete
+                    printLocal("\(#function) : \([op1,op2,op3])")
+                    
                     operatorsAll.append([op1,op2,op3])
                     
                     LOOOOPCOUNT += 1
@@ -134,8 +137,8 @@ var LOOOOPCOUNT = 0
             
             let D1 = D[0]
             let D2 = D[1]
-            let D3 = D.count > 2 ? D[2] : -1279
-            let D4 = D.count > 3 ? D[3] : -1279
+            let D3 = D.count > 2 ? D[2] : Expression.invalidValue
+            let D4 = D.count > 3 ? D[3] : Expression.invalidValue
             
             for X in operatorsAll { // symbols
                 
@@ -190,9 +193,6 @@ var LOOOOPCOUNT = 0
                         
                 }
                 
-                
-                LOOOOPCOUNT += 1
-                
                 for expression in exprs {
                     
                     LOOOOPCOUNT += 1
@@ -204,6 +204,8 @@ var LOOOOPCOUNT = 0
                     }
                     
                 }
+                
+                LOOOOPCOUNT += 1
                 
             }
             

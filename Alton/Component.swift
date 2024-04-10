@@ -22,19 +22,6 @@ extension Component {
     
 }
 
-extension Int: Component {
-    
-    var complexity: Int { self > 9 ? 2 : 0 }
-    
-}
-
-extension Fraction: Component {
-    
-    var complexity: Int { 6 }
-    
-    
-}
-
 extension Operator: Component {
     
     func isCloseParen() -> Bool { self == .clo }
@@ -50,7 +37,8 @@ extension Operator: Component {
             case .div: return 4
             case .ope: return 5
             case .clo: return 0
-                
+            case .fra: return 6
+            
         }
         
     }
