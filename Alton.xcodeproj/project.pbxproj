@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9335D2F62BC48E7C009CF74A /* Fraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F52BC48E7C009CF74A /* Fraction.swift */; };
 		9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F72BC49125009CF74A /* FractionalMathTests.swift */; };
+		9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F92BC5C4CC009CF74A /* Operand.swift */; };
+		9335D2FC2BC70DE0009CF74A /* TextFieldTintedClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2FB2BC70DDF009CF74A /* TextFieldTintedClearButton.swift */; };
 		9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BF9D2BBC7C2300425C95 /* Component.swift */; };
 		9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA12BBE004100425C95 /* ExpressionTests.swift */; };
 		9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA32BC0B6B300425C95 /* Globals.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		9335D2F52BC48E7C009CF74A /* Fraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fraction.swift; sourceTree = "<group>"; };
 		9335D2F72BC49125009CF74A /* FractionalMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionalMathTests.swift; sourceTree = "<group>"; };
+		9335D2F92BC5C4CC009CF74A /* Operand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operand.swift; sourceTree = "<group>"; };
+		9335D2FB2BC70DDF009CF74A /* TextFieldTintedClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTintedClearButton.swift; sourceTree = "<group>"; };
 		9361BF9C2BBA05E500425C95 /* Alton.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Alton.xctestplan; sourceTree = "<group>"; };
 		9361BF9D2BBC7C2300425C95 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		9361BFA12BBE004100425C95 /* ExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				93A22EAB2A1BF92D0028929F /* iOS */,
+				9335D2FB2BC70DDF009CF74A /* TextFieldTintedClearButton.swift */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				93D747512BB62327007A2F52 /* Expression.swift */,
 				93ADC66F2BB6425A00E7C25B /* Operator.swift */,
 				9361BF9D2BBC7C2300425C95 /* Component.swift */,
+				9335D2F92BC5C4CC009CF74A /* Operand.swift */,
 				9335D2F52BC48E7C009CF74A /* Fraction.swift */,
 			);
 			name = M;
@@ -353,8 +359,10 @@
 			files = (
 				93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */,
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
+				9335D2FC2BC70DE0009CF74A /* TextFieldTintedClearButton.swift in Sources */,
 				93D747522BB62327007A2F52 /* Expression.swift in Sources */,
 				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
+				9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */,
 				93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */,
 				9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
@@ -599,9 +607,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Alton";
 			};
 			name = Debug;
@@ -619,9 +629,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.AltonTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Alton";
 			};
 			name = Release;
