@@ -48,7 +48,7 @@ final class ExpressionTests: XCTestCase {
         // Broken
         test("(3 + 3 * 3 + 2)", 14) // Expected 14 - Actual 18
         test("(3 + 3) * 3 + 1", 19) // Expected 19 - Actual 24
-        test("(3 + 3) / 3 + 1", 3)  // Expected 3 - Actual -1279
+        test("(3 + 3) / 3 + 1", 3)  // Expected 3 - Actual Expression.invalidValue
                                     // breaks because it operates in left to
                                     // right order except that parentheticals
                                     // are evaluated as they are encountered.
@@ -66,6 +66,27 @@ final class ExpressionTests: XCTestCase {
         test("2 * 4 + 3 / 3", 9)
         test("50 / 2 / 5 / 5", 1)
         
+    }
+    
+    func testFractionalExpressions() {
+        
+        test("8_2 / 4_2", 2)
+        test("1_4", Expression.invalidValue)
+        test("1_4 * 4", 1)
+        test("4_3 * 3", 4)
+        test("15_3 / 5", 1)
+        test("44 / 11",4)
+        test("8 _ 2 * 2", 8)
+        test("((2+2)*2)_2", 4)
+        test("(5+5+5+5)_(10/5)",10)
+        test("(10_3 / 5_3)", 2)
+        test("(2_4) / (1_2)",1)
+        test("(2 _  4)", Expression.invalidValue)
+        test("3_3 + 7", 8)
+        test("4_3 + 2", Expression.invalidValue)
+        
+        test("7/(3-8_5)", 5)
+        test("7/(7_5)", 5)
     }
     
     func testExtraneousButCorrectParens() {
