@@ -29,7 +29,7 @@ struct Expression {
         self.components = components
         
         result  = evaluate()
-        value   = (try? result.integerEquivalent()) ?? value
+        value   = (try? result.asInteger) ?? value
         
     }
     

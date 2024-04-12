@@ -9,23 +9,22 @@ import Foundation
 
 protocol Operand: Component { 
     
+    var asInteger: Int { get throws }
+    var asFraction: Fraction { get }
+    
     static func + (lhs: Self, rhs: any Operand) -> any Operand
     static func - (lhs: Self, rhs: any Operand) -> any Operand
     static func * (lhs: Self, rhs: any Operand) -> any Operand
     static func / (lhs: Self, rhs: any Operand) throws -> any Operand
     
-    // TODO: Clean Up - Refactor: change integerEquivalent func to asInteger var.
-    // var asInteger: Int { get throws }
-    func integerEquivalent() throws -> Int
 }
 
 extension Int: Operand {
     
     var complexity: Int { self > 9 ? 5 : 0 }
-    
-    var asFraction: Fraction { Fraction(numerator: self, denominator: 1) }
-
-    func integerEquivalent() -> Int { self }
+    var asInteger: Int { self }
+    var asFraction: Fraction { Fraction(numerator: self,
+                                        denominator: 1) }
     
     static func + (lhs: Int, rhs: any Operand) -> any Operand {
         
@@ -99,13 +98,18 @@ extension Int: Operand {
 extension Fraction: Operand {
     
     var complexity: Int { 6 }
-    func integerEquivalent() throws -> Int {
+    var asInteger: Int {
         
-        if self.numerator % self.denominator != 0 { throw OperatorError.remainderInDivision }
-        else { return self.numerator / self.denominator }
+        get throws {
+            
+            if self.numerator % self.denominator != 0 { throw OperatorError.remainderInDivision }
+            else { return self.numerator / self.denominator }
+            
+        }
         
     }
-
+    var asFraction: Fraction { self }
+    
     static func + (lhs: Fraction, rhs: any Operand) -> any Operand {
         
         if let rhs = rhs as? Int {
