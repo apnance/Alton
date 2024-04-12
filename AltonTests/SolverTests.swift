@@ -41,7 +41,7 @@ final class SolverTests: XCTestCase {
         
     }
     
-    /// Checks for solutions to actual All Ten puzzles
+    /// Checks for solutions to actual puzzles from All Ten
     func testHistoric() {
         
         echoAssert([3,5,7,8],   // 10.04.22 - only 2 solutions for 7 both require fractions
