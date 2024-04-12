@@ -311,19 +311,19 @@ extension Expression: CustomStringConvertible {
     
     var description: String {
         
-        "\(components.reduce(""){ $0 + $1.description + " " })"
+        "\(components.reduce(""){ $0 + $1.description})"
         
     }
     
     var evaluatedDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description + " " }) = \(value)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(value)"
         
     }
     
     var evaluatedWithComplexityDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description + " " }) = \(value) :: complexity: \(self.complexity)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(self.complexity)"
         
     }
     

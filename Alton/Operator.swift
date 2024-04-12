@@ -28,6 +28,14 @@ enum OperatorError: Error, LocalizedError {
     
 }
 
+
+/// - Note: *To facilitate generating test Expressions via String initializer*,
+/// rawValue and description values differ in most cases.
+/// .mlt - rawValue `*` differs from description string value ` ÷ `,
+/// .div - rawValue `/` differs from description string value ` × `,
+/// .fra - rawValue `_` differs from description string value `/`,
+/// .add - rawValue `+` differs from description string value ` + `,
+/// .sub - rawValue `-` differs from description string value ` - `.
 enum Operator: String, CaseIterable {
     
     enum Precendence {
@@ -37,14 +45,13 @@ enum Operator: String, CaseIterable {
         case fraction
     }
     
-    // TODO: Clean Up - change division rawValue to '÷' and fraction rawValue to '/'
-    case add = "+"
-    case sub = "-"
-    case div = "/" // "÷"
-    case mlt = "*" // "×"
-    case ope = "("
-    case clo = ")"
-    case fra = "_" // fraction '1_2' is the fraction '1/2'
+    case add = "+" // description renders as ' + '
+    case sub = "-" // description renders as ' - '
+    case mlt = "*" // description renders as ' × '
+    case div = "/" // description renders as ' ÷ '
+    case ope = "(" // description renders as '('
+    case clo = ")" // description renders as ')'
+    case fra = "_" // description renders as '/'
     
     var precedence: Precendence {
         
@@ -121,6 +128,22 @@ extension Operator: Component {
 
 extension Operator: CustomStringConvertible {
     
-    var description: String { self == .mlt ? "×" : self.rawValue }
+    var description: String {
+    
+        switch self {
+                
+            case .add : return " \(self.rawValue) "
+            case .sub : return " \(self.rawValue) "
+                
+            case .mlt : return " × "
+            case .div : return " ÷ "
+            case .fra : return "/"
+                
+            case .ope : return self.rawValue
+            case .clo : return self.rawValue
+                
+        }
+        
+    }
     
 }
