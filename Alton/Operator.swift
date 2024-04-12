@@ -96,27 +96,28 @@ enum Operator: String, CaseIterable {
         
     }
     
-// TODO: Clean Up - delete
-//    func operate(_ lhs: Int, _ rhs: Int) throws -> Int {
-//        
-//        switch self {
-//                
-//            case .add: return lhs + rhs
-//            case .sub: return lhs - rhs
-//            case .mlt: return lhs * rhs
-//            case .div:
-//                
-//                if rhs == 0 { throw OperatorError.divideByZero }
-//                else if lhs % rhs != 0 { throw OperatorError.remainderInDivision}
-//                
-//                return lhs / rhs
-//                
-//            case .ope: fatalError("Bad turn at Albuquerque?")
-//            case .clo: fatalError("Bad turn at Albuquerque?")
-//                
-//        }
-//        
-//    }
+}
+
+extension Operator: Component {
+    
+    func isCloseParen() -> Bool { self == .clo }
+    func isOpenParen() -> Bool { self == .ope }
+    
+    var complexity: Int {
+        
+        switch self {
+                
+            case .add: return 10
+            case .sub: return 11
+            case .mlt: return 20
+            case .div: return 30
+            case .ope: return 40
+            case .clo: return 0
+            case .fra: return 65
+            
+        }
+        
+    }
     
 }
 
