@@ -66,12 +66,15 @@ final class ExpressionTests: XCTestCase {
         test("2 * 4 + 3 / 3", 9)
         test("50 / 2 / 5 / 5", 1)
         
+        test("2 * 4 + 3 / 3", 9)
+        test("(2+1) / 3", 1)
+        
     }
     
     func testFractionalExpressions() {
         
         test("8_2 / 4_2", 2)
-        test("1_4", Expression.invalidValue)
+        test("1_4", Configs.Expression.invalidValue)
         test("1_4 * 4", 1)
         test("4_3 * 3", 4)
         test("15_3 / 5", 1)
@@ -81,9 +84,9 @@ final class ExpressionTests: XCTestCase {
         test("(5+5+5+5)_(10/5)",10)
         test("(10_3 / 5_3)", 2)
         test("(2_4) / (1_2)",1)
-        test("(2 _  4)", Expression.invalidValue)
+        test("(2 _  4)", Configs.Expression.invalidValue)
         test("3_3 + 7", 8)
-        test("4_3 + 2", Expression.invalidValue)
+        test("4_3 + 2", Configs.Expression.invalidValue)
         
         test("7/(3-8_5)", 5)
         test("7/(7_5)", 5)
@@ -95,10 +98,67 @@ final class ExpressionTests: XCTestCase {
         
     }
     
-    func testMisc() {
+    func testComplexity() {
         
-        test("2 * 4 + 3 / 3", 9)
-        test("(2+1) / 3", 1)
+        func testComplexity(_ lhs: String, 
+                            _ rhs: String,
+                            _ test: (Int, Int) -> Bool) {
+            
+            let exp1 = Expression(lhs)
+            let exp2 = Expression(rhs)
+            
+            let com1 = exp1.complexity
+            let com2 = exp2.complexity
+            
+            XCTAssert(test(com1,com2),
+                      """
+                        
+                        Expression\tComplexity
+                        \(exp1)\t\t\t\(com1)
+                        \(exp2)\t\t\t\(com2)
+                        """)
+            
+            print("\(exp1) complexity: \(com1)")
+            print("\(exp2) complexity: \(com2)")
+            print("---\n")
+            
+        }
+        
+        print("---------------")
+        testComplexity("3-2-25",    "32-25", >)
+        testComplexity("32-25",     "3-25", >)
+        testComplexity("3/2-2-5",   "32/25", >)
+        testComplexity( "3/35",     "3/5", >)
+        testComplexity("32/35",     "3/35", >)
+        
+        testComplexity("3/5",       "3+5", >)
+        testComplexity("3/35",      "3/5", >)
+        
+        testComplexity("3/5",       "3+5", >)
+        testComplexity("3/5",       "3-5", >)
+        testComplexity("3/5",       "3*5", >)
+        testComplexity("3/5",       "3_5", <)
+        
+        testComplexity("3*5",       "3+5", >)
+        testComplexity("3*5",       "3-5", >)
+        testComplexity("3*5",       "3/5", <)
+        testComplexity("3*5",       "3_5", <)
+        
+        testComplexity("1+2+3+4",   "1-2-3-4", <)
+        testComplexity("1+2+3+4",   "1+2+3-4", <)
+        
+        testComplexity("1-2-3-4",   "1-2-3*4", <)
+        testComplexity("1+2+3+4",   "1_4", <)
+        testComplexity("1_4",       "11_4", <)
+        
+        testComplexity("(1+2)+3+4", "1+2+3+4", >)
+        testComplexity("(1*1)",     "2_5", <)
+        print("---------------")
+        
+    }
+
+    
+    func testMisc() {
         
     }
     

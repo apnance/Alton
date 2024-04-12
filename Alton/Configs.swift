@@ -9,6 +9,12 @@ import Foundation
 
 struct Configs {
     
+    struct Expression {
+        
+        static var invalidValue = -1279
+        
+    }
+    
     struct Test {
         
         static var printTestMessage = false
