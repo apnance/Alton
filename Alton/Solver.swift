@@ -134,8 +134,8 @@ var LOOOOPCOUNT = 0
             
             let D1 = D[0]
             let D2 = D[1]
-            let D3 = D.count > 2 ? D[2] : Expression.invalidValue
-            let D4 = D.count > 3 ? D[3] : Expression.invalidValue
+            let D3 = D.count > 2 ? D[2] : Configs.Expression.invalidValue
+            let D4 = D.count > 3 ? D[3] : Configs.Expression.invalidValue
             
             for X in operatorsAll { // symbols
                 
