@@ -39,7 +39,7 @@ final class ExpressionTests: XCTestCase {
         test("(3 + 3 * 3)", 12)
         
     }
-
+    
     /// These Expressions have been returning erroneous values.
     /// - Note: this is likely caused by precedence bug
     func testBrokenExpressions() {
@@ -57,7 +57,6 @@ final class ExpressionTests: XCTestCase {
     }
     
     func testMultDivPrecedence() {
-        
         
         test("2 * 2 * 3 * 4", 48)
         test("((2 * 5) / 2) * 3", 15)
@@ -154,11 +153,6 @@ final class ExpressionTests: XCTestCase {
         testComplexity("(1+2)+3+4", "1+2+3+4", >)
         testComplexity("(1*1)",     "2_5", <)
         print("---------------")
-        
-    }
-
-    
-    func testMisc() {
         
     }
     
