@@ -30,8 +30,12 @@ enum OperatorError: Error, LocalizedError {
 
 enum Operator: String, CaseIterable {
     
-    // TODO: Clean Up - rename Precedence cases
-    enum Precendence { case addSub, mltDiv, opeClo, fraction }
+    enum Precendence {
+        case additionSubtraction
+        case multiplicationDivision
+        case parenthetical
+        case fraction
+    }
     
     // TODO: Clean Up - change division rawValue to '÷' and fraction rawValue to '/'
     case add = "+"
@@ -46,9 +50,9 @@ enum Operator: String, CaseIterable {
         
         switch self {
                 
-            case .add, .sub: return .addSub
-            case .mlt, .div: return .mltDiv
-            case .ope, .clo: return .opeClo
+            case .add, .sub: return .additionSubtraction
+            case .mlt, .div: return .multiplicationDivision
+            case .ope, .clo: return .parenthetical
             case .fra: return .fraction
                 
         }
