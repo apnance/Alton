@@ -10,12 +10,9 @@ import APNUtil
 
 struct Expression {
     
-    // TODO: Clean Up - move invalidValue to Configs.swift
-    static var invalidValue = -1279
-    
     var components  = [Component]()
-    fileprivate (set) var value         = Expression.invalidValue
-    fileprivate var result: any Operand = Expression.invalidValue
+    fileprivate (set) var value         = Configs.Expression.invalidValue
+    fileprivate var result: any Operand = Configs.Expression.invalidValue
     var isValid     = true
     
     /// Simple means for comparing the relative complexity of generated `Expressions`.
@@ -33,22 +30,6 @@ struct Expression {
         
         result  = evaluate()
         value   = (try? result.integerEquivalent()) ?? value
-        
-//// TODO: Clean Up - delete
-//        if let value = try? evaluate().integerEquivalent() {
-//            
-//            self.value = value
-//            
-//        }
-//        
-////        if let value = try? evaluate().integerEquivalent() {
-////            
-////            self.value = value
-////            
-////        } else {
-////            
-////            isValid = false
-////        }
         
     }
     
@@ -144,9 +125,6 @@ struct Expression {
             
         }
         
-// TODO: Clean Up - delete
-printLocal("\n-----Ante Parens:\n\(components)")
-        
         // 1. Evaluate Parentheticals
         for component in exp {
             
@@ -173,10 +151,6 @@ printLocal("\n-----Ante Parens:\n\(components)")
                         
                     }
                     
-// TODO: Clean Up - delete
-//                    let subResult = sub.result
-//                    sansParens.append(subResult)
-                    
                     sansParens.append(sub.result)
                     
                     // Reset Sub-Expression
@@ -195,9 +169,6 @@ printLocal("\n-----Ante Parens:\n\(components)")
         }
         
         if sansParens.count == 1 { return sansParens[0] as! any Operand /*EXIT*/ }
-        
-// TODO: Clean Up - delete
-printLocal("\n-----Post Parens:\n\(sansParens)")
         
         // 2. Evaluate/Replace Fractional Sub-Expressions
         var sansFractions   = [Component]()
@@ -234,9 +205,6 @@ printLocal("\n-----Post Parens:\n\(sansParens)")
         
         sansFractions.append(sansParens.last as! any Operand)
         
-// TODO: Clean Up - delete
-printLocal("\n-----Post Fractions:\n\(sansFractions)")
-        
         // 3. Evaluate/Replace Mult/Div Sub-Expressions
         var sansMltDiv  = [Component]()
         i               = 0
@@ -247,7 +215,7 @@ printLocal("\n-----Post Fractions:\n\(sansFractions)")
             let optor  = sansFractions[i + 1]       as! Operator
             let rhs         = sansFractions[i + 2]  as! any Operand
             
-            if optor.precedence == .mltDiv {
+            if optor.precedence == .multiplicationDivision {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
                                                   optor: optor,
@@ -271,9 +239,6 @@ printLocal("\n-----Post Fractions:\n\(sansFractions)")
         }
         
         sansMltDiv.append(sansFractions.last as! any Operand)
-        
-// TODO: Clean Up - delete
-printLocal("\n-----Post Mult/Div:\n\(sansMltDiv)")
         
         if sansMltDiv.count == 1 { return sansMltDiv[0] as! any Operand /*EXIT*/ }
         
@@ -303,10 +268,6 @@ printLocal("\n-----Post Mult/Div:\n\(sansMltDiv)")
             i += 2
             
         }
-        
-// TODO: Clean Up - delete
-printLocal("\n-----Final:\n\(sansMltDiv)")
-
         
         return finalVal /*EXIT*/
         
@@ -368,26 +329,3 @@ extension Expression: CustomStringConvertible {
     
 }
 
-
-// - MARK: Helper Data Structures
-/// Data structure for managing the simplest atomic `Expression` comprised
-/// entire of a left and right hand `Int` operands and an `Operator`
-/// e.g. 1+2, 9/3, 10-5, 2 *10, etc.
-// TODO: Clean Up - delete?
-//fileprivate struct SubExpression {
-//    
-//    var rhs: Int?
-//    var lhs: Int?
-//    var `operator`: Operator?
-//    
-//    func evaluate() throws -> Int {
-//        
-//        let value = try `operator`!.operate(lhs!, rhs!)
-//        
-//        printLocal("SubExpression: \(lhs!) \(self.operator!) \(rhs!) = \(value)")
-//        
-//        return value
-//        
-//    }
-//    
-//}
