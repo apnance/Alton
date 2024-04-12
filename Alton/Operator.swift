@@ -87,12 +87,6 @@ enum Operator: String, CaseIterable {
                     
                 }
                 
-// TODO: Clean Up - delete
-//                let (lhs, rhs) = (lhs as! Int, rhs as! Int)
-//                if rhs == 0 { throw OperatorError.divideByZero /*ERROR*/ }
-//                
-//                return Fraction(numerator: lhs, denominator: rhs)
-                
             case .ope: fatalError("Wrong turn at Albuquerque?")
             case .clo: fatalError("Wrong turn at Albuquerque?")
                 

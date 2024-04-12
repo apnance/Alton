@@ -118,9 +118,6 @@ var LOOOOPCOUNT = 0
                 
                 for op3 in Operator.nonParen {
                     
-                    // TODO: Clean Up - delete
-                    printLocal("\(#function) : \([op1,op2,op3])")
-                    
                     operatorsAll.append([op1,op2,op3])
                     
                     LOOOOPCOUNT += 1

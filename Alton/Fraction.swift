@@ -15,9 +15,6 @@ struct Fraction {
     /// Initializes a `Fraction` object.
     /// - important: Validate inputs - no error handling is done to prevent divide by zero errors.
     init(numerator: Int, denominator: Int) {
-
-// TODO: Clean Up - delete
-//        assert(denominator != 0, "Divde By Zero Error")
         
         let sign            = denominator < 0 ? -1 : 1
         self.numerator      = numerator * sign
