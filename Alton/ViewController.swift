@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         
         uiInit()
         
-        // TODO: Clean Up - delete
         // test()
         
     }
