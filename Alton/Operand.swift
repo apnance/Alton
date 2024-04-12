@@ -110,13 +110,11 @@ extension Fraction: Operand {
         
         if let rhs = rhs as? Int {
             
-            return lhs + rhs.asFraction
+            return lhs + rhs.asFraction /*EXIT*/
             
         } else {
             
-// TODO: Clean Up - delete
-//            bug here.. getting caught in infinite loop
-            return lhs + (rhs as! Fraction)
+            return lhs + (rhs as! Fraction)  /*EXIT*/
             
         }
         
