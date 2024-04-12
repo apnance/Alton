@@ -46,8 +46,9 @@ final class SolverTests: XCTestCase {
         
         echoAssert([3,5,7,8],   // 10.04.22 - only 2 solutions for 7 both require fractions
                    [1,3,6,6],   // 04.09.24
-                   [3,5,5,8])   // 04.10.24 - required fractions for 7
-        
+                   [3,5,5,8],   // 04.10.24 - required fractions for 7
+                   [2,3,4,6],   // 04.11.24
+                   [2,3,4,5])   // 04.12.24
     }
     
     func testNeedsParentheticalSubExpressions() {
