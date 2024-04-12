@@ -21,7 +21,7 @@ protocol Operand: Component {
 
 extension Int: Operand {
     
-    var complexity: Int { self > 9 ? 2 : 0 }
+    var complexity: Int { self > 9 ? 5 : 0 }
     
     var asFraction: Fraction { Fraction(numerator: self, denominator: 1) }
 
