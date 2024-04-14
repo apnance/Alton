@@ -13,7 +13,7 @@ struct Expression {
     var components  = [Component]()
     fileprivate (set) var value         = Configs.Expression.invalidValue
     fileprivate var result: any Operand = Configs.Expression.invalidValue
-    var isValid     = true
+    var isValid                         = true
     
     /// Simple means for comparing the relative complexity of generated `Expressions`.
     /// The higher the number the greater the relative complexity.
@@ -23,13 +23,45 @@ struct Expression {
         
     }
     
-    /// Initializes an `Expression` from the input.
+    
     init(_ components: [Component]) {
+        
+// TODO: Clean Up - delete old init code below
+//        self.components = components
+//
+//        /**/
+//        result  = evaluate()
+//        value   = (try? result.asInteger) ?? value
+//        /**/
+        
+        self.init(components, validate: true)
+        
+    }
+    
+    /// Initializes an `Expression` from the input.
+    /// - Parameters:
+    ///   - components: `Component`s to define the `Expression`
+    ///   - validate: Flag used to shunt validation.  Used to prevent atomic `Fraction` sub-`Expression` from being treated as invalid.
+    ///  - Important: do not call, call init(components)
+    fileprivate init(_ components: [Component],
+                     validate: Bool) {
         
         self.components = components
         
-        result  = evaluate()
-        value   = (try? result.asInteger) ?? value
+        result = eval(components) ?? result
+        
+        if !validate { return /*EXIT*/ }
+        
+        if let value = (try? result.asInteger) {
+            
+            self.value = value
+            isValid = true
+            
+        } else {
+            
+            isValid = false
+            
+        }
         
     }
     
@@ -40,9 +72,9 @@ struct Expression {
         
     }
     
-    /// Parses a string containing an `Expression` returning an array of all of the `Component`
+    /// Parses a string containing an `Expression` before  returning an array of all `Component`s
     /// - Note: rudimentary validation of parenthetical order and balance is
-    /// performed however no validation of operator/operand order/blance is done.
+    /// performed however no validation of operator/operand order/balance is done.
     static func parse(_ string: String) -> [Component] {
         
         let string      = string.replacingOccurrences(of: " ", with: "")
@@ -99,17 +131,12 @@ struct Expression {
         
     }
     
-    // TODO: Clean Up - Refactor evaluate, factor into sub-funcs
     /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
     fileprivate mutating func evaluate() -> any Operand {
         
-        // Replace parentheticals with their evalated selves
-        var parenCount = 0
-        
         let exp = self.components
-        var sansParens = [Component]()
-        var subExp = [Component]()
         
+        // Process Simple 3 Component Expression
         if exp.count == 3 {
             
             let lhs     = exp[0] as! any Operand
@@ -125,7 +152,15 @@ struct Expression {
             
         }
         
+        // Process Complex Expression
+/****/
+        var sansParens  = [Component]()
+        var subExp      = [Component]()
+        
         // 1. Evaluate Parentheticals
+        // Replace parentheticals with their evaluated selves
+        var parenCount  = 0
+        
         for component in exp {
             
             if component.isOpenParen() {
@@ -169,6 +204,7 @@ struct Expression {
         }
         
         if sansParens.count == 1 { return sansParens[0] as! any Operand /*EXIT*/ }
+/****/
         
         // 2. Evaluate/Replace Fractional Sub-Expressions
         var sansFractions   = [Component]()
@@ -205,6 +241,8 @@ struct Expression {
         
         sansFractions.append(sansParens.last as! any Operand)
         
+/****/
+        
         // 3. Evaluate/Replace Mult/Div Sub-Expressions
         var sansMltDiv  = [Component]()
         i               = 0
@@ -212,7 +250,7 @@ struct Expression {
         while i <= sansFractions.lastUsableIndex - 2 {
             
             let lhs         = sansFractions[i]      as! any Operand
-            let optor  = sansFractions[i + 1]       as! Operator
+            let optor       = sansFractions[i + 1]  as! Operator
             let rhs         = sansFractions[i + 2]  as! any Operand
             
             if optor.precedence == .multiplicationDivision {
@@ -241,6 +279,7 @@ struct Expression {
         sansMltDiv.append(sansFractions.last as! any Operand)
         
         if sansMltDiv.count == 1 { return sansMltDiv[0] as! any Operand /*EXIT*/ }
+    /****/
         
         // 4. Finish Remaining Add/Sub Operations
         var finalVal: any Operand = 0
@@ -270,6 +309,8 @@ struct Expression {
         }
         
         return finalVal /*EXIT*/
+        
+/****/
         
     }
     
@@ -329,3 +370,226 @@ extension Expression: CustomStringConvertible {
     
 }
 
+// TODO: Clean Up - move up into main Expression definition scope
+extension Expression {
+    
+    // TODO: Clean Up - Optimize?
+    /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
+    func eval(_ exp: [Component]) -> (any Operand)? {
+        
+        var exp     = exp
+        
+        var (success, value) = evalAtomic(exp)
+        
+        if success { return value /*EXIT*/ }
+        
+        (success, exp)  = evalParens(exp)
+        if !success { return nil /*EXIT*/ }
+        else if exp.count == 1 { return exp[0] as? any Operand /*EXIT*/ }
+        
+        (success, exp) = evalFracts(exp)
+        if !success { return nil /*EXIT*/ }
+        else if exp.count == 1 {
+        
+            return exp[0] as? any Operand /*EXIT*/
+            
+        }
+        
+        (success, exp) = evalMltDiv(exp)
+        if !success { return nil /*EXIT*/ }
+        else  if exp.count == 1 { return exp[0] as? any Operand /*EXIT*/ }
+        
+        return evalAddSub(exp) /*EXIT*/
+        
+    }
+    
+    /// Evaluates parentheticals in `exp`, replacing them with their evaluated components
+    func evalParens(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+        
+        // Replace parentheticals with their evaluated selves
+        var parenCount  = 0
+        
+        var sansParens  = [Component]()
+        var subExp      = [Component]()
+        
+        for component in exp {
+            
+            if component.isOpenParen() {
+                
+                if parenCount > 0 { subExp.append(component) } // don't append first paren
+                
+                // Increment Parentheses Count
+                parenCount += 1
+                
+            } else if component.isCloseParen() {
+                
+                // Decriment Parentheses Count
+                parenCount -= 1
+                
+                if parenCount == 0 { // don't append terminal paren
+                    
+                    let sub = Expression(subExp, validate: false)
+                    
+                    if !sub.isValid { return (false, []) /*EXIT*/ }
+                    
+                    sansParens.append(sub.result)
+                    
+                    // Reset Sub-Expression
+                    subExp = []
+                    
+                } else { subExp.append(component) }
+                
+            } else {
+                
+                // Append Component
+                if parenCount > 0 { subExp.append(component)}
+                else { sansParens.append(component) }
+                
+            }
+            
+        }
+        
+        return (true, sansParens) /*EXIT*/
+        
+    }
+    
+    /// Evaluates `Fraction`s in `exp`, replacing them with their evaluated components
+    func evalFracts(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+         
+        var exp = exp
+        var sansFractions   = [Component]()
+        
+        var i               = 0
+        
+        while i <= exp.lastUsableIndex - 2 {
+            
+            let lhs         = exp[i]     as! any Operand
+            let optor       = exp[i + 1] as! Operator
+            let rhs         = exp[i + 2] as! any Operand
+            
+            if optor.precedence == .fraction {
+                
+                let (success, subVal)   = tryEval(lhs: lhs,
+                                                  optor: optor,
+                                                  rhs: rhs)
+                
+                if !success { return (false, []) /*EXIT*/ }
+                
+                exp[i + 2]       = subVal
+                
+                i += 2
+                
+            } else {
+                
+                sansFractions.append(lhs)
+                sansFractions.append(optor)
+                
+                i += 2
+                
+            }
+            
+        }
+        
+        sansFractions.append(exp.last as! any Operand)
+         
+        return (true, sansFractions)
+        
+     }
+    
+     func evalMltDiv(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+         
+         var exp            = exp
+         var sansMltDiv     = [Component]()
+         var i              = 0
+         
+         while i <= exp.lastUsableIndex - 2 {
+             
+             let lhs        = exp[i]      as! any Operand
+             let optor      = exp[i + 1]  as! Operator
+             let rhs        = exp[i + 2]  as! any Operand
+             
+             if optor.precedence == .multiplicationDivision {
+                 
+                 let (success, subVal)   = tryEval(lhs: lhs,
+                                                   optor: optor,
+                                                   rhs: rhs)
+                 
+                 if !success { return (false, []) /*EXIT*/ }
+                 
+                 exp[i + 2]       = subVal
+                 
+                 i += 2
+                 
+             } else {
+                 
+                 sansMltDiv.append(lhs)
+                 sansMltDiv.append(optor)
+                 
+                 i += 2
+                 
+             }
+             
+         }
+         
+         sansMltDiv.append(exp.last as! any Operand)
+         
+         return (true, sansMltDiv)
+         
+     }
+    
+    func evalAddSub(_ exp: [Component]) -> (any Operand)? {
+        
+        var finalVal: any Operand   = 0
+        var i                       = 0
+        
+        var lhs                     = exp[i] as! any Operand
+        
+        while i <= exp.lastUsableIndex - 2 {
+            
+            let optor       = exp[i + 1] as! Operator
+            let rhs         = exp[i + 2] as! any Operand
+            
+            var valid       = true
+            
+            // TODO: Clean Up - MAYBE -factor tryEval into this func and get rid of it?
+            (valid, finalVal) = tryEval(lhs: lhs, optor: optor, rhs: rhs)
+            
+            if !valid { return nil /*EXIT*/ }
+            
+            lhs         = finalVal
+            
+            i += 2
+            
+        }
+        
+        return finalVal /*EXIT*/
+        
+    }
+    
+    // TODO: Clean Up - Refactor: rename evalAtomic -> evalSimple
+    /// Evaluates a simple expression of 3 components.
+    /// - Parameter exp: An array of `[Component]` containing the `Component`s of
+    /// the simplest complete expression. (i.e. [LHS, Operator, RHS])
+    /// - Returns: Tuple conaining a success flag and the `Operand` resulting
+    /// from  the `Operator` operating on the LHS and RHS `Operands`
+    ///
+    /// - Important: no validaion is performed on the order and sub-types of the
+    /// `[Component]` argument.  It is expected that the first component will be
+    /// the LHS `Operand`, the second will be the `Operator` and the third
+    /// the RHS `Operand`.
+    func evalAtomic(_ exp: [Component]) -> (success: Bool, (any Operand)?) {
+        
+        guard exp.count == 3
+        else { return (false, nil) /*EXIT*/ }
+        
+        let lhs     = exp[0] as! any Operand
+        let optor   = exp[1] as! Operator
+        let rhs     = exp[2] as! any Operand
+        
+        return tryEval(lhs: lhs,
+                       optor: optor,
+                       rhs: rhs)
+        
+    }
+    
+}
