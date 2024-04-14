@@ -224,7 +224,8 @@ var LOOOOPCOUNT = 0
         
         return Report.columnateAutoWidth(rows,
                                          headers: headers,
-                                         dataPadType: .center, showSeparators: false)
+                                         dataPadType: .center, 
+                                         showSeparators: false)
         
     }
     
