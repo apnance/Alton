@@ -95,9 +95,6 @@ var LOOOOPCOUNT = 0
         
         operands.append(contentsOf: doubleDigits)
         
-        // TODO: Add Fractional Combinations
-        
-        
         return operands
         
     }
