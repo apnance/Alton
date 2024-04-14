@@ -26,14 +26,6 @@ struct Expression {
     
     init(_ components: [Component]) {
         
-// TODO: Clean Up - delete old init code below
-//        self.components = components
-//
-//        /**/
-//        result  = evaluate()
-//        value   = (try? result.asInteger) ?? value
-//        /**/
-        
         self.init(components, validate: true)
         
     }
@@ -72,314 +64,13 @@ struct Expression {
         
     }
     
-    /// Parses a string containing an `Expression` before  returning an array of all `Component`s
-    /// - Note: rudimentary validation of parenthetical order and balance is
-    /// performed however no validation of operator/operand order/balance is done.
-    static func parse(_ string: String) -> [Component] {
-        
-        let string      = string.replacingOccurrences(of: " ", with: "")
-        var components  = [Component]()
-        var buffer      = ""
-        
-        var parenCount  = 0
-        
-        for compStr in string {
-            
-            let compStr = String(compStr)
-            
-            if Int(compStr).isNotNil {
-                
-                // Buffer
-                buffer += compStr
-                
-            } else {
-                
-                // Process Buffer
-                if let num = Int(buffer) { components.append(num) }
-                buffer = "" // Clear Buffer
-                
-                // Process Operator
-                let component = Operator(rawValue: compStr)!
-                components.append(component)
-                
-                parenCount += component.isOpenParen() ? 1 : component.isCloseParen() ? -1 : 0
-                
-            }
-            
-            // Check Parens
-            assert(parenCount >= 0,
-                   """
-                    Parenthetical Troubles '\(string)':
-                    Check the order and number of open \
-                    and close parens.
-                    """)
-            
-        }
-        
-        // Clean Up
-        assert(parenCount == 0,
-               """
-                Parenthetical Troubles '\(string)':
-                Unbalanced parens.
-                """)
-        
-        // Process Buffer
-        if let num = Int(buffer) { components.append(num) }
-        buffer = "" // Clear Buffer
-        
-        return components
-        
-    }
-    
-    /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
-    fileprivate mutating func evaluate() -> any Operand {
-        
-        let exp = self.components
-        
-        // Process Simple 3 Component Expression
-        if exp.count == 3 {
-            
-            let lhs     = exp[0] as! any Operand
-            let optor   = exp[1] as! Operator
-            let rhs     = exp[2] as! any Operand
-            
-            let (success, subVal)   = tryEval(lhs: lhs,
-                                              optor: optor,
-                                              rhs: rhs)
-            
-            if !success { isValid   = false }
-            return subVal /*EXIT*/
-            
-        }
-        
-        // Process Complex Expression
-/****/
-        var sansParens  = [Component]()
-        var subExp      = [Component]()
-        
-        // 1. Evaluate Parentheticals
-        // Replace parentheticals with their evaluated selves
-        var parenCount  = 0
-        
-        for component in exp {
-            
-            if component.isOpenParen() {
-                
-                if parenCount > 0 { subExp.append(component) } // don't append first paren
-                
-                // Increment Parentheses Count
-                parenCount += 1
-                
-            } else if component.isCloseParen() {
-                
-                // Decriment Parentheses Count
-                parenCount -= 1
-                
-                if parenCount == 0 { // don't append terminal paren
-                    
-                    let sub = Expression(subExp)
-                    
-                    if !sub.isValid {
-                        
-                        isValid = false
-                        return value /*EXIT*/
-                        
-                    }
-                    
-                    sansParens.append(sub.result)
-                    
-                    // Reset Sub-Expression
-                    subExp = []
-                    
-                } else { subExp.append(component) }
-                
-            } else {
-                
-                // Append Component
-                if parenCount > 0 { subExp.append(component)}
-                else { sansParens.append(component) }
-                
-            }
-            
-        }
-        
-        if sansParens.count == 1 { return sansParens[0] as! any Operand /*EXIT*/ }
-/****/
-        
-        // 2. Evaluate/Replace Fractional Sub-Expressions
-        var sansFractions   = [Component]()
-        var i               = 0
-        
-        while i <= sansParens.lastUsableIndex - 2 {
-            
-            let lhs         = sansParens[i]     as! any Operand
-            let optor       = sansParens[i + 1] as! Operator
-            let rhs         = sansParens[i + 2] as! any Operand
-            
-            if optor.precedence == .fraction {
-                
-                let (success, subVal)   = tryEval(lhs: lhs,
-                                                  optor: optor,
-                                                  rhs: rhs)
-                
-                if !success { isValid   = false; return value /*EXIT*/ }
-                
-                sansParens[i + 2]       = subVal
-                
-                i += 2
-                
-            } else {
-                
-                sansFractions.append(lhs)
-                sansFractions.append(optor)
-                
-                i += 2
-                
-            }
-            
-        }
-        
-        sansFractions.append(sansParens.last as! any Operand)
-        
-/****/
-        
-        // 3. Evaluate/Replace Mult/Div Sub-Expressions
-        var sansMltDiv  = [Component]()
-        i               = 0
-        
-        while i <= sansFractions.lastUsableIndex - 2 {
-            
-            let lhs         = sansFractions[i]      as! any Operand
-            let optor       = sansFractions[i + 1]  as! Operator
-            let rhs         = sansFractions[i + 2]  as! any Operand
-            
-            if optor.precedence == .multiplicationDivision {
-                
-                let (success, subVal)   = tryEval(lhs: lhs,
-                                                  optor: optor,
-                                                  rhs: rhs)
-                
-                if !success { isValid   = false; return value /*EXIT*/ }
-                
-                sansFractions[i + 2]       = subVal
-                
-                i += 2
-                
-            } else {
-                
-                sansMltDiv.append(lhs)
-                sansMltDiv.append(optor)
-                
-                i += 2
-                
-            }
-            
-        }
-        
-        sansMltDiv.append(sansFractions.last as! any Operand)
-        
-        if sansMltDiv.count == 1 { return sansMltDiv[0] as! any Operand /*EXIT*/ }
-    /****/
-        
-        // 4. Finish Remaining Add/Sub Operations
-        var finalVal: any Operand = 0
-        i                   = 0
-        
-        var lhs         = sansMltDiv[i] as! any Operand
-        
-        while i <= sansMltDiv.lastUsableIndex - 2 {
-            
-            let optor       = sansMltDiv[i + 1] as! Operator
-            let rhs         = sansMltDiv[i + 2] as! any Operand
-            
-            var success     = true
-            (success, finalVal) = tryEval(lhs: lhs, optor: optor, rhs: rhs)
-            
-            if !success {
-                
-                isValid = false
-                return value /*EXIT*/
-                
-            }
-            
-            lhs         = finalVal
-            
-            i += 2
-            
-        }
-        
-        return finalVal /*EXIT*/
-        
-/****/
-        
-    }
-    
-    /// Utility function for processing error prone evals
-    func tryEval(lhs: any Operand, 
-                 optor: Operator, 
-                 rhs: any Operand) -> (success: Bool, value: any Operand) {
-        
-        do {
-            
-            return (true, try optor.operate(lhs, rhs))
-            
-        } catch {
-            
-            printLocal("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
-            
-            return (false, value) /*EXIT*/
-            
-        }
-        
-    }
-
-}
-
-
-// - MARK: Protocol Adoption Extensions
-extension Expression: Equatable {
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        
-        return lhs.description == rhs.description
-        
-    }
-    
-}
-
-
-extension Expression: CustomStringConvertible {
-    
-    var description: String {
-        
-        "\(components.reduce(""){ $0 + $1.description})"
-        
-    }
-    
-    var evaluatedDescription: String {
-        
-        "\(components.reduce(""){ $0 + $1.description}) = \(value)"
-        
-    }
-    
-    var evaluatedWithComplexityDescription: String {
-        
-        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(self.complexity)"
-        
-    }
-    
-}
-
-// TODO: Clean Up - move up into main Expression definition scope
-extension Expression {
-    
     // TODO: Clean Up - Optimize?
     /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
     func eval(_ exp: [Component]) -> (any Operand)? {
         
         var exp     = exp
         
-        var (success, value) = evalAtomic(exp)
+        var (success, value) = evalSimple(exp)
         
         if success { return value /*EXIT*/ }
         
@@ -551,7 +242,6 @@ extension Expression {
             
             var valid       = true
             
-            // TODO: Clean Up - MAYBE -factor tryEval into this func and get rid of it?
             (valid, finalVal) = tryEval(lhs: lhs, optor: optor, rhs: rhs)
             
             if !valid { return nil /*EXIT*/ }
@@ -566,8 +256,7 @@ extension Expression {
         
     }
     
-    // TODO: Clean Up - Refactor: rename evalAtomic -> evalSimple
-    /// Evaluates a simple expression of 3 components.
+    /// Evaluates a simple expression of 3 components, resulting in a single `Operand`
     /// - Parameter exp: An array of `[Component]` containing the `Component`s of
     /// the simplest complete expression. (i.e. [LHS, Operator, RHS])
     /// - Returns: Tuple conaining a success flag and the `Operand` resulting
@@ -577,7 +266,7 @@ extension Expression {
     /// `[Component]` argument.  It is expected that the first component will be
     /// the LHS `Operand`, the second will be the `Operator` and the third
     /// the RHS `Operand`.
-    func evalAtomic(_ exp: [Component]) -> (success: Bool, (any Operand)?) {
+    func evalSimple(_ exp: [Component]) -> (success: Bool, (any Operand)?) {
         
         guard exp.count == 3
         else { return (false, nil) /*EXIT*/ }
@@ -589,6 +278,119 @@ extension Expression {
         return tryEval(lhs: lhs,
                        optor: optor,
                        rhs: rhs)
+        
+    }
+    
+    /// Utility function for processing error prone evals
+    func tryEval(lhs: any Operand, 
+                 optor: Operator, 
+                 rhs: any Operand) -> (success: Bool, value: any Operand) {
+        
+        do {
+            
+            return (true, try optor.operate(lhs, rhs))
+            
+        } catch {
+            
+            printLocal("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
+            
+            return (false, value) /*EXIT*/
+            
+        }
+        
+    }
+    
+    /// Parses a string containing an `Expression` before  returning an array of all `Component`s
+    /// - Note: rudimentary validation of parenthetical order and balance is
+    /// performed however no validation of operator/operand order/balance is done.
+    static func parse(_ string: String) -> [Component] {
+        
+        let string      = string.replacingOccurrences(of: " ", with: "")
+        var components  = [Component]()
+        var buffer      = ""
+        
+        var parenCount  = 0
+        
+        for compStr in string {
+            
+            let compStr = String(compStr)
+            
+            if Int(compStr).isNotNil {
+                
+                // Buffer
+                buffer += compStr
+                
+            } else {
+                
+                // Process Buffer
+                if let num = Int(buffer) { components.append(num) }
+                buffer = "" // Clear Buffer
+                
+                // Process Operator
+                let component = Operator(rawValue: compStr)!
+                components.append(component)
+                
+                parenCount += component.isOpenParen() ? 1 : component.isCloseParen() ? -1 : 0
+                
+            }
+            
+            // Check Parens
+            assert(parenCount >= 0,
+                   """
+                    Parenthetical Troubles '\(string)':
+                    Check the order and number of open \
+                    and close parens.
+                    """)
+            
+        }
+        
+        // Clean Up
+        assert(parenCount == 0,
+               """
+                Parenthetical Troubles '\(string)':
+                Unbalanced parens.
+                """)
+        
+        // Process Buffer
+        if let num = Int(buffer) { components.append(num) }
+        buffer = "" // Clear Buffer
+        
+        return components
+        
+    }
+
+}
+
+
+// - MARK: Protocol Adoption Extensions
+extension Expression: Equatable {
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        
+        return lhs.description == rhs.description
+        
+    }
+    
+}
+
+
+extension Expression: CustomStringConvertible {
+    
+    var description: String {
+        
+        "\(components.reduce(""){ $0 + $1.description})"
+        
+    }
+    
+    var evaluatedDescription: String {
+        
+        "\(components.reduce(""){ $0 + $1.description}) = \(value)"
+        
+    }
+    
+    var evaluatedWithComplexityDescription: String {
+        
+        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(self.complexity)"
         
     }
     
