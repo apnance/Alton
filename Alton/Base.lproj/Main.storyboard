@@ -21,10 +21,10 @@
                                 <rect key="frame" x="10" y="201" width="373" height="450"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gimme yer digits, ya cheat..." textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-gH-Yth" customClass="TextFieldTintedClearButton" customModule="Alton" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="34.333333333333336"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="systemOrangeColor"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="21"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="color">
@@ -38,11 +38,10 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
-                                        <rect key="frame" x="0.0" y="37" width="373" height="413"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
+                                        <rect key="frame" x="0.0" y="37.333333333333343" width="373" height="412.66666666666663"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                        <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                                     </textView>
                                 </subviews>
@@ -52,37 +51,37 @@
                                 </constraints>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                <rect key="frame" x="156.66666666666666" y="148" width="80" height="30"/>
+                                <rect key="frame" x="96.666666666666686" y="142" width="200" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="2bk-Dt-jPH"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="IHT-J1-R8d"/>
+                                    <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="IHT-J1-R8d"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="A">
                                         <attributes>
                                             <color key="NSColor" systemColor="systemYellowColor"/>
-                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="lt">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="O">
                                         <attributes>
                                             <color key="NSColor" systemColor="systemYellowColor"/>
-                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                     <fragment content="n">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="25" name="Menlo-BoldItalic"/>
+                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -90,7 +89,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
-                                <rect key="frame" x="96.666666666666686" y="168.66666666666666" width="200" height="50"/>
+                                <rect key="frame" x="96.666666666666686" y="169" width="200" height="50"/>
                                 <color key="tintColor" red="1" green="0.86322344559999997" blue="0.0016834623899999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="T7D-Hb-2tj"/>
@@ -103,11 +102,11 @@
                         <constraints>
                             <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FEf-wx-zOp"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="IPE-3z-LRH"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="23.000000000000057" id="LL3-VB-udT"/>
+                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="19" id="LL3-VB-udT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B4m-ZV-oop" secondAttribute="trailing" constant="10" id="Skq-Nc-fOP"/>
                             <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ubk-mW-lez"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j56-uk-kdE"/>
-                            <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-9.3333333333333144" id="yv1-61-Efd"/>
+                            <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-13" id="yv1-61-Efd"/>
                         </constraints>
                     </view>
                     <connections>

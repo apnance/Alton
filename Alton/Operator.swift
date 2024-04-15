@@ -5,7 +5,7 @@
 //  Created by Aaron Nance on 3/28/24.
 //
 
-import Foundation
+import UIKit
 
 enum OperatorError: Error, LocalizedError {
     
@@ -28,7 +28,6 @@ enum OperatorError: Error, LocalizedError {
     
 }
 
-
 /// - Note: *To facilitate generating test Expressions via String initializer*,
 /// rawValue and description values differ in most cases.
 /// .mlt - rawValue `*` differs from description string value ` ÷ `,
@@ -39,10 +38,12 @@ enum OperatorError: Error, LocalizedError {
 enum Operator: String, CaseIterable {
     
     enum Precendence {
+        
         case additionSubtraction
         case multiplicationDivision
-        case parenthetical
         case fraction
+        case parenthetical
+        
     }
     
     case add = "+" // description renders as ' + '
@@ -65,6 +66,8 @@ enum Operator: String, CaseIterable {
         }
     }
     
+    
+    /// Array of all `Operator`s excluding open and close parens.
     static let nonParen = [Operator.add, .sub, .div, .mlt, .fra]
     
     func operate<LHS: Operand, RHS: Operand>(_ lhs: LHS,
@@ -97,6 +100,33 @@ enum Operator: String, CaseIterable {
             case .ope: fatalError("Wrong turn at Albuquerque?")
             case .clo: fatalError("Wrong turn at Albuquerque?")
                 
+        }
+        
+    }
+    
+    /// Returns the signature color for the `Operator` corresponding to the
+    /// provided display text equivalent or nil if specified `displayChar`
+    /// doesn't correspond to an existing `Operator`
+    ///
+    /// - Parameter displayChar: character represening the display
+    /// text version of an `Operator`
+    /// - Returns: UIColor if the specified displayChar corresponds to an
+    /// `Operator` nil otherwise.
+    ///
+    /// - Note: displayChar and rawValues are not the same for all `Operator`s
+    static func colorFor(_ displayChar: Character) -> UIColor? {
+        
+        let displayValue = String(displayChar)
+        
+        switch displayValue {
+            case "+" :          return UIColor.systemBlue
+            case "-" :          return UIColor.systemOrange
+            case "×" :          return UIColor.systemGreen
+            case "÷" :          return UIColor.systemRed
+            case "/" :          return UIColor.yellow
+            case "(", ")":      return UIColor.white.pointSixAlpha
+                
+            default: return nil /*NIL*/
         }
         
     }

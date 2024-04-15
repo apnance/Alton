@@ -24,8 +24,6 @@ class ViewController: UIViewController {
         
         uiInit()
         
-        // test()
-        
     }
     
     // MARK: - Custom Methods
@@ -36,27 +34,106 @@ class ViewController: UIViewController {
         
         for char in text {
             
-            if let digit = Int(String(char)) {
-                operands.append(digit)
-            }
+            if let digit = Int(String(char)) { operands.append(digit) }
             
         }
         
         if operands.count == 4 {
             
-            let solver = Solver(operands)
-            
-            displayTextView.text = solver.generateDisplay()
+            let solution                    = Solver(operands).generateDisplay()
+            displayTextView.attributedText  = formatSolution(solution)
             
             return true
             
         } else {
             
-            displayTextView.text = "Error - Bad Input [\(text)]"
+            if operands.count == 0 { 
+                
+                displayTextView.attributedText = NSAttributedString("")
+                
+            }
+            else {
+                
+                var error   = AttributedString("Bad Input '\(text)'")
+                error.foregroundColor = UIColor.yellow
+                error.font  = UIFont(name: "Menlo",
+                                     size: 21)
+                
+                displayTextView.attributedText = NSAttributedString(error)
+                
+            }
             
             return false
             
         }
+        
+    }
+    
+    /// Colorizes and formats the display text.
+    /// - Parameter text: display text to format.
+    /// - Returns: colorized/formatted `NSAttributedString` version of `text`
+    private func formatSolution(_ text: String) -> NSAttributedString {
+        
+        var buffer      = ""
+        var formatted   = AttributedString()
+        
+        func flushBuffer() {
+            
+            if buffer.count > 0 {
+                
+                var attBuffer               = AttributedString(buffer)
+                attBuffer.foregroundColor   = UIColor.white
+                formatted.append(attBuffer)
+                buffer                      = ""
+                
+            }
+            
+        }
+        
+        let lines = text.split(separator: "\n")
+        assert(lines.count == 12, "Expected 12 lines, Actual: \(lines.count)")
+        
+        for (num, text) in lines.enumerated() {
+            
+            if num < 2 {    // Heading
+                
+                var att = AttributedString(text)
+                att.foregroundColor = num == 0 ? UIColor.white : UIColor.white.pointFourAlpha
+                formatted.append(att)
+                
+            } else {        // Body
+                
+                for char in text {
+                    
+                    let strChar = String(char)
+                    
+                    if let color = Operator.colorFor(char) {
+                        
+                        // Buffer
+                        flushBuffer()
+                        
+                        var colorized               = AttributedString(strChar)
+                        colorized.foregroundColor   = color
+                        formatted.append(colorized)
+                        
+                    }
+                    else { buffer += strChar }
+                }
+                
+                // Buffer
+                flushBuffer()
+                
+            }
+            
+            // New Line
+            formatted.append(AttributedString("\n"))
+            
+        }
+        
+        // Global Font Size
+        formatted.font = UIFont(name: "Menlo", size: 21)
+        
+        return NSAttributedString(formatted)
         
     }
     
@@ -89,34 +166,3 @@ class ViewController: UIViewController {
     
 }
 
-// - MARK: TEST
-extension ViewController {
-    
-    func test() {
-  
-        let exp0 = Expression("(2_4)/(1_2)")
-        print(exp0.evaluatedDescription)
-        assert(exp0.value == 1)
-        
-        let exp1 = Expression("8_2 / 4_2")
-        assert(exp1.value == 2)
-        print(exp1.evaluatedDescription)
-        
-        let exp2 = Expression("1_4")
-        print(exp2.evaluatedDescription)
-        assert(exp2.value == Configs.Expression.invalidValue)
-        
-        let exp3 = Expression("44 / 11")
-        assert(exp3.value == 4)
-        print(exp3.evaluatedDescription)
-        
-        let exp4 = Expression("7_1/(7_5)")
-        print(exp4.evaluatedDescription)
-        assert(exp4.value == 5, "Expected \(5) - Actual: \(exp4.value)")
-        
-        let solver = Solver([3,5,7,8])
-        solver.echoResults() // Requires fractional operands!
-    
-    }
-    
-}
