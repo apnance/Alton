@@ -11,16 +11,16 @@ import APNUtil
 struct Solver{
     
 // TODO: Clean Up - delete LOOOOPCOUNT when done developing
-var LOOOOPCOUNT = 0
+private (set) var LOOOOPCOUNT = 0
     
     /// Stores the original game digits
     private(set) var originalOperands: [Int]
     
     /// All viable expressions found for each possible answer(1-10)
-    var solutions = [Int : [Expression]]()
+    private (set) var solutions = [Int : [Expression]]()
     
     /// `Array` of possible answers for which no solutions were found.
-    var missingSolution = [Int]()
+    private (set) var missingSolution = [Int]()
     
     /// Boolean value indicating if solutions have been found for all possible answer(1-10).
     var fullySolved : Bool { missingSolution.count == 0 }
