@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var displayTextView: UITextView!
+    @IBOutlet weak var altonLogo: UILabel!
     
     // MARK: - Actions
     
@@ -151,6 +152,8 @@ class ViewController: UIViewController {
         displayTextView.layer.borderWidth   = 1
         displayTextView.layer.cornerRadius  = 4
         displayTextView.clipsToBounds       = true
+        
+        Blink.go(altonLogo)
         
     }
     
