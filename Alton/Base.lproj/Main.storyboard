@@ -50,73 +50,98 @@
                                     <constraint firstAttribute="height" constant="450" id="OAm-R5-kT1"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                <rect key="frame" x="96.666666666666686" y="142" width="200" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-jP-EoK" userLabel="AltonFaceView">
+                                <rect key="frame" x="97" y="111" width="196" height="115"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~  ~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
+                                        <rect key="frame" x="-2" y="7" width="200" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
+                                            <constraint firstAttribute="width" constant="200" id="aho-RC-f3h"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="30"/>
+                                        <color key="textColor" systemColor="systemYellowColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
+                                        <rect key="frame" x="0.0" y="31" width="200" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
+                                            <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
+                                        </constraints>
+                                        <attributedString key="attributedText">
+                                            <fragment content="@">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.99315649271011353" green="0.99524253606796265" blue="0.99352878332138062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="lt">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="@">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.99381512403488159" green="0.99520474672317505" blue="0.99352246522903442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                            <fragment content="n">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
+                                        <rect key="frame" x="-4.6666666666666714" y="58" width="200" height="50"/>
+                                        <color key="tintColor" systemColor="systemYellowColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="T7D-Hb-2tj"/>
+                                            <constraint firstAttribute="height" constant="50" id="us9-FN-fzC"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="IHT-J1-R8d"/>
+                                    <constraint firstItem="weL-eA-b8l" firstAttribute="top" secondItem="8rh-8W-G04" secondAttribute="bottom" constant="-13" id="4fe-Z9-8hO"/>
+                                    <constraint firstItem="8rh-8W-G04" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" id="9Xb-DU-rYe"/>
+                                    <constraint firstItem="weL-eA-b8l" firstAttribute="centerY" secondItem="OYe-jP-EoK" secondAttribute="centerY" constant="-6.5" id="LzG-4L-1Qa"/>
+                                    <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-2.6666666666666856" id="UgJ-3k-i6p"/>
+                                    <constraint firstAttribute="width" constant="196" id="c4I-f2-DG8"/>
+                                    <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-13" id="cS3-Rq-8Yx"/>
+                                    <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="2" id="dTE-Hh-Y41"/>
+                                    <constraint firstAttribute="height" constant="115" id="icw-vW-5Bu"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="A">
-                                        <attributes>
-                                            <color key="NSColor" systemColor="systemYellowColor"/>
-                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="lt">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="O">
-                                        <attributes>
-                                            <color key="NSColor" systemColor="systemYellowColor"/>
-                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content="n">
-                                        <attributes>
-                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
-                                <rect key="frame" x="96.666666666666686" y="169" width="200" height="50"/>
-                                <color key="tintColor" red="1" green="0.86322344559999997" blue="0.0016834623899999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="T7D-Hb-2tj"/>
-                                    <constraint firstAttribute="height" constant="50" id="us9-FN-fzC"/>
-                                </constraints>
-                            </imageView>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FEf-wx-zOp"/>
+                            <constraint firstItem="OYe-jP-EoK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1.5" id="IJ5-SA-jVG"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="IPE-3z-LRH"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="19" id="LL3-VB-udT"/>
+                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="OYe-jP-EoK" secondAttribute="bottom" constant="-25" id="Q1E-vE-DYq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B4m-ZV-oop" secondAttribute="trailing" constant="10" id="Skq-Nc-fOP"/>
-                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ubk-mW-lez"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j56-uk-kdE"/>
-                            <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-13" id="yv1-61-Efd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="altonLogo" destination="weL-eA-b8l" id="PFb-J3-DMx"/>
                         <outlet property="displayTextView" destination="gBO-fV-JXr" id="eD4-ht-SpL"/>
                         <outlet property="inputTextField" destination="6Jq-gH-Yth" id="8Hf-ch-SfJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-155" y="-239"/>
+            <point key="canvasLocation" x="-156.4885496183206" y="-239.43661971830988"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="aBm-7J-sqT">
