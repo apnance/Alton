@@ -18,28 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="B4m-ZV-oop">
-                                <rect key="frame" x="10" y="201" width="373" height="450"/>
+                                <rect key="frame" x="10" y="58" width="373" height="450"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Gimme yer digits, ya cheat..." textAlignment="center" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="6Jq-gH-Yth" customClass="TextFieldTintedClearButton" customModule="Alton" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="34.333333333333336"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" systemColor="systemOrangeColor"/>
-                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="21"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                                <color key="value" systemColor="systemRedColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="clearButtonAlpha">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="clearButtonColor">
-                                                <color key="value" systemColor="systemRedColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </textField>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
-                                        <rect key="frame" x="0.0" y="37.333333333333343" width="373" height="412.66666666666663"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="373" height="450"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
@@ -50,93 +32,248 @@
                                     <constraint firstAttribute="height" constant="450" id="OAm-R5-kT1"/>
                                 </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-jP-EoK" userLabel="AltonFaceView">
-                                <rect key="frame" x="97" y="111" width="196" height="115"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="fjx-Gk-UeF">
+                                <rect key="frame" x="10" y="518" width="373" height="195"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~  ~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
-                                        <rect key="frame" x="-2" y="7" width="200" height="37"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-jP-EoK" userLabel="AltonFaceView">
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="195"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~ ~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
+                                                <rect key="frame" x="-3" y="19" width="200" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
+                                                    <constraint firstAttribute="width" constant="200" id="aho-RC-f3h"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="36"/>
+                                                <color key="textColor" systemColor="systemYellowColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
+                                                <rect key="frame" x="2" y="47" width="200" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
+                                                    <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
+                                                </constraints>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="@">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.99315649271011353" green="0.99524253606796265" blue="0.99352878332138062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="lt">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="@">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.99381512403488159" green="0.99520474672317505" blue="0.99352246522903442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="n">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
+                                                <rect key="frame" x="-17.333333333333329" y="76" width="225.33333333333331" height="75"/>
+                                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="225" id="T7D-Hb-2tj"/>
+                                                    <constraint firstAttribute="height" constant="75" id="us9-FN-fzC"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
-                                            <constraint firstAttribute="width" constant="200" id="aho-RC-f3h"/>
+                                            <constraint firstItem="weL-eA-b8l" firstAttribute="top" secondItem="8rh-8W-G04" secondAttribute="bottom" constant="-9" id="4fe-Z9-8hO"/>
+                                            <constraint firstItem="8rh-8W-G04" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-1" id="9Xb-DU-rYe"/>
+                                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerY" secondItem="OYe-jP-EoK" secondAttribute="centerY" constant="-30.5" id="LzG-4L-1Qa"/>
+                                            <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-2.6666666666666856" id="UgJ-3k-i6p"/>
+                                            <constraint firstAttribute="width" constant="196" id="c4I-f2-DG8"/>
+                                            <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-11" id="cS3-Rq-8Yx"/>
+                                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="4" id="dTE-Hh-Y41"/>
+                                            <constraint firstAttribute="height" constant="195" id="icw-vW-5Bu"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="30"/>
-                                        <color key="textColor" systemColor="systemYellowColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                        <rect key="frame" x="0.0" y="31" width="200" height="40"/>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wpG-rJ-kVl">
+                                        <rect key="frame" x="196" y="0.0" width="177" height="195"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="zOx-Ee-dhv">
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="155"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Rnd-9z-EEi" userLabel="123">
+                                                        <rect key="frame" x="0.0" y="0.0" width="177" height="49"/>
+                                                        <subviews>
+                                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xfm-9y-OtV">
+                                                                <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="1">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKF-jV-HBQ">
+                                                                <rect key="frame" x="60.333333333333314" y="0.0" width="56.333333333333343" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="2">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFv-kl-Xec">
+                                                                <rect key="frame" x="120.66666666666667" y="0.0" width="56.333333333333329" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="3">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Fkz-L9-Uoi" userLabel="456">
+                                                        <rect key="frame" x="0.0" y="53" width="177" height="49"/>
+                                                        <subviews>
+                                                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="paD-nk-vwB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="4">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gUa-o4-bvm">
+                                                                <rect key="frame" x="60.333333333333314" y="0.0" width="56.333333333333343" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="5">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHA-JN-u8D">
+                                                                <rect key="frame" x="120.66666666666667" y="0.0" width="56.333333333333329" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="6">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ypN-Yr-mDw" userLabel="789">
+                                                        <rect key="frame" x="0.0" y="106" width="177" height="49"/>
+                                                        <subviews>
+                                                            <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1Q-vK-gG7">
+                                                                <rect key="frame" x="0.0" y="0.0" width="56.333333333333336" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="7">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZP5-lR-40q">
+                                                                <rect key="frame" x="60.333333333333314" y="0.0" width="56.333333333333343" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="8">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                            <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KeU-Tg-ddf">
+                                                                <rect key="frame" x="120.66666666666667" y="0.0" width="56.333333333333329" height="49"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="9">
+                                                                    <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
+                                                                </buttonConfiguration>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2XH-Yu-O5W">
+                                                <rect key="frame" x="0.0" y="160" width="177" height="35"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="-2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-Oq-UHJ" userLabel="Return Button">
+                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="ThD-05-qLl"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.left" catalog="system"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-TD-d8r">
+                                                        <rect key="frame" x="40" y="0.0" width="97" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="35" id="xjb-hT-qie"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="21"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAH-Zv-10h" userLabel="Delete Button">
+                                                        <rect key="frame" x="142" y="0.0" width="35" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="CAH-Zv-10h" secondAttribute="height" multiplier="1:1" id="KX8-k2-weL"/>
+                                                        </constraints>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="EFb-Oq-UHJ" firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="R5C-4N-ytb"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
-                                            <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
+                                            <constraint firstAttribute="height" constant="195" id="5Mv-fp-y8d"/>
                                         </constraints>
-                                        <attributedString key="attributedText">
-                                            <fragment content="@">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.99315649271011353" green="0.99524253606796265" blue="0.99352878332138062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="lt">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="@">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.99381512403488159" green="0.99520474672317505" blue="0.99352246522903442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="n">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.99607843139999996" green="0.89019607840000003" blue="0.20392156859999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="30" name="Menlo-BoldItalic"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
-                                        <rect key="frame" x="-4.6666666666666714" y="58" width="200" height="50"/>
-                                        <color key="tintColor" systemColor="systemYellowColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="T7D-Hb-2tj"/>
-                                            <constraint firstAttribute="height" constant="50" id="us9-FN-fzC"/>
-                                        </constraints>
-                                    </imageView>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="weL-eA-b8l" firstAttribute="top" secondItem="8rh-8W-G04" secondAttribute="bottom" constant="-13" id="4fe-Z9-8hO"/>
-                                    <constraint firstItem="8rh-8W-G04" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" id="9Xb-DU-rYe"/>
-                                    <constraint firstItem="weL-eA-b8l" firstAttribute="centerY" secondItem="OYe-jP-EoK" secondAttribute="centerY" constant="-6.5" id="LzG-4L-1Qa"/>
-                                    <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-2.6666666666666856" id="UgJ-3k-i6p"/>
-                                    <constraint firstAttribute="width" constant="196" id="c4I-f2-DG8"/>
-                                    <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-13" id="cS3-Rq-8Yx"/>
-                                    <constraint firstItem="weL-eA-b8l" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="2" id="dTE-Hh-Y41"/>
-                                    <constraint firstAttribute="height" constant="115" id="icw-vW-5Bu"/>
-                                </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="OYe-jP-EoK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-1.5" id="IJ5-SA-jVG"/>
+                            <constraint firstItem="fjx-Gk-UeF" firstAttribute="top" secondItem="B4m-ZV-oop" secondAttribute="bottom" constant="10" id="Fvz-Ed-89j"/>
                             <constraint firstItem="B4m-ZV-oop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="IPE-3z-LRH"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="top" secondItem="OYe-jP-EoK" secondAttribute="bottom" constant="-25" id="Q1E-vE-DYq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B4m-ZV-oop" secondAttribute="trailing" constant="10" id="Skq-Nc-fOP"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="j56-uk-kdE"/>
+                            <constraint firstItem="fjx-Gk-UeF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="eBK-wP-As0"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="B4m-ZV-oop" secondAttribute="top" constant="1" id="hJp-Hf-95l"/>
+                            <constraint firstItem="fjx-Gk-UeF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="s7U-0k-NAU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fjx-Gk-UeF" secondAttribute="trailing" constant="10" id="vyf-gf-VPx"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="altonLogo" destination="weL-eA-b8l" id="PFb-J3-DMx"/>
+                        <outlet property="deleteButton" destination="CAH-Zv-10h" id="h8O-SC-1bM"/>
                         <outlet property="displayTextView" destination="gBO-fV-JXr" id="eD4-ht-SpL"/>
-                        <outlet property="inputTextField" destination="6Jq-gH-Yth" id="8Hf-ch-SfJ"/>
+                        <outlet property="inputLabel" destination="jcv-TD-d8r" id="y1v-Hl-YkC"/>
+                        <outlet property="returnButton" destination="EFb-Oq-UHJ" id="DUO-9c-3w8"/>
+                        <outletCollection property="buttonsCollection" destination="gUa-o4-bvm" collectionClass="NSMutableArray" id="hLy-1Q-5nu"/>
+                        <outletCollection property="buttonsCollection" destination="Xfm-9y-OtV" collectionClass="NSMutableArray" id="j8r-UA-yMO"/>
+                        <outletCollection property="buttonsCollection" destination="hKF-jV-HBQ" collectionClass="NSMutableArray" id="tiD-cz-snT"/>
+                        <outletCollection property="buttonsCollection" destination="NFv-kl-Xec" collectionClass="NSMutableArray" id="AkP-i3-TpY"/>
+                        <outletCollection property="buttonsCollection" destination="paD-nk-vwB" collectionClass="NSMutableArray" id="7fZ-u3-khh"/>
+                        <outletCollection property="buttonsCollection" destination="PHA-JN-u8D" collectionClass="NSMutableArray" id="0Wa-Rh-bqh"/>
+                        <outletCollection property="buttonsCollection" destination="h1Q-vK-gG7" collectionClass="NSMutableArray" id="jqm-D3-Kqr"/>
+                        <outletCollection property="buttonsCollection" destination="ZP5-lR-40q" collectionClass="NSMutableArray" id="CmE-x5-1qG"/>
+                        <outletCollection property="buttonsCollection" destination="KeU-Tg-ddf" collectionClass="NSMutableArray" id="qHI-KS-gos"/>
+                        <outletCollection property="buttonsCollection" destination="CAH-Zv-10h" collectionClass="NSMutableArray" id="Lm3-t7-7T4"/>
+                        <outletCollection property="buttonsCollection" destination="EFb-Oq-UHJ" collectionClass="NSMutableArray" id="40B-o7-B6T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -227,14 +364,18 @@
             <point key="canvasLocation" x="-156" y="412"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="CAH-Zv-10h">
+            <size key="intrinsicContentSize" width="48" height="34.333333333333336"/>
+        </designable>
+        <designable name="EFb-Oq-UHJ">
+            <size key="intrinsicContentSize" width="51" height="34.333333333333336"/>
+        </designable>
+    </designables>
     <resources>
+        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="104"/>
         <image name="mustache" width="666.66668701171875" height="327.33334350585938"/>
-        <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

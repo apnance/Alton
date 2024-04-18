@@ -209,7 +209,7 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
-    func generateDisplay() -> String {
+    func formattedSolution() -> String {
         
         var rows    = [[String]]()
         let headers = ["#","Ex.", "Found"]
@@ -229,6 +229,34 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
+    func formattedSolutionsFor(_ value: Int) -> String {
+        
+        var rows    = [[String]]()
+        let headers = ["#","Soln.", "Comp."]
+        
+        let sorted = solutions[value]!.sorted{ $0.complexity < $1.complexity }
+        
+        for solution in sorted {
+            
+            let row = [value.description,
+                       solution.description,
+                       solution.complexity.description]
+            
+            rows.append(row)
+            
+        }
+        
+        if rows.count == 0 { return "No Solutions Found For: \(value)" }
+        else {
+            
+            return Report.columnateAutoWidth(rows,
+                                             headers: headers,
+                                             dataPadType: .center,
+                                             showSeparators: false)
+            
+        }
+    }
+    
 }
 
 // - MARK: Utils
@@ -236,7 +264,7 @@ extension Solver {
     
     func echoResults() {
         
-        let report          = generateDisplay()
+        let report          = formattedSolution()
         let reportWidth     = report.split(separator: "\n")[1].count
         let sep1            = String(repeating: "=", count: reportWidth)
         let sep2            = String(repeating: "-", count: reportWidth)

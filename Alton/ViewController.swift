@@ -6,16 +6,21 @@
 //
 
 import UIKit
+import APNUtil
 
 class ViewController: UIViewController {
     
     // MARK: - Properties
+    var solver: Solver?
     
     // MARK: - Outlets
-    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var inputLabel: UILabel!
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!
+    @IBOutlet var buttonsCollection: [UIButton]!
     
+    @IBOutlet weak var returnButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     // MARK: - Actions
     
     // MARK: - Overrides
@@ -30,7 +35,7 @@ class ViewController: UIViewController {
     // MARK: - Custom Methods
     func processInput() -> Bool {
         
-        let text = inputTextField.text!
+        let text = inputLabel.text!
         var operands = [Int]()
         
         for char in text {
@@ -39,34 +44,52 @@ class ViewController: UIViewController {
             
         }
         
+        
+        
         if operands.count == 4 {
             
-            let solution                    = Solver(operands).generateDisplay()
-            displayTextView.attributedText  = formatSolution(solution)
+            DispatchQueue.main.async {
+                
+                var msg             = AttributedString("\n\n\n\n\n\n\n        ~ Solving \(text) ~")
+                msg.foregroundColor = UIColor.systemOrange.pointNineAlpha
+                msg.font            = UIFont(name: "Menlo",
+                                             size: 21)
+                
+                let range = msg.range(of: text)
+                msg[range!].foregroundColor         = UIColor.systemYellow.pointNineAlpha
+                
+                self.displayTextView.attributedText = NSAttributedString(msg)
+                
+            }
             
-            return true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                
+                self.solver = Solver(operands)
+                self.uiSetButtons()
+                self.displaySolution()
+                
+            }
+            
+            return true /*EXIT*/
             
         } else {
             
-            if operands.count == 0 { 
-                
-                displayTextView.attributedText = NSAttributedString("")
-                
-            }
-            else {
-                
-                var error   = AttributedString("Bad Input '\(text)'")
-                error.foregroundColor = UIColor.yellow
-                error.font  = UIFont(name: "Menlo",
-                                     size: 21)
-                
-                displayTextView.attributedText = NSAttributedString(error)
-                
-            }
+            displayTextView.attributedText = NSAttributedString("")
+            uiSetButtons()
             
-            return false
+            return false /*EXIT*/
             
         }
+        
+    }
+    
+    private func displaySolution() {
+        
+        guard let solver = solver
+        else { return /*EXIT*/ }
+        
+        let solution                    = solver.formattedSolution()
+        displayTextView.attributedText  = formatSolution(solution)
         
     }
     
@@ -78,21 +101,21 @@ class ViewController: UIViewController {
         var buffer      = ""
         var formatted   = AttributedString()
         
-        func flushBuffer() {
+        func processBuffer() {
             
             if buffer.count > 0 {
                 
-                var attBuffer               = AttributedString(buffer)
-                attBuffer.foregroundColor   = UIColor.white
-                formatted.append(attBuffer)
-                buffer                      = ""
+                var asBuffer                = AttributedString(buffer)
+                asBuffer.foregroundColor    = UIColor.white
+                formatted.append(asBuffer)
+                
+                buffer                      = "" // Clear Buffer
                 
             }
             
         }
         
         let lines = text.split(separator: "\n")
-        assert(lines.count == 12, "Expected 12 lines, Actual: \(lines.count)")
         
         for (num, text) in lines.enumerated() {
             
@@ -106,12 +129,11 @@ class ViewController: UIViewController {
                 
                 for char in text {
                     
-                    let strChar = String(char)
-                    
-                    if let color = Operator.colorFor(char) {
+                    let strChar     = String(char)
+                    if let color    = Operator.colorFor(char) {
                         
                         // Buffer
-                        flushBuffer()
+                        processBuffer()
                         
                         var colorized               = AttributedString(strChar)
                         colorized.foregroundColor   = color
@@ -122,7 +144,7 @@ class ViewController: UIViewController {
                 }
                 
                 // Buffer
-                flushBuffer()
+                processBuffer()
                 
             }
             
@@ -138,34 +160,89 @@ class ViewController: UIViewController {
         
     }
     
-    func uiInit() {
+    private func uiInit() {
         
-        inputTextField.addTarget(self,
-                                 action: #selector(handleTap(sender:)), for: .editingChanged)
-        
-        inputTextField.layer.borderColor    = UIColor.orange.halfAlpha.cgColor
-        inputTextField.layer.borderWidth    = 1
-        inputTextField.layer.cornerRadius   = 4
-        inputTextField.clipsToBounds        = true
+        inputLabel.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
+        inputLabel.textColor                = UIColor.orange.halfAlpha
+        inputLabel.layer.borderWidth        = 1
+        inputLabel.layer.cornerRadius       = 4
+        inputLabel.clipsToBounds            = true
         
         displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
         displayTextView.layer.borderWidth   = 1
         displayTextView.layer.cornerRadius  = 4
         displayTextView.clipsToBounds       = true
         
+        for button in buttonsCollection {
+            
+            button.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
+            button.layer.borderWidth        = 1
+            button.layer.cornerRadius       = 4
+            button.tintColor                = UIColor.orange.halfAlpha
+            
+            button.addTarget(self,
+                             action: #selector(tapButton(sender:)),
+                             for: .touchUpInside)
+            
+        }
+        
+        uiSetButtons()
+        
         Blink.go(altonLogo)
         
     }
     
-    @objc func handleTap(sender: UITextField) {
+    private func uiSetButtons() {
         
-        if processInput() {
-            
-            inputTextField.resignFirstResponder()
-            
+        returnButton.isEnabled = solver.isNil ? false : true
+        deleteButton.isEnabled = inputLabel.text!.count > 0
+        
+    }
+    
+    @objc func tapButton(sender: UIButton) {
+        
+        inputLabel.text = inputLabel.text == "--" ? "" : inputLabel.text
+        let numTapped = sender.tag
+        
+        switch numTapped {
+                
+            case -1:    // Delete
+                inputLabel.text = ""
+                solver = nil
+                
+            case -2:    // Return to Solution
+                
+                self.displaySolution()
+                return /*EXIT*/
+                
+            default:    // Enter Digits or Select Answer Number
+                
+                if inputLabel.text!.count == 4 {    // Select Answer Number
+                
+                    displaySolutionsFor(numTapped)
+                    return /*EXIT*/
+                    
+                } else {    // Enter Digit
+                    
+                    inputLabel.text! += numTapped.description
+                    
+                }
         }
+        
+        _ = processInput()
+        
+    }
+    
+    /// Displays all solutions for the given answer number.
+    /// - Parameter value: answer number for which solutions should be d
+    fileprivate func displaySolutionsFor(_ answer: Int) {
+        
+        guard let solver = solver
+        else { return /*EXIT*/ }
+        
+        let solutions = solver.formattedSolutionsFor(answer)
+        self.displayTextView.attributedText = self.formatSolution(solutions)
         
     }
     
 }
-

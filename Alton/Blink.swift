@@ -19,7 +19,7 @@ struct Blink {
     static func go(_ target: UILabel) {
         
         alton = Blink(target: target)
-        alton.blink(delay: 5)
+        alton.blink(delay: 0.1, frame: 0)
         
     }
     
@@ -27,21 +27,23 @@ struct Blink {
         
         self.target = target
         
-        let swaps = [["@","@"],
-                     ["-", "-"],
-                     ["o","A"]]
+        //let swaps = [["/","/"],
+        //let swaps = [["+","+"],
+        //let swaps = [["@","@"],
+        //let swaps = [["?","?"],
+        //let swaps = [["d","b"],
+        //let swaps = [["q","p"],
+        let eyePair = [["*","*"],
+                       ["-", "-"]]
         
-//        let swaps = [["A","o"],
-//                     ["-", "-"]]
-        
-        for swap in swaps {
+        for eyes in eyePair {
             
-            var frame               = AttributedString("\(swap.first!)lt\(swap.last!)n")
+            var frame               = AttributedString("\(eyes.first!)lt\(eyes.last!)n")
             frame.foregroundColor   = UIColor.systemYellow
             frame.font              = UIFont(name: "MenloBoldItalic",
-                                             size: 30)
+                                             size: 36)
             
-            for char in swap {
+            for char in eyes {
                 
                 var range = frame.range(of: char)
                 frame[range!].foregroundColor = UIColor.white
