@@ -17,10 +17,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputLabel: UILabel!
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!
-    @IBOutlet var buttonsCollection: [UIButton]!
     
     @IBOutlet weak var returnButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet var buttonsCollection: [UIButton]!
+    
+    
     // MARK: - Actions
     
     // MARK: - Overrides
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Custom Methods
-    func processInput() -> Bool {
+    @discardableResult func uiProcessInput() -> Bool {
         
         let text = inputLabel.text!
         var operands = [Int]()
@@ -43,8 +45,6 @@ class ViewController: UIViewController {
             if let digit = Int(String(char)) { operands.append(digit) }
             
         }
-        
-        
         
         if operands.count == 4 {
             
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
                 
                 self.solver = Solver(operands)
                 self.uiSetButtons()
-                self.displaySolution()
+                self.displayCompleteSolution()
                 
             }
             
@@ -83,20 +83,20 @@ class ViewController: UIViewController {
         
     }
     
-    private func displaySolution() {
+    private func displayCompleteSolution() {
         
         guard let solver = solver
         else { return /*EXIT*/ }
         
         let solution                    = solver.formattedSolution()
-        displayTextView.attributedText  = formatSolution(solution)
+        displayTextView.attributedText  = colorizeSolutions(solution)
         
     }
     
     /// Colorizes and formats the display text.
     /// - Parameter text: display text to format.
     /// - Returns: colorized/formatted `NSAttributedString` version of `text`
-    private func formatSolution(_ text: String) -> NSAttributedString {
+    private func colorizeSolutions(_ text: String) -> NSAttributedString {
         
         var buffer      = ""
         var formatted   = AttributedString()
@@ -206,30 +206,30 @@ class ViewController: UIViewController {
         
         switch numTapped {
                 
-            case -1:    // Delete
+            case -1:    // Clear Input
                 inputLabel.text = ""
                 solver = nil
                 
-            case -2:    // Return to Solution
+            case -2:    // Display Sample Solution
                 
-                self.displaySolution()
+                displayCompleteSolution()
                 return /*EXIT*/
                 
             default:    // Enter Digits or Select Answer Number
                 
-                if inputLabel.text!.count == 4 {    // Select Answer Number
+                if inputLabel.text!.count == 4 {    // Show Answer Subset
                 
                     displaySolutionsFor(numTapped)
                     return /*EXIT*/
                     
-                } else {    // Enter Digit
+                } else {                            // Enter Digit
                     
                     inputLabel.text! += numTapped.description
                     
                 }
         }
         
-        _ = processInput()
+        uiProcessInput()
         
     }
     
@@ -240,8 +240,8 @@ class ViewController: UIViewController {
         guard let solver = solver
         else { return /*EXIT*/ }
         
-        let solutions = solver.formattedSolutionsFor(answer)
-        self.displayTextView.attributedText = self.formatSolution(solutions)
+        let solutions                   = solver.formattedSolutionsFor(answer)
+        displayTextView.attributedText  = colorizeSolutions(solutions)
         
     }
     

@@ -390,7 +390,7 @@ extension Expression: CustomStringConvertible {
     
     var evaluatedWithComplexityDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(self.complexity)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(complexity)"
         
     }
     

@@ -162,15 +162,15 @@ extension Operator: CustomStringConvertible {
     
         switch self {
                 
-            case .add : return " \(self.rawValue) "
-            case .sub : return " \(self.rawValue) "
+            case .add : return " \(rawValue) "
+            case .sub : return " \(rawValue) "
                 
             case .mlt : return " × "
             case .div : return " ÷ "
             case .fra : return "/"
                 
-            case .ope : return self.rawValue
-            case .clo : return self.rawValue
+            case .ope : return rawValue
+            case .clo : return rawValue
                 
         }
         

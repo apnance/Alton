@@ -102,8 +102,8 @@ extension Fraction: Operand {
         
         get throws {
             
-            if self.numerator % self.denominator != 0 { throw OperatorError.remainderInDivision }
-            else { return self.numerator / self.denominator }
+            if numerator % denominator != 0 { throw OperatorError.remainderInDivision }
+            else { return numerator / denominator }
             
         }
         
