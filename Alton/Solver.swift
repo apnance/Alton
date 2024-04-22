@@ -216,7 +216,9 @@ private (set) var LOOOOPCOUNT = 0
         
         for key in solutions.keys.sorted() {
             
-            let row = [key.description,"\(sampleSolutionFor(key))", "\(solutions[key]!.count)"]
+            let row = [key.description,
+                       sampleSolutionFor(key).description,
+                       solutions[key]!.count.description]
             
             rows.append(row)
             
