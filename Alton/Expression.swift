@@ -64,20 +64,21 @@ struct Expression {
         
     }
     
-    // TODO: Clean Up - Optimize?
     /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
     func eval(_ exp: [Component]) -> (any Operand)? {
         
         var exp     = exp
         
+        // Simple Expression?(i.e. Operand, Operator, Operand)
         var (success, value) = evalSimple(exp)
-        
         if success { return value /*EXIT*/ }
         
+        // Parens
         (success, exp)  = evalParens(exp)
         if !success { return nil /*EXIT*/ }
         else if exp.count == 1 { return exp[0] as? any Operand /*EXIT*/ }
         
+        // Fractions
         (success, exp) = evalFracts(exp)
         if !success { return nil /*EXIT*/ }
         else if exp.count == 1 {
@@ -86,10 +87,12 @@ struct Expression {
             
         }
         
+        // Mult/Div
         (success, exp) = evalMltDiv(exp)
         if !success { return nil /*EXIT*/ }
         else  if exp.count == 1 { return exp[0] as? any Operand /*EXIT*/ }
         
+        // Add/Sub
         return evalAddSub(exp) /*EXIT*/
         
     }
