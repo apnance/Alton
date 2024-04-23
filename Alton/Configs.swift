@@ -11,7 +11,7 @@ struct Configs {
     
     struct Expression {
         
-        static var invalidValue = -1279
+        static var invalidAnswer = -1279
         
     }
     

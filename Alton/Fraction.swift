@@ -97,6 +97,7 @@ extension Fraction {
     
 }
 
+// - MARK: Protocol Adoption
 extension Fraction: Equatable {
     
     static func ==(lhs: Fraction, rhs: Fraction) -> Bool {

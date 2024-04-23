@@ -13,7 +13,7 @@ final class ExpressionTests: XCTestCase {
     func test(_ expression: String, _ expected: Int) {
         
         let exp     = Expression(expression)
-        let actual  = exp.value
+        let actual  = exp.answer
         XCTAssert(expected == actual,
                   "'\(exp)' Expected: \(expected) - Actual: \(actual)")
         
@@ -21,7 +21,7 @@ final class ExpressionTests: XCTestCase {
         
     }
     
-    /// These Expressions have been returning expected values.
+    /// These Expressions have been returning expected answer.
     func testWorkingExpressions() {
         
         // Passing
@@ -40,7 +40,7 @@ final class ExpressionTests: XCTestCase {
         
     }
     
-    /// These Expressions have been returning erroneous values.
+    /// These Expressions have been returning erroneous answers.
     /// - Note: this is likely caused by precedence bug
     func testBrokenExpressions() {
         
@@ -48,7 +48,7 @@ final class ExpressionTests: XCTestCase {
         // Broken
         test("(3 + 3 * 3 + 2)", 14) // Expected 14 - Actual 18
         test("(3 + 3) * 3 + 1", 19) // Expected 19 - Actual 24
-        test("(3 + 3) / 3 + 1", 3)  // Expected 3 - Actual Expression.invalidValue
+        test("(3 + 3) / 3 + 1", 3)  // Expected 3 - Actual Expression.invalidAnswer
                                     // breaks because it operates in left to
                                     // right order except that parentheticals
                                     // are evaluated as they are encountered.
@@ -73,7 +73,7 @@ final class ExpressionTests: XCTestCase {
     func testFractionalExpressions() {
         
         test("8_2 / 4_2", 2)
-        test("1_4", Configs.Expression.invalidValue)
+        test("1_4", Configs.Expression.invalidAnswer)
         test("1_4 * 4", 1)
         test("4_3 * 3", 4)
         test("15_3 / 5", 1)
@@ -83,9 +83,9 @@ final class ExpressionTests: XCTestCase {
         test("(5+5+5+5)_(10/5)",10)
         test("(10_3 / 5_3)", 2)
         test("(2_4) / (1_2)",1)
-        test("(2 _  4)", Configs.Expression.invalidValue)
+        test("(2 _  4)", Configs.Expression.invalidAnswer)
         test("3_3 + 7", 8)
-        test("4_3 + 2", Configs.Expression.invalidValue)
+        test("4_3 + 2", Configs.Expression.invalidAnswer)
         
         test("7/(3-8_5)", 5)
         test("7/(7_5)", 5)

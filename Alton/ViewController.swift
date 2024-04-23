@@ -234,7 +234,7 @@ class ViewController: UIViewController {
     }
     
     /// Displays all solutions for the given answer number.
-    /// - Parameter value: answer number for which solutions should be d
+    /// - Parameter answer: answer number for which solutions should be d
     fileprivate func displaySolutionsFor(_ answer: Int) {
         
         guard let solver = solver

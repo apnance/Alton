@@ -22,7 +22,7 @@ final class SolverTests: XCTestCase {
                         """
                         \(solver.originalOperands) \
                         missing solution(s) for: \
-                        \(solver.missingSolution)
+                        \(solver.unsolved)
                         """)
             
         }
@@ -37,8 +37,7 @@ final class SolverTests: XCTestCase {
                    [2,3,5,8],
                    [4,4,4,4],
                    [1,3,6,6],   // 04.09.24
-                   [3,5,5,8],   // 04.10.24
-                   [4,5,6,6])   // 04.22.24
+                   [3,5,5,8])   // 04.10.24
         
     }
     
@@ -49,7 +48,10 @@ final class SolverTests: XCTestCase {
                    [1,3,6,6],   // 04.09.24
                    [3,5,5,8],   // 04.10.24 - required fractions for 7
                    [2,3,4,6],   // 04.11.24
-                   [2,3,4,5])   // 04.12.24
+                   [2,3,4,5],   // 04.12.24
+                   [4,5,6,6],   // 04.22.24
+                   [2,5,6,7])   // 04.23.24
+        
     }
     
     func testNeedsParentheticalSubExpressions() {

@@ -16,6 +16,8 @@ struct Blink {
     private var frames = [NSAttributedString]()
     private weak var target: UILabel!
     
+    /// Initiates blink animation.
+    /// - Important: call only once at the outset of app lifecycle.
     static func go(_ target: UILabel) {
         
         alton = Blink(target: target)
@@ -27,13 +29,17 @@ struct Blink {
         
         self.target = target
         
-        //let swaps = [["/","/"],
-        //let swaps = [["+","+"],
-        //let swaps = [["@","@"],
-        //let swaps = [["?","?"],
-        //let swaps = [["d","b"],
-        //let swaps = [["q","p"],
-        let eyePair = [["*","*"],
+        // Ø ɑ ø ⱺ Ơ
+        //let eyePair = [["/","/"],
+        //let eyePair = [["+","+"],
+        //let eyePair = [["@","@"],
+        //let eyePair = [["?","?"],
+        //let eyePair = [["d","b"],
+        //let eyePair = [["q","p"],
+        //let eyePair = [["*","*"],
+        //let eyePair = [["@","Ơ"],
+        //let eyePair = [["Ơ","Ơ"],
+        let eyePair = [["@","ø"],
                        ["-", "-"]]
         
         for eyes in eyePair {
@@ -59,6 +65,14 @@ struct Blink {
         
     }
     
+    
+    /// Prepares and initiates the random blinking animation.
+    /// - Parameters:
+    ///   - delay: delay in seconds before next self-referrential call.
+    ///   - frame: animation frame to display after `delay`
+    ///
+    ///   - Note: This method should only be called once in `go(:)` at the outset
+    ///   and will thereafter manage itself.
     private func blink(delay: Double, frame: Int = 1) {
         
         var nextFrame = -1

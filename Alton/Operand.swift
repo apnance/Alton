@@ -95,6 +95,7 @@ extension Int: Operand {
     
 }
 
+// - MARK: Protocol Adoption
 extension Fraction: Operand {
     
     var complexity: Int { 6 }

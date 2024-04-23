@@ -28,6 +28,8 @@ enum OperatorError: Error, LocalizedError {
     
 }
 
+
+// - MARK: Protocol Adoption
 /// - Note: *To facilitate generating test Expressions via String initializer*,
 /// rawValue and description values differ in most cases.
 /// .mlt - rawValue `*` differs from description string value ` ÷ `,

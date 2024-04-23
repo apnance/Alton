@@ -10,8 +10,8 @@ import APNUtil
 
 struct Solver{
     
-// TODO: Clean Up - delete LOOOOPCOUNT when done developing
-private (set) var LOOOOPCOUNT = 0
+    /// Performance tracking counter.
+    private (set) var loopCount = 0
     
     /// Backing property containing array of all possible 3-operator combinations
     /// excluding open and close parens.
@@ -20,14 +20,14 @@ private (set) var LOOOOPCOUNT = 0
     /// Stores the original game digits
     let originalOperands: [Int]
     
-    /// All viable expressions found for each possible answer(1-10)
+    /// All viable `Expression`s found for each possible answer(1-10)
     private (set) var solutions = [Int : [Expression]]()
     
-    /// `Array` of possible answers for which no solutions were found.
-    private (set) var missingSolution = [Int]()
+    /// All answers for which no solutions were found.
+    private (set) var unsolved = [Int]()
     
     /// Boolean value indicating if solutions have been found for all possible answer(1-10).
-    var fullySolved : Bool { missingSolution.count == 0 }
+    var fullySolved : Bool { unsolved.isEmpty }
     
     init(_ originals: [Int]) {
         
@@ -42,8 +42,7 @@ private (set) var LOOOOPCOUNT = 0
     }
     
     
-    /// Solves for all possible solution `Expression` for all expected answer
-    /// values 1-10
+    /// Solves for all possible solution `Expression` for all expected answer 1-10
     mutating func solve() {
         
         solutions = buildExpressions(operands:  buildOperands(),
@@ -53,7 +52,7 @@ private (set) var LOOOOPCOUNT = 0
             
             if solutions[key]?.count == 0 {
                 
-                missingSolution.append(key)
+                unsolved.append(key)
                 
             }
             
@@ -63,21 +62,22 @@ private (set) var LOOOOPCOUNT = 0
     
     
     /// Returns the  description of least complex `Expression` that evaluates to `num`
-    /// - Parameter num: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
-    /// - Returns: String representation of the `Expression`
-    func sampleSolutionFor(_ num: Int) -> String {
+    /// - Parameter answer: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
+    /// - Returns: String representation of the `Expression` or "-NA-" if no solution exists for that answer.
+    func sampleSolutionFor(_ answer: Int) -> String {
         
-        solutions[num]?.sorted{$0.complexity < $1.complexity}.first?.description ?? "-NA-"
+        solutions[answer]?.sorted{$0.complexity < $1.complexity}.first?.description ?? "-NA-"
         
     }
     
-    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is removed from buildOperands
+    
+    /// Builds an array of all possible operand combinations.
     mutating fileprivate func buildOperands() -> [[Int]] {
                 
         var operands = [[Int]]()
         
         // Single Digit Combinations
-        operands += (originalOperands.permuteDeduped())
+        operands += originalOperands.permuteDeduped()
         
         // Double Digit Combinations
         var doubleDigits = [[Int]]()
@@ -100,7 +100,7 @@ private (set) var LOOOOPCOUNT = 0
             doubleDigits.append([d1,    d2,    dd3])
             doubleDigits.append([dd1,   dd3])
             
-            LOOOOPCOUNT += 1
+            loopCount += 1
             
         }
         
@@ -113,7 +113,6 @@ private (set) var LOOOOPCOUNT = 0
     }
     
     /// Returns all possible permuations of 3-at-a-time non-parentheticcal operator collections.
-    /// Returns all possible permuations of 3-at-a-time non-parentheticcal operator collections.
     mutating func buildOperators() -> [[Operator]] {
         
         if Solver.operators.count == 0 {
@@ -125,7 +124,7 @@ private (set) var LOOOOPCOUNT = 0
                     for op3 in Operator.nonParen {
                         
                         Solver.operators.append([op1,op2,op3])
-                        LOOOOPCOUNT += 1
+                        loopCount += 1
                         
                     }
                     
@@ -139,7 +138,6 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
-    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is no longer being modified in buildExpressions
     /// Generates all possible Expression combinations  for the given `operands`
     mutating fileprivate func buildExpressions(operands: [[Int]],
                                                operators: [[Operator]]) -> [Int : [Expression]] {
@@ -164,7 +162,7 @@ private (set) var LOOOOPCOUNT = 0
                 
                 if exp.isValid {
                     
-                    expressions[exp.value]?.append(exp)
+                    expressions[exp.answer]?.append(exp)
                     
                 }
                 
@@ -172,17 +170,17 @@ private (set) var LOOOOPCOUNT = 0
             
         }
         
-        // parens open/close
+        // Parens
         let (po, pc) = (Operator.ope, Operator.clo)
         
-        for digits in operands { // digits
+        for digits in operands { // Digits
             
             let d1 = digits[0]
             let d2 = digits[1]
-            let d3 = digits.count > 2 ? digits[2] : Configs.Expression.invalidValue
-            let d4 = digits.count > 3 ? digits[3] : Configs.Expression.invalidValue
+            let d3 = digits.count > 2 ? digits[2] : Configs.Expression.invalidAnswer
+            let d4 = digits.count > 3 ? digits[3] : Configs.Expression.invalidAnswer
             
-            for operators in operators { // non-paren operators
+            for operators in operators { // Non-Paren Operators
                 
                 let o1 = operators[0]
                 let o2 = operators[1]
@@ -233,7 +231,7 @@ private (set) var LOOOOPCOUNT = 0
                         
                 }
                 
-                LOOOOPCOUNT += 1
+                loopCount += 1
                 
             }
             
@@ -243,6 +241,7 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
+    /// - Returns: `String` representation of the full solution to the puzzle.
     func formattedSolution() -> String {
         
         var rows    = [[String]]()
@@ -265,16 +264,17 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
-    func formattedSolutionsFor(_ value: Int) -> String {
+    /// - Returns: `String` representations solutions for the given `answer`
+    func formattedSolutionsFor(_ answer: Int) -> String {
         
         var rows    = [[String]]()
         let headers = ["#","Soln.", "Comp."]
         
-        let sorted = solutions[value]!.sorted{ $0.complexity < $1.complexity }
+        let sorted = solutions[answer]!.sorted{ $0.complexity < $1.complexity }
         
         for solution in sorted {
             
-            let row = [value.description,
+            let row = [answer.description,
                        solution.description,
                        solution.complexity.description]
             
@@ -282,7 +282,7 @@ private (set) var LOOOOPCOUNT = 0
             
         }
         
-        if rows.count == 0 { return "No Solutions Found For: \(value)" }
+        if rows.count == 0 { return "No Solutions Found For: \(answer)" }
         else {
             
             return Report.columnateAutoWidth(rows,
@@ -299,6 +299,7 @@ private (set) var LOOOOPCOUNT = 0
 // - MARK: Utils
 extension Solver {
     
+    /// Prints a summary of the solver's results.
     func echoResults() {
         
         let report          = formattedSolution()
@@ -307,7 +308,7 @@ extension Solver {
         let sep2            = String(repeating: "-", count: reportWidth)
         let title           = "\(originalOperands)".centerPadded(toLength: reportWidth)
         
-        let loopCountText   = ("Loop Count: \(LOOOOPCOUNT)").centerPadded(toLength: reportWidth)
+        let loopCountText   = ("Loop Count: \(loopCount)").centerPadded(toLength: reportWidth)
         let solvedText      = "Fully Solved?: \(fullySolved)".centerPadded(toLength: reportWidth)
         
         print("""

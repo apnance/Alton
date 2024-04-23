@@ -11,8 +11,8 @@ import APNUtil
 struct Expression {
     
     var components  = [Component]()
-    fileprivate (set) var value         = Configs.Expression.invalidValue
-    fileprivate var result: any Operand = Configs.Expression.invalidValue
+    fileprivate (set) var answer        = Configs.Expression.invalidAnswer
+    fileprivate var result: any Operand = Configs.Expression.invalidAnswer
     var isValid                         = true
     
     /// Simple means for comparing the relative complexity of generated `Expressions`.
@@ -44,9 +44,9 @@ struct Expression {
         
         if !validate { return /*EXIT*/ }
         
-        if let value = (try? result.asInteger) {
+        if let answer = (try? result.asInteger) {
             
-            self.value = value
+            self.answer = answer
             isValid = true
             
         } else {
@@ -64,14 +64,14 @@ struct Expression {
         
     }
     
-    /// Processes self as a mathematical Expression from left to right, observing rules of precedence.
+    /// Processes `self` as a mathematical expression from left to right, observing rules of precedence.
     func eval(_ exp: [Component]) -> (any Operand)? {
         
         var exp     = exp
         
         // Simple Expression?(i.e. Operand, Operator, Operand)
-        var (success, value) = evalSimple(exp)
-        if success { return value /*EXIT*/ }
+        var (success, answer) = evalSimple(exp)
+        if success { return answer /*EXIT*/ }
         
         // Parens
         (success, exp)  = evalParens(exp)
@@ -164,7 +164,7 @@ struct Expression {
             if optor.precedence == .fraction {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
-                                                  optor: optor,
+                                                  operator: optor,
                                                   rhs: rhs)
                 
                 if !success { return (false, []) /*EXIT*/ }
@@ -185,52 +185,56 @@ struct Expression {
         }
         
         sansFractions.append(exp.last as! any Operand)
-         
+        
         return (true, sansFractions)
         
-     }
+    }
     
-     func evalMltDiv(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
-         
-         var exp            = exp
-         var sansMltDiv     = [Component]()
-         var i              = 0
-         
-         while i <= exp.lastUsableIndex - 2 {
-             
-             let lhs        = exp[i]      as! any Operand
-             let optor      = exp[i + 1]  as! Operator
-             let rhs        = exp[i + 2]  as! any Operand
-             
-             if optor.precedence == .multiplicationDivision {
-                 
-                 let (success, subVal)   = tryEval(lhs: lhs,
-                                                   optor: optor,
-                                                   rhs: rhs)
-                 
-                 if !success { return (false, []) /*EXIT*/ }
-                 
-                 exp[i + 2]       = subVal
-                 
-                 i += 2
-                 
-             } else {
-                 
-                 sansMltDiv.append(lhs)
-                 sansMltDiv.append(optor)
-                 
-                 i += 2
-                 
-             }
-             
-         }
-         
-         sansMltDiv.append(exp.last as! any Operand)
-         
-         return (true, sansMltDiv)
-         
-     }
+    /// Evaluates multiplication and division sub-expressions, replacing them with 
+    /// their evaluated `Component`s
+    func evalMltDiv(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+        
+        var exp            = exp
+        var sansMltDiv     = [Component]()
+        var i              = 0
+        
+        while i <= exp.lastUsableIndex - 2 {
+            
+            let lhs        = exp[i]      as! any Operand
+            let optor      = exp[i + 1]  as! Operator
+            let rhs        = exp[i + 2]  as! any Operand
+            
+            if optor.precedence == .multiplicationDivision {
+                
+                let (success, subVal)   = tryEval(lhs: lhs,
+                                                  operator: optor,
+                                                  rhs: rhs)
+                
+                if !success { return (false, []) /*EXIT*/ }
+                
+                exp[i + 2]       = subVal
+                
+                i += 2
+                
+            } else {
+                
+                sansMltDiv.append(lhs)
+                sansMltDiv.append(optor)
+                
+                i += 2
+                
+            }
+            
+        }
+        
+        sansMltDiv.append(exp.last as! any Operand)
+        
+        return (true, sansMltDiv)
+        
+    }
     
+    /// Evaluates addition and subtraction sub-expressions, replacing them with 
+    /// their evaluated `Component`s
     func evalAddSub(_ exp: [Component]) -> (any Operand)? {
         
         var finalVal: any Operand   = 0
@@ -245,7 +249,9 @@ struct Expression {
             
             var valid       = true
             
-            (valid, finalVal) = tryEval(lhs: lhs, optor: optor, rhs: rhs)
+            (valid, finalVal) = tryEval(lhs: lhs,
+                                        operator: optor,
+                                        rhs: rhs)
             
             if !valid { return nil /*EXIT*/ }
             
@@ -279,25 +285,25 @@ struct Expression {
         let rhs     = exp[2] as! any Operand
         
         return tryEval(lhs: lhs,
-                       optor: optor,
+                       operator: optor,
                        rhs: rhs)
         
     }
     
     /// Utility function for processing error prone evals
     func tryEval(lhs: any Operand, 
-                 optor: Operator, 
-                 rhs: any Operand) -> (success: Bool, value: any Operand) {
+                 operator: Operator,
+                 rhs: any Operand) -> (success: Bool, answer: any Operand) {
         
         do {
             
-            return (true, try optor.operate(lhs, rhs))
+            return (true, try `operator`.operate(lhs, rhs))
             
         } catch {
             
             printLocal("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
             
-            return (false, value) /*EXIT*/
+            return (false, answer) /*EXIT*/
             
         }
         
@@ -365,7 +371,7 @@ struct Expression {
 }
 
 
-// - MARK: Protocol Adoption Extensions
+// - MARK: Protocol Adoption
 extension Expression: Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -375,7 +381,6 @@ extension Expression: Equatable {
     }
     
 }
-
 
 extension Expression: CustomStringConvertible {
     
@@ -387,13 +392,13 @@ extension Expression: CustomStringConvertible {
     
     var evaluatedDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description}) = \(value)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(answer)"
         
     }
     
     var evaluatedWithComplexityDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description}) = \(value) :: complexity: \(complexity)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(answer) :: complexity: \(complexity)"
         
     }
     
