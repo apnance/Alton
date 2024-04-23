@@ -39,7 +39,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="196" height="195"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="∼  ∽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
-                                                <rect key="frame" x="-3" y="19" width="200" height="37"/>
+                                                <rect key="frame" x="-3" y="32" width="200" height="37"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
                                                     <constraint firstAttribute="width" constant="200" id="aho-RC-f3h"/>
@@ -49,7 +49,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
-                                                <rect key="frame" x="2" y="47" width="200" height="40"/>
+                                                <rect key="frame" x="2" y="60" width="200" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
                                                     <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
@@ -87,7 +87,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mustache" translatesAutoresizingMaskIntoConstraints="NO" id="VAh-AB-JYO">
-                                                <rect key="frame" x="-17.333333333333329" y="76" width="225.33333333333331" height="75"/>
+                                                <rect key="frame" x="-17.333333333333329" y="89" width="225.33333333333331" height="75"/>
                                                 <color key="tintColor" systemColor="systemYellowColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="225" id="T7D-Hb-2tj"/>
@@ -95,11 +95,10 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="weL-eA-b8l" firstAttribute="top" secondItem="8rh-8W-G04" secondAttribute="bottom" constant="-9" id="4fe-Z9-8hO"/>
                                             <constraint firstItem="8rh-8W-G04" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-1" id="9Xb-DU-rYe"/>
-                                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerY" secondItem="OYe-jP-EoK" secondAttribute="centerY" constant="-30.5" id="LzG-4L-1Qa"/>
+                                            <constraint firstItem="weL-eA-b8l" firstAttribute="centerY" secondItem="OYe-jP-EoK" secondAttribute="centerY" constant="-17.5" id="LzG-4L-1Qa"/>
                                             <constraint firstItem="VAh-AB-JYO" firstAttribute="centerX" secondItem="OYe-jP-EoK" secondAttribute="centerX" constant="-2.6666666666666856" id="UgJ-3k-i6p"/>
                                             <constraint firstAttribute="width" constant="196" id="c4I-f2-DG8"/>
                                             <constraint firstItem="VAh-AB-JYO" firstAttribute="top" secondItem="weL-eA-b8l" secondAttribute="bottom" constant="-11" id="cS3-Rq-8Yx"/>
