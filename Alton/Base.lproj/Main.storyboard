@@ -38,7 +38,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYe-jP-EoK" userLabel="AltonFaceView">
                                         <rect key="frame" x="0.0" y="0.0" width="196" height="195"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~ ~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="∼  ∽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8rh-8W-G04">
                                                 <rect key="frame" x="-3" y="19" width="200" height="37"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
@@ -55,7 +55,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
-                                                    <fragment content="@">
+                                                    <fragment content="-">
                                                         <attributes>
                                                             <color key="NSColor" red="0.99315649271011353" green="0.99524253606796265" blue="0.99352878332138062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
@@ -69,7 +69,7 @@
                                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                         </attributes>
                                                     </fragment>
-                                                    <fragment content="@">
+                                                    <fragment content="-">
                                                         <attributes>
                                                             <color key="NSColor" red="0.99381512403488159" green="0.99520474672317505" blue="0.99352246522903442" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <font key="NSFont" size="36" name="Menlo-BoldItalic"/>
@@ -208,6 +208,7 @@
                                                     <button opaque="NO" tag="-2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-Oq-UHJ" userLabel="Return Button">
                                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="R5C-4N-ytb"/>
                                                             <constraint firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="ThD-05-qLl"/>
                                                         </constraints>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -233,9 +234,6 @@
                                                         <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
                                                     </button>
                                                 </subviews>
-                                                <constraints>
-                                                    <constraint firstItem="EFb-Oq-UHJ" firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="R5C-4N-ytb"/>
-                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <constraints>
@@ -364,14 +362,6 @@
             <point key="canvasLocation" x="-156" y="412"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="CAH-Zv-10h">
-            <size key="intrinsicContentSize" width="48" height="34.333333333333336"/>
-        </designable>
-        <designable name="EFb-Oq-UHJ">
-            <size key="intrinsicContentSize" width="51" height="34.333333333333336"/>
-        </designable>
-    </designables>
     <resources>
         <image name="arrowshape.turn.up.left" catalog="system" width="128" height="104"/>
         <image name="mustache" width="666.66668701171875" height="327.33334350585938"/>
