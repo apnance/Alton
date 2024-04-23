@@ -124,9 +124,13 @@ private (set) var LOOOOPCOUNT = 0
             }
             
         }
-    
-    let (OP, CL) = (Operator.ope, Operator.clo)
-    
+        
+        let (OP, CL) = (Operator.ope, Operator.clo)
+        
+        // Mechanism to revent duplicative initalization of the same Expression
+        // which is relatively cpu intensive.
+        var existingExpressionHashes = Set<String>()
+        
         for D in operands { // digits
             
             let D1 = D[0]
@@ -140,64 +144,90 @@ private (set) var LOOOOPCOUNT = 0
                 let X2 = X[1]
                 let X3 = X[2]
                 
-                var exprs = [Expression]()
+                // TODO: Clean Up - delete
+//                var exprs = [Expression]()
+                
+                // Prevents duplicative initialization of identical Expressions
+                func addExpressionFrom(_ components: [Component]) {
+                    
+                    let currentExpressionHash = components.reduce(""){ $0 + $1.description }
+                    
+                    if !existingExpressionHashes.contains(currentExpressionHash) {
+                        
+// TODO: Clean Up - delete
+//                        exprs.append(Expression(components))
+//                        existingExpressionHashes.insert(currentExpressionHash)
+                        
+                        let exp = Expression(components)
+                        existingExpressionHashes.insert(currentExpressionHash)
+                        
+                        if exp.isValid {
+                            
+                            expressions[exp.value]?.append(exp)
+                            
+                        }
+                        
+                    }
+                    
+                }
                 
                 switch D.count {
                     
                     case 2:
                         
                         // 12x12
-                        exprs.append(Expression([D1, X1, D2]))
+                        addExpressionFrom([D1, X1, D2])
                         
-                    case 3: 
+                    case 3:
                         
                         // 12x3x4
-                        exprs.append(Expression([D1, X1, D2, X2, D3]))
+                        addExpressionFrom([D1, X1, D2, X2, D3])
                         
                         // (12x3)x4
-                        exprs.append(Expression([OP, D1, X1, D2, CL, X2, D3]))
+                        addExpressionFrom([OP, D1, X1, D2, CL, X2, D3])
                         
                         // 12x(3x4)
-                        exprs.append(Expression([D1, X1, OP, D2, X2, D3, CL]))
+                        addExpressionFrom([D1, X1, OP, D2, X2, D3, CL])
                         
                     case 4:
                         
                         // 1x2x3x4
-                        exprs.append(Expression([D1, X1, D2, X2, D3, X3, D4]))
+                        addExpressionFrom([D1, X1, D2, X2, D3, X3, D4])
                         
                         // (1x2)x3x4
-                        exprs.append(Expression([OP, D1, X1, D2, CL, X2, D3, X3, D4]))
+                        addExpressionFrom([OP, D1, X1, D2, CL, X2, D3, X3, D4])
                             
                         // ((1x2)x3)x4
-                        exprs.append(Expression([OP,OP, D1, X1, D2, CL, X2, D3, CL, X3, D4]))
+                        addExpressionFrom([OP,OP, D1, X1, D2, CL, X2, D3, CL, X3, D4])
                         
                         // 1x(2x3)x4
-                        exprs.append(Expression([D1, X1, OP, D2, X2, D3, CL, X3, D4]))
+                        addExpressionFrom([D1, X1, OP, D2, X2, D3, CL, X3, D4])
                         
                         // 1x2x(3x4)
-                        exprs.append(Expression([D1, X1, D2, X2, OP, D3, X3, D4, CL]))
+                        addExpressionFrom([D1, X1, D2, X2, OP, D3, X3, D4, CL])
                         
                         // 1x((2x3)x4)
-                        exprs.append(Expression([D1, X1, OP, OP, D2, X2, D3, CL, X3, D4, CL]))
+                        addExpressionFrom([D1, X1, OP, OP, D2, X2, D3, CL, X3, D4, CL])
                         
                         // 1x(2x(3x4))
-                        exprs.append(Expression([D1, X1, OP, D2, X2, OP, D3, X3, D4, CL, CL]))
+                        addExpressionFrom([D1, X1, OP, D2, X2, OP, D3, X3, D4, CL, CL])
                         
                     default: fatalError()
                         
                 }
                 
-                for expression in exprs {
-                    
-                    LOOOOPCOUNT += 1
-                    
-                    if expression.isValid {
-                        
-                        expressions[expression.value]?.append(expression)
-                        
-                    }
-                    
-                }
+// TODO: Clean Up - delete
+//                for expression in exprs {
+//                    
+//                    LOOOOPCOUNT += 1
+//                    
+//                    if expression.isValid {
+//                        
+//                        expressions[expression.value]?.append(expression)
+//                        
+//                    }
+//                    
+//                }
                 
                 LOOOOPCOUNT += 1
                 
