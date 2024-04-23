@@ -37,7 +37,8 @@ final class SolverTests: XCTestCase {
                    [2,3,5,8],
                    [4,4,4,4],
                    [1,3,6,6],   // 04.09.24
-                   [3,5,5,8])   // 04.10.24
+                   [3,5,5,8],   // 04.10.24
+                   [4,5,6,6])   // 04.22.24
         
     }
     
@@ -77,6 +78,12 @@ final class SolverTests: XCTestCase {
         // ran in 8.054s 04/13/24
         // ran in 7.072s 04/13/24
         // ran in 7.044s 04/13/24
+        // ran in 6.775s 04/22/24 - before optimization
+        // ran in 6.871s 04/22/24 - before optimization
+        // ran in 5.300s 04/22/24 - after optimization
+        // ran in 5.271s 04/22/24 - after optimization
+        
+        
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
@@ -93,6 +100,10 @@ final class SolverTests: XCTestCase {
         // ran in 20.974s 04/09/24
         // ran in 52.136s 04/10/24
         // ran in 56.788s 04/13/24
+        // ran in 57.976s 04/22/24 - BEFORE optimizations
+        // ran in 56.728s 04/22/24 - BEFORE optimizations
+        // ran in 45.934s 04/22/24 - AFTER optimizations
+        // ran in 43.776s 04/22/24 - AFTER optimizations
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
