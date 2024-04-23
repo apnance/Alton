@@ -78,12 +78,10 @@ final class SolverTests: XCTestCase {
         // ran in 8.054s 04/13/24
         // ran in 7.072s 04/13/24
         // ran in 7.044s 04/13/24
-        // ran in 6.775s 04/22/24 - before optimization
-        // ran in 6.871s 04/22/24 - before optimization
-        // ran in 5.300s 04/22/24 - after optimization
-        // ran in 5.271s 04/22/24 - after optimization
-        
-        
+        // ran in 6.775s 04/22/24 - BEFORE optimization
+        // ran in 6.871s 04/22/24 - BEFORE optimization
+        // ran in 5.300s 04/22/24 - AFTER optimization
+        // ran in 5.271s 04/22/24 - AFTER optimization
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
