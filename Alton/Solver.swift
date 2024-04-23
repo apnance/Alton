@@ -13,8 +13,12 @@ struct Solver{
 // TODO: Clean Up - delete LOOOOPCOUNT when done developing
 private (set) var LOOOOPCOUNT = 0
     
+    /// Backing property containing array of all possible 3-operator combinations
+    /// excluding open and close parens.
+    private static var operators = [[Operator]]()
+    
     /// Stores the original game digits
-    private(set) var originalOperands: [Int]
+    let originalOperands: [Int]
     
     /// All viable expressions found for each possible answer(1-10)
     private (set) var solutions = [Int : [Expression]]()
@@ -37,10 +41,13 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
+    
+    /// Solves for all possible solution `Expression` for all expected answer
+    /// values 1-10
     mutating func solve() {
         
-        let operands    = generateOperands(originalOperands)
-        solutions       = generateExpressions(operands)
+        solutions = buildExpressions(operands:  buildOperands(),
+                                     operators: buildOperators())
         
         for key in solutions.keys {
             
@@ -54,30 +61,36 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
+    
+    /// Returns the  description of least complex `Expression` that evaluates to `num`
+    /// - Parameter num: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
+    /// - Returns: String representation of the `Expression`
     func sampleSolutionFor(_ num: Int) -> String {
         
         solutions[num]?.sorted{$0.complexity < $1.complexity}.first?.description ?? "-NA-"
         
     }
     
-    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is removed from generateOperands
-    mutating fileprivate func generateOperands(_ originals: [Int]) -> [[Int]] {
-        
+    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is removed from buildOperands
+    mutating fileprivate func buildOperands() -> [[Int]] {
+                
         var operands = [[Int]]()
         
         // Single Digit Combinations
-        operands += (originals.permuteDeduped())
+        operands += (originalOperands.permuteDeduped())
         
         // Double Digit Combinations
         var doubleDigits = [[Int]]()
         
         for operand in operands {
             
-            let d1 = operand[0]
-            let d2 = operand[1]
-            let d3 = operand[2]
-            let d4 = operand[3]
+            // Single Digits
+            let d1  = operand[0]
+            let d2  = operand[1]
+            let d3  = operand[2]
+            let d4  = operand[3]
             
+            // Double Digits
             let dd1 = d1.concatonated(d2)!
             let dd2 = d2.concatonated(d3)!
             let dd3 = d3.concatonated(d4)!
@@ -99,25 +112,22 @@ private (set) var LOOOOPCOUNT = 0
         
     }
     
-    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is no longer being modified in generateExpressions
-    /// Generates all possible Expression combinations  for the given `operands`
-    mutating fileprivate func generateExpressions(_ operands: [[Int]]) -> [Int : [Expression]] {
+    /// Returns all possible permuations of 3-at-a-time non-parentheticcal operator collections.
+    /// Returns all possible permuations of 3-at-a-time non-parentheticcal operator collections.
+    mutating func buildOperators() -> [[Operator]] {
         
-        var operatorsAll    = [[Operator]]()
-        var expressions     = [Int : [Expression]]()
-        
-        // initialize expressions
-        (1...10).forEach{ expressions[$0] = [Expression]() }
-        
-        for op1 in Operator.nonParen {
+        if Solver.operators.count == 0 {
             
-            for op2 in Operator.nonParen {
+            for op1 in Operator.nonParen {
                 
-                for op3 in Operator.nonParen {
+                for op2 in Operator.nonParen {
                     
-                    operatorsAll.append([op1,op2,op3])
-                    
-                    LOOOOPCOUNT += 1
+                    for op3 in Operator.nonParen {
+                        
+                        Solver.operators.append([op1,op2,op3])
+                        LOOOOPCOUNT += 1
+                        
+                    }
                     
                 }
                 
@@ -125,109 +135,103 @@ private (set) var LOOOOPCOUNT = 0
             
         }
         
-        let (OP, CL) = (Operator.ope, Operator.clo)
+        return Solver.operators /*EXIT*/
         
-        // Mechanism to revent duplicative initalization of the same Expression
-        // which is relatively cpu intensive.
+    }
+    
+    // TODO: Clean Up - remove mutating when LOOOOPCOUNT is no longer being modified in buildExpressions
+    /// Generates all possible Expression combinations  for the given `operands`
+    mutating fileprivate func buildExpressions(operands: [[Int]],
+                                               operators: [[Operator]]) -> [Int : [Expression]] {
+        
+        // initialize expressions
+        var expressions     = [Int : [Expression]]()
+        (1...10).forEach{ expressions[$0] = [Expression]() }
+        
+        // Optimization mechanism to prevent duplicative initalization of the
+        // same Expression which is relatively cpu intensive.
         var existingExpressionHashes = Set<String>()
         
-        for D in operands { // digits
+        // Prevents duplicative initialization of identical `Expression`s
+        func addExpressionFrom(_ components: [Component]) {
             
-            let D1 = D[0]
-            let D2 = D[1]
-            let D3 = D.count > 2 ? D[2] : Configs.Expression.invalidValue
-            let D4 = D.count > 3 ? D[3] : Configs.Expression.invalidValue
+            let currentExpressionHash = components.reduce(""){ $0 + $1.description }
             
-            for X in operatorsAll { // symbols
+            if !existingExpressionHashes.contains(currentExpressionHash) {
                 
-                let X1 = X[0]
-                let X2 = X[1]
-                let X3 = X[2]
+                let exp = Expression(components)
+                existingExpressionHashes.insert(currentExpressionHash)
                 
-                // TODO: Clean Up - delete
-//                var exprs = [Expression]()
-                
-                // Prevents duplicative initialization of identical Expressions
-                func addExpressionFrom(_ components: [Component]) {
+                if exp.isValid {
                     
-                    let currentExpressionHash = components.reduce(""){ $0 + $1.description }
-                    
-                    if !existingExpressionHashes.contains(currentExpressionHash) {
-                        
-// TODO: Clean Up - delete
-//                        exprs.append(Expression(components))
-//                        existingExpressionHashes.insert(currentExpressionHash)
-                        
-                        let exp = Expression(components)
-                        existingExpressionHashes.insert(currentExpressionHash)
-                        
-                        if exp.isValid {
-                            
-                            expressions[exp.value]?.append(exp)
-                            
-                        }
-                        
-                    }
+                    expressions[exp.value]?.append(exp)
                     
                 }
                 
-                switch D.count {
+            }
+            
+        }
+        
+        // parens open/close
+        let (po, pc) = (Operator.ope, Operator.clo)
+        
+        for digits in operands { // digits
+            
+            let d1 = digits[0]
+            let d2 = digits[1]
+            let d3 = digits.count > 2 ? digits[2] : Configs.Expression.invalidValue
+            let d4 = digits.count > 3 ? digits[3] : Configs.Expression.invalidValue
+            
+            for operators in operators { // non-paren operators
+                
+                let o1 = operators[0]
+                let o2 = operators[1]
+                let o3 = operators[2]
+                
+                switch digits.count {
                     
                     case 2:
                         
                         // 12x12
-                        addExpressionFrom([D1, X1, D2])
+                        addExpressionFrom([d1, o1, d2])
                         
                     case 3:
                         
                         // 12x3x4
-                        addExpressionFrom([D1, X1, D2, X2, D3])
+                        addExpressionFrom([d1, o1, d2, o2, d3])
                         
                         // (12x3)x4
-                        addExpressionFrom([OP, D1, X1, D2, CL, X2, D3])
+                        addExpressionFrom([po, d1, o1, d2, pc, o2, d3])
                         
                         // 12x(3x4)
-                        addExpressionFrom([D1, X1, OP, D2, X2, D3, CL])
+                        addExpressionFrom([d1, o1, po, d2, o2, d3, pc])
                         
                     case 4:
                         
                         // 1x2x3x4
-                        addExpressionFrom([D1, X1, D2, X2, D3, X3, D4])
+                        addExpressionFrom([d1, o1, d2, o2, d3, o3, d4])
                         
                         // (1x2)x3x4
-                        addExpressionFrom([OP, D1, X1, D2, CL, X2, D3, X3, D4])
+                        addExpressionFrom([po, d1, o1, d2, pc, o2, d3, o3, d4])
                             
                         // ((1x2)x3)x4
-                        addExpressionFrom([OP,OP, D1, X1, D2, CL, X2, D3, CL, X3, D4])
+                        addExpressionFrom([po,po, d1, o1, d2, pc, o2, d3, pc, o3, d4])
                         
                         // 1x(2x3)x4
-                        addExpressionFrom([D1, X1, OP, D2, X2, D3, CL, X3, D4])
+                        addExpressionFrom([d1, o1, po, d2, o2, d3, pc, o3, d4])
                         
                         // 1x2x(3x4)
-                        addExpressionFrom([D1, X1, D2, X2, OP, D3, X3, D4, CL])
+                        addExpressionFrom([d1, o1, d2, o2, po, d3, o3, d4, pc])
                         
                         // 1x((2x3)x4)
-                        addExpressionFrom([D1, X1, OP, OP, D2, X2, D3, CL, X3, D4, CL])
+                        addExpressionFrom([d1, o1, po, po, d2, o2, d3, pc, o3, d4, pc])
                         
                         // 1x(2x(3x4))
-                        addExpressionFrom([D1, X1, OP, D2, X2, OP, D3, X3, D4, CL, CL])
+                        addExpressionFrom([d1, o1, po, d2, o2, po, d3, o3, d4, pc, pc])
                         
                     default: fatalError()
                         
                 }
-                
-// TODO: Clean Up - delete
-//                for expression in exprs {
-//                    
-//                    LOOOOPCOUNT += 1
-//                    
-//                    if expression.isValid {
-//                        
-//                        expressions[expression.value]?.append(expression)
-//                        
-//                    }
-//                    
-//                }
                 
                 LOOOOPCOUNT += 1
                 
@@ -287,6 +291,7 @@ private (set) var LOOOOPCOUNT = 0
                                              showSeparators: false)
             
         }
+        
     }
     
 }
