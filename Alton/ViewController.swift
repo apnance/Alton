@@ -163,7 +163,7 @@ class ViewController: UIViewController {
     private func uiInit() {
         
         inputLabel.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
-        inputLabel.textColor                = UIColor.orange.halfAlpha
+        inputLabel.textColor                = UIColor.white.pointSevenAlpha
         inputLabel.layer.borderWidth        = 1
         inputLabel.layer.cornerRadius       = 4
         inputLabel.clipsToBounds            = true
