@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Clean Up - RENAME this file operator.swift -> Operator.swift
+
 enum OperatorError: Error, LocalizedError {
     
     case divideByZero, remainderInDivision, nestedFractions
@@ -37,14 +39,21 @@ enum OperatorError: Error, LocalizedError {
 /// .fra - rawValue `_` differs from description string value `/`,
 /// .add - rawValue `+` differs from description string value ` + `,
 /// .sub - rawValue `-` differs from description string value ` - `.
-enum Operator: String, CaseIterable {
+enum Operator: String, CaseIterable, Comparable {
     
-    enum Precendence {
+    static func < (lhs: Operator, rhs: Operator) -> Bool {
         
-        case additionSubtraction
-        case multiplicationDivision
-        case fraction
-        case parenthetical
+        lhs.precedence.rawValue < rhs.precedence.rawValue
+        
+    }
+    
+    enum Precendence: Int {
+    
+        // TODO: Clean Up - move these magic numbers into configs
+        case additionSubtraction    = 1
+        case multiplicationDivision = 2
+        case fraction               = 3
+        case parenthetical          = 4
         
     }
     
@@ -140,17 +149,21 @@ extension Operator: Component {
     func isCloseParen() -> Bool { self == .clo }
     func isOpenParen() -> Bool { self == .ope }
     
+    static var maxComplexity = Configs.Complexity.Operator.max
+    // TODO: Clean Up - delete
+//    static var maxComplexity = 65
+    
     var complexity: Int {
         
         switch self {
                 
-            case .add: return 10
-            case .sub: return 11
-            case .mlt: return 20
-            case .div: return 30
-            case .ope: return 40
-            case .clo: return 0
-            case .fra: return 65
+            case .add: return Configs.Complexity.Operator.add
+            case .sub: return Configs.Complexity.Operator.sub
+            case .mlt: return Configs.Complexity.Operator.mlt
+            case .div: return Configs.Complexity.Operator.div
+            case .ope: return Configs.Complexity.Operator.ope
+            case .clo: return Configs.Complexity.Operator.clo
+            case .fra: return Configs.Complexity.Operator.fra
             
         }
         
