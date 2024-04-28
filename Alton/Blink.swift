@@ -30,22 +30,9 @@ struct Blink {
         self.target = target
         
         
-        // Ø ⦰ ɑ ø ⱺ Ơ ⧂ ⨀ ⊛ ⩍ ⦸
-        //let eyePair = [["/","/"],
-        //let eyePair = [["+","+"],
-        //let eyePair = [["@","@"],
-        //let eyePair = [["?","?"],
-        //let eyePair = [["d","b"],
-        //let eyePair = [["q","p"],
-        //let eyePair = [["*","*"],
-        //let eyePair = [["@","Ơ"],
-        //let eyePair = [["Ơ","Ơ"],
-        //let eyePair = [["@","ø"],
-        let eyePair = [["+","⧂"],
+        // Ø ⦰ ɑ ø ⱺ Ơ ⧂ ⨀ ⊛ ⩍ ⦸ ⧂
+        let eyePair = [["a","⧂"],
                        ["-", "⧂"]]
-        
-        
-        
         
         for eyes in eyePair {
             
