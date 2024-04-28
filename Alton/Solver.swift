@@ -84,8 +84,6 @@ struct Solver{
             
         } else {
             
-            // TODO: Clean Up - delete
-//            difficulty = 999
             difficulty = Configs.Expression.unsolvableDifficulty
             
         }

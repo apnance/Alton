@@ -7,8 +7,6 @@
 
 import UIKit
 
-// TODO: Clean Up - RENAME this file operator.swift -> Operator.swift
-
 enum OperatorError: Error, LocalizedError {
     
     case divideByZero, remainderInDivision, nestedFractions
@@ -29,7 +27,6 @@ enum OperatorError: Error, LocalizedError {
     }
     
 }
-
 
 // - MARK: Protocol Adoption
 /// - Note: *To facilitate generating test Expressions via String initializer*,
@@ -151,8 +148,6 @@ extension Operator: Component {
     func isOpenParen() -> Bool { self == .ope }
     
     static var maxComplexity = Configs.Complexity.Operator.max
-    // TODO: Clean Up - delete
-//    static var maxComplexity = 65
     
     var complexity: Int {
         
