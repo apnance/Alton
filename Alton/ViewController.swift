@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         
     }
     
-    /// Colorizes and formats the display text.
+    /// Colorizes and formats the display text as an `NSAttributedString`
     /// - Parameter text: display text to format.
     /// - Returns: colorized/formatted `NSAttributedString` version of `text`
     private func colorizeSolutions(_ text: String) -> NSAttributedString {
@@ -116,16 +116,18 @@ class ViewController: UIViewController {
         }
         
         let lines = text.split(separator: "\n")
-        
+        let formatStartBound = 2
+        let formatEndBound = String(lines[0]).contains("Found") ? 11 : Int.max
+                
         for (num, text) in lines.enumerated() {
             
-            if num < 2 {    // Heading
+            if num < formatStartBound || num > formatEndBound { // Heading
                 
                 var att = AttributedString(text)
                 att.foregroundColor = num == 0 ? UIColor.white : UIColor.white.pointFourAlpha
                 formatted.append(att)
                 
-            } else {        // Body
+            } else { // Body
                 
                 for char in text {
                     
