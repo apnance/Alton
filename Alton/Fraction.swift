@@ -97,13 +97,100 @@ extension Fraction {
     
 }
 
-// - MARK: Protocol Adoption
+// - MARK: Equatable
 extension Fraction: Equatable {
     
     static func ==(lhs: Fraction, rhs: Fraction) -> Bool {
         
         lhs.numerator   == rhs.numerator
         && lhs.denominator == rhs.denominator
+        
+    }
+    
+}
+
+// - MARK: Operand
+extension Fraction: Operand {
+    
+    // Fraction's complexity is never called but
+    static var maxComplexity: Int { 6 }
+    
+    var complexity: Int {
+         
+        return Fraction.maxComplexity
+        
+    }
+    
+    var asInteger: Int {
+        
+        get throws {
+            
+            if numerator % denominator != 0 { throw OperatorError.remainderInDivision }
+            else { return numerator / denominator }
+            
+        }
+        
+    }
+    var asFraction: Fraction { self }
+    
+    static func + (lhs: Fraction, rhs: any Operand) -> any Operand {
+        
+        if let rhs = rhs as? Int {
+            
+            return lhs + rhs.asFraction /*EXIT*/
+            
+        } else {
+            
+            return lhs + (rhs as! Fraction)  /*EXIT*/
+            
+        }
+        
+    }
+        
+    static func - (lhs: Fraction, rhs: any Operand) -> any Operand {
+        
+        if let rhs = rhs as? Int {
+            
+            return lhs - rhs.asFraction
+            
+        } else {
+            
+            return lhs - (rhs as! Fraction)
+            
+        }
+        
+    }
+        
+    static func * (lhs: Fraction, rhs: any Operand) -> any Operand {
+        
+        if let rhs = rhs as? Int {
+            
+            return lhs * rhs.asFraction
+            
+        } else {
+            
+            return lhs * (rhs as! Fraction)
+            
+        }
+        
+    }
+        
+    static func / (lhs: Fraction, rhs: any Operand) throws -> any Operand {
+        
+        if let rhs = rhs as? Int {
+            
+            if rhs == 0 { throw OperatorError.divideByZero /*THROW*/ }
+            else { return lhs / rhs.asFraction }
+            
+            
+        } else {
+            
+            let rhs = rhs as! Fraction
+                
+            if rhs.numerator == 0 { throw OperatorError.divideByZero /*THROW*/ }
+            else { return lhs / rhs }
+            
+        }
         
     }
     
