@@ -67,6 +67,7 @@ class ViewController: UIViewController {
                 self.solver = Solver(operands)
                 self.uiSetButtons()
                 self.displayCompleteSolution()
+                self.pasteBoard(self.solver)
                 
             }
             
@@ -81,6 +82,18 @@ class ViewController: UIViewController {
             
         }
         
+    }
+    
+    private func pasteBoard(_ solver: Solver?) {
+        
+        let digits  = solver?.originalOperands.reduce(""){$0 + $1.description} ?? "?!?"
+        let diff    = solver?.solutionDifficulty.description ?? "?!?"
+        
+        printToClipboard("""
+                         ~  ~
+                         a  ⧂
+                               <( \(digits) : \(diff) )
+                         """)
     }
     
     private func displayCompleteSolution() {
