@@ -97,62 +97,115 @@ final class ExpressionTests: XCTestCase {
         
     }
     
-    func testComplexity() {
+    func testComplexityGeneral() {
         
-        func testComplexity(_ lhs: String, 
-                            _ rhs: String,
-                            _ test: (Int, Int) -> Bool) {
+        print("---------------")
+        utilTestComplexity("3-2-25",    "32-25", >)
+        utilTestComplexity("32-25",     "3-25", >)
+        utilTestComplexity("3/2-2-5",   "32/25", >)
+        utilTestComplexity( "3/35",     "3/5", >)
+        utilTestComplexity("32/35",     "3/35", >)
+        
+        utilTestComplexity("3/5",       "3+5", >)
+        utilTestComplexity("3/35",      "3/5", >)
+        
+        utilTestComplexity("3/5",       "3+5", >)
+        utilTestComplexity("3/5",       "3-5", >)
+        utilTestComplexity("3/5",       "3*5", >)
+        utilTestComplexity("3/5",       "3_5", <)
+        
+        utilTestComplexity("3*5",       "3+5", >)
+        utilTestComplexity("3*5",       "3-5", >)
+        utilTestComplexity("3*5",       "3/5", <)
+        utilTestComplexity("3*5",       "3_5", <)
+        
+        utilTestComplexity("1+2+3+4",   "1-2-3-4", <)
+        utilTestComplexity("1+2+3+4",   "1+2+3-4", <)
+        
+        utilTestComplexity("1-2-3-4",   "1-2-3*4", <)
+        utilTestComplexity("1+2+3+4",   "1_4", <)
+        utilTestComplexity("1_4",       "11_4", <)
+        
+        utilTestComplexity("(1+2)+3+4", "1+2+3+4", >)
+        utilTestComplexity("(1*1)",     "2_5", <)
+        print("---------------")
+        
+    }
+    
+    func testMaxComplexity() {
+        
+        var maxComplexity = 0
+        var mostComplex: Expression?
+        
+        func checkMax(_ operands: [Int]) {
             
-            let exp1 = Expression(lhs)
-            let exp2 = Expression(rhs)
+            let solver  = Solver(operands)
             
-            let com1 = exp1.complexity
-            let com2 = exp2.complexity
+            let exps = solver.solutions.keys.reduce([Expression]()){ $0 + (solver.solutions[$1] ?? [])}.sorted{ $0.complexity < $1.complexity }
             
-            XCTAssert(test(com1,com2),
-                      """
-                        
-                        Expression\tComplexity
-                        \(exp1)\t\t\t\(com1)
-                        \(exp2)\t\t\t\(com2)
-                        """)
+            for exp in exps {
             
-            print("\(exp1) complexity: \(com1)")
-            print("\(exp2) complexity: \(com2)")
-            print("---\n")
+                if exp.complexity > maxComplexity {
+                    
+                    maxComplexity = exp.complexity
+                    mostComplex = exp
+                    
+                }
+                
+                print("\(exp) :: \(exp.complexity) / \(Expression.maxComplexity)")
+                
+                XCTAssert(exp.complexity < Expression.maxComplexity,
+                          "\(exp) complexity(\(exp.complexity)) exceeds Expression.maxComplexity(\(Expression.maxComplexity))")
+                
+            }
             
         }
         
-        print("---------------")
-        testComplexity("3-2-25",    "32-25", >)
-        testComplexity("32-25",     "3-25", >)
-        testComplexity("3/2-2-5",   "32/25", >)
-        testComplexity( "3/35",     "3/5", >)
-        testComplexity("32/35",     "3/35", >)
+        checkMax([1,2,3,4])
+        checkMax([3,5,7,8]) // 10.04.22
+        checkMax([1,3,6,6]) // 04.09.24
+        checkMax([3,5,5,8]) // 04.10.24 - required fractions for 7
+        checkMax([2,3,4,6]) // 04.11.24
+        checkMax([2,3,4,5]) // 04.12.24
+        checkMax([4,5,6,6]) // 04.22.24
+        checkMax([2,5,6,7]) // 04.23.24
+        checkMax([2,2,4,5]) // 04.24.24
         
-        testComplexity("3/5",       "3+5", >)
-        testComplexity("3/35",      "3/5", >)
+        print("""
+                
+                Most Complex: '\(mostComplex!)' \
+                -- Complexity: \(maxComplexity) / \(Expression.maxComplexity)
+                
+                """)
         
-        testComplexity("3/5",       "3+5", >)
-        testComplexity("3/5",       "3-5", >)
-        testComplexity("3/5",       "3*5", >)
-        testComplexity("3/5",       "3_5", <)
         
-        testComplexity("3*5",       "3+5", >)
-        testComplexity("3*5",       "3-5", >)
-        testComplexity("3*5",       "3/5", <)
-        testComplexity("3*5",       "3_5", <)
+    }
+    
+}
+
+extension ExpressionTests {
+    
+    func utilTestComplexity(_ lhs: String,
+                        _ rhs: String,
+                        _ test: (Int, Int) -> Bool) {
         
-        testComplexity("1+2+3+4",   "1-2-3-4", <)
-        testComplexity("1+2+3+4",   "1+2+3-4", <)
+        let exp1 = Expression(lhs)
+        let exp2 = Expression(rhs)
         
-        testComplexity("1-2-3-4",   "1-2-3*4", <)
-        testComplexity("1+2+3+4",   "1_4", <)
-        testComplexity("1_4",       "11_4", <)
+        let com1 = exp1.complexity
+        let com2 = exp2.complexity
         
-        testComplexity("(1+2)+3+4", "1+2+3+4", >)
-        testComplexity("(1*1)",     "2_5", <)
-        print("---------------")
+        XCTAssert(test(com1,com2),
+                  """
+                    
+                    Expression\tComplexity
+                    \(exp1.evaluatedDescription)\t\t\t\(com1)
+                    \(exp2.evaluatedDescription)\t\t\t\(com2)
+                    """)
+        
+        print("\(exp1.evaluatedDescription) complexity: \(com1)")
+        print("\(exp2.evaluatedDescription) complexity: \(com2)")
+        print("---\n")
         
     }
     

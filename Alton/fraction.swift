@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: Clean Up - RENAME fraction.swift -> Fraction.swift
+
 struct Fraction {
     
     let numerator: Int
@@ -113,13 +115,11 @@ extension Fraction: Equatable {
 extension Fraction: Operand {
     
     // Fraction's complexity is never called but
-    static var maxComplexity: Int { 6 }
-    
-    var complexity: Int {
-         
-        return Fraction.maxComplexity
-        
-    }
+    static var maxComplexity: Int { Configs.Complexity.Operand.fraction }
+// TODO: Clean Up - delete
+//    static var maxComplexity: Int { Configs.Component.MaxComplexity.fraction }
+//    static var maxComplexity: Int { 6 }
+    var complexity: Int { Fraction.maxComplexity }
     
     var asInteger: Int {
         

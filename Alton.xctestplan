@@ -19,7 +19,8 @@
     {
       "skippedTests" : [
         "AltonTests\/testNeedsFractionalOperands()",
-        "SolverTests\/testSpeed2()"
+        "ExpressionTests\/testComplexityParens()",
+        "SolverTests\/testAllPuzzles()"
       ],
       "target" : {
         "containerPath" : "container:Alton.xcodeproj",

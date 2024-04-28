@@ -10,12 +10,32 @@ import APNUtil
 
 struct Expression {
     
+    /// The theoretical maximum possible `complexity` rating for an `Expresion`
+    static var maxComplexity: Int {
+        
+        max(Int.maxComplexity, Fraction.maxComplexity)  // Operand Complexity
+        + (Operator.maxComplexity * 3)                  // Operator Complexity - can have at most 3 operators
+        + (Operator.ope.complexity * 2)                 // Parentheses Complexity - can have at most 2 sets of parens
+        
+    }
+    
+    /// All components of an `Expression`, inlcuding `Operands`, and `Operators`
+    ///  (including parentheses)
     var components  = [Component]()
+    
+    // TODO: Clean Up - refactor answer/result, clarify their purpose
+    /// The evaluated result of an expression.
+    /// e.g. '1 + 2 = 3'  3 is the answer.
     fileprivate (set) var answer        = Configs.Expression.invalidAnswer
     fileprivate var result: any Operand = Configs.Expression.invalidAnswer
+    
+    /// Flag indicating if the Expression is a valid usable Expression.
+    /// e.g. 
+    /// '2 / 2' would be valid
+    /// '1 / 0' would be invalid
     var isValid                         = true
     
-    /// Simple means for comparing the relative complexity of generated `Expressions`.
+    /// Sum of complexities of all `components`
     /// The higher the number the greater the relative complexity.
     var complexity: Int {
         
@@ -30,11 +50,11 @@ struct Expression {
         
     }
     
-    /// Initializes an `Expression` from the input.
+    /// Initializes an `Expression` from an array of `Component`
     /// - Parameters:
     ///   - components: `Component`s to define the `Expression`
     ///   - validate: Flag used to shunt validation.  Used to prevent atomic `Fraction` sub-`Expression` from being treated as invalid.
-    ///  - Important: do not call, call init(components)
+    ///  - Important: this initializer should noly be called from `init(components)`
     fileprivate init(_ components: [Component],
                      validate: Bool) {
         
@@ -117,7 +137,7 @@ struct Expression {
                 
             } else if component.isCloseParen() {
                 
-                // Decriment Parentheses Count
+                // Decrement Parentheses Count
                 parenCount -= 1
                 
                 if parenCount == 0 { // don't append terminal paren

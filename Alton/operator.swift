@@ -47,6 +47,7 @@ enum Operator: String, CaseIterable, Comparable {
         
     }
     
+    // TODO: Clean Up - get rid of this enum, move the values down into precedence variable...
     enum Precendence: Int {
     
         // TODO: Clean Up - move these magic numbers into configs

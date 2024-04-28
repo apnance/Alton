@@ -10,6 +10,12 @@ import APNUtil
 
 struct Solver{
     
+    /// Toggles printing of difficulty info
+    var shouldPrintDiffInfo     = false
+    
+    /// Toggles printing of difficulty info header
+    var shouldPrintDiffHeader   = false
+    
     /// Performance tracking counter.
     private (set) var loopCount = 0
     
@@ -23,26 +29,121 @@ struct Solver{
     /// All viable `Expression`s found for each possible answer(1-10)
     private (set) var solutions = [Int : [Expression]]()
     
+    static var maxSolutionDifficulty = 100
+    
+    // TODO: Clean Up - convert solutionDifficulty to func
+    var solutionDifficulty: Int {
+        
+        let maxSolutionComplexity   =  Double(Expression.maxComplexity * 10)
+        let maxSolutionScarcity     = 100.0 * 10.0
+        
+        var solutionComplexity      = 0
+        var solutionScarcity        = 0.0
+        var totalSolutionCount      = 0
+        
+        for answer in 1...10 {
+            
+            // Solution Complexity Component
+            let leastComplexExpression  = leastComplexExpressionFor(answer)
+            solutionComplexity          += leastComplexExpression?.complexity ?? 0
+            
+            // Solution Scarcity Component (the fewer possible solutions the harder to solve)
+            let solutionCount = solutions[answer]?.count ?? 0
+            
+            totalSolutionCount += solutionCount
+            
+            if solutionCount > 0 {
+                
+                solutionScarcity += max(100.0 - Double(solutionCount), 0.0)
+                
+            } else {
+                
+                solutionScarcity += maxSolutionScarcity * 5.0
+                
+            }
+            
+        }
+        
+        let complexityComponent: Double = Double(solutionComplexity) / Double(maxSolutionComplexity)
+        let scarcityComponent: Double   = solutionScarcity / maxSolutionScarcity
+        
+        // Weight the different components
+        let percentMax      =   scarcityComponent * (2.0/5.0)
+                                + complexityComponent * (3.0/5.0)
+        
+        var difficulty      = Double(Solver.maxSolutionDifficulty) * percentMax
+        
+        if difficulty < 100 {
+            
+            difficulty      -= 7.0
+            difficulty      = (difficulty / 4.6)
+            
+            difficulty      = max(1, difficulty)
+            difficulty      = min(10, difficulty)
+            
+            
+        } else {
+            
+            // TODO: Clean Up - delete
+//            difficulty = 999
+            difficulty = Configs.Expression.unsolvableDifficulty
+            
+        }
+        
+        if shouldPrintDiffInfo {
+            
+            if shouldPrintDiffHeader {
+                
+                print("Digits\tDifficulty\tTotal Solutions\tScarcity\tComplexity\tPercent Max")
+                
+            }
+            
+            print("""
+                \(originalOperands)\
+                \t\(Int(difficulty))\
+                \t\(totalSolutionCount)\
+                \t\(scarcityComponent.roundTo(3))\
+                \t\(complexityComponent.roundTo(3))\
+                \t\(percentMax.roundTo(3))
+                """)
+            
+        }
+        
+        let returnValue = Int(difficulty)
+        
+        assert(returnValue < 1000 && returnValue > 0)
+        
+        return Int(returnValue)
+        
+    }
+    
     /// All answers for which no solutions were found.
     private (set) var unsolved = [Int]()
     
     /// Boolean value indicating if solutions have been found for all possible answer(1-10).
     var fullySolved : Bool { unsolved.isEmpty }
     
-    init(_ originals: [Int]) {
+    init(_ originals:           [Int],
+         shouldPrintDiffInfo:   Bool = false,
+         shouldPrintDiffHeader: Bool = false) {
         
         assert(originals.count == 4,
                "Expected Digit Count: 4 - Actual: \(originals.count)")
+        
+        self.shouldPrintDiffInfo = shouldPrintDiffInfo
+        self.shouldPrintDiffHeader = shouldPrintDiffHeader
         
         originalOperands = originals
         
         solve()
         
+        // Trigger difficulty calculation?
+        if shouldPrintDiffInfo { _ = solutionDifficulty }
         
     }
     
-    
-    /// Solves for all possible solution `Expression` for all expected answer 1-10
+    /// Solves for all possible solution `Expression` for all expected answers 1-10.
+    /// This is the heart of the `Solver`.
     mutating func solve() {
         
         solutions = buildExpressions(operands:  buildOperands(),
@@ -60,16 +161,23 @@ struct Solver{
         
     }
     
-    
     /// Returns the  description of least complex `Expression` that evaluates to `num`
     /// - Parameter answer: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
     /// - Returns: String representation of the `Expression` or "-NA-" if no solution exists for that answer.
-    func sampleSolutionFor(_ answer: Int) -> String {
+    func leastComplexSolutionFor(_ answer: Int) -> String {
         
-        solutions[answer]?.sorted{$0.complexity < $1.complexity}.first?.description ?? "-NA-"
+        leastComplexExpressionFor(answer)?.description ?? "-NA-"
         
     }
     
+    /// Returns the  least complex `Expression` that evaluates to `num`
+    /// - Parameter answer: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
+    /// - Returns: `Expression` with the lowest `complexity` that evaluates to `answer`
+    func leastComplexExpressionFor(_ answer: Int) -> Expression? {
+        
+        solutions[answer]?.sorted{$0.complexity < $1.complexity}.first
+        
+    }
     
     /// Builds an array of all possible operand combinations.
     mutating fileprivate func buildOperands() -> [[Int]] {
@@ -138,6 +246,7 @@ struct Solver{
         
     }
     
+    // TODO: Clean Up - Factor buildExpression into sub funcs
     /// Generates all possible Expression combinations  for the given `operands`
     mutating fileprivate func buildExpressions(operands: [[Int]],
                                                operators: [[Operator]]) -> [Int : [Expression]] {
@@ -171,7 +280,7 @@ struct Solver{
         }
         
         // Parens
-        let (po, pc) = (Operator.ope, Operator.clo)
+        let (pO, pC) = (Operator.ope, Operator.clo)
         
         for digits in operands { // Digits
             
@@ -198,34 +307,90 @@ struct Solver{
                         // 12x3x4
                         addExpressionFrom([d1, o1, d2, o2, d3])
                         
-                        // (12x3)x4
-                        addExpressionFrom([po, d1, o1, d2, pc, o2, d3])
+                        if o1 < o2 {
+                            
+                            // (12x3)x4
+                            addExpressionFrom([pO, d1, o1, d2, pC, o2, d3])
+                            
+                        }
                         
-                        // 12x(3x4)
-                        addExpressionFrom([d1, o1, po, d2, o2, d3, pc])
+                        if o2 < o1 {
+                            
+                            // 12x(3x4)
+                            addExpressionFrom([d1, o1, pO, d2, o2, d3, pC])
+                            
+                        }
                         
                     case 4:
                         
                         // 1x2x3x4
                         addExpressionFrom([d1, o1, d2, o2, d3, o3, d4])
                         
-                        // (1x2)x3x4
-                        addExpressionFrom([po, d1, o1, d2, pc, o2, d3, o3, d4])
+                        if o1 < o2 {
                             
-                        // ((1x2)x3)x4
-                        addExpressionFrom([po,po, d1, o1, d2, pc, o2, d3, pc, o3, d4])
+                            // (1x2)x3x4
+                            addExpressionFrom([pO, d1, o1, d2, pC, o2, d3, o3, d4])
+                            
+                            if o2 < o3 {
+                                
+                                // ((1x2)x3)x4
+                                addExpressionFrom([pO, pO, d1, o1, d2, pC, o2, d3, pC, o3, d4])
+                                
+                            }
+                            
+                        } else if o2 < o3 {
+                            
+                            // (1x2x3)x4
+                            addExpressionFrom([pO, d1, o1, d2, o2, d3, pC, o3, d4])
+                            
+                        }
                         
-                        // 1x(2x3)x4
-                        addExpressionFrom([d1, o1, po, d2, o2, d3, pc, o3, d4])
+                        if o2 < o3 {
+                            
+                            // 1x(2x3)x4
+                            addExpressionFrom([d1, o1, pO, d2, o2, d3, pC, o3, d4])
+                            
+                        }
                         
-                        // 1x2x(3x4)
-                        addExpressionFrom([d1, o1, d2, o2, po, d3, o3, d4, pc])
+                        if o3 < o2 {
+                            
+                            // 1x2x(3x4)
+                            addExpressionFrom([d1, o1, d2, o2, pO, d3, o3, d4, pC])
+                            
+                        }
                         
-                        // 1x((2x3)x4)
-                        addExpressionFrom([d1, o1, po, po, d2, o2, d3, pc, o3, d4, pc])
+                        if o3 < o1 {
                         
-                        // 1x(2x(3x4))
-                        addExpressionFrom([d1, o1, po, d2, o2, po, d3, o3, d4, pc, pc])
+                            if o2 < o3 {
+                                
+                                // 1x((2x3)x4)
+                                addExpressionFrom([d1, o1, pO, pO, d2, o2, d3, pC, o3, d4, pC])
+                                
+                            } else {
+                                
+                                // 1x(2x3x4)
+                                addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                                
+                            }
+                            
+                        }
+                        
+                        
+                        if o2 < o1 {
+                            
+                            if o2 < o3 {
+                                
+                                // 1x(2x(3x4))
+                                addExpressionFrom([d1, o1, pO, d2, o2, pO, d3, o3, d4, pC, pC])
+                                
+                            } else {
+                                
+                                // 1x(2x3x4)
+                                addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                                
+                            }
+                            
+                        }
                         
                     default: fatalError()
                         
@@ -250,17 +415,28 @@ struct Solver{
         for key in solutions.keys.sorted() {
             
             let row = [key.description,
-                       sampleSolutionFor(key).description,
+                       leastComplexSolutionFor(key).description,
                        solutions[key]!.count.description]
             
             rows.append(row)
             
         }
         
-        return Report.columnateAutoWidth(rows,
-                                         headers: headers,
-                                         dataPadType: .center, 
-                                         showSeparators: false)
+        let tabular     = Report.columnateAutoWidth(rows,
+                                                    headers: headers,
+                                                    dataPadType: .center,
+                                                    showSeparators: false)
+        
+        let padCount    = tabular.split(separator: "\n").first?.count ?? 40
+        
+        let separator   = String(repeating: "-", count: padCount)
+        let difficulty  = "Difficulty: \(solutionDifficulty)/10".centerPadded(toLength: padCount)
+        
+        return """
+                \(tabular)
+                \(separator)
+                \(difficulty)
+                """
         
     }
     
@@ -315,7 +491,7 @@ extension Solver {
             \(sep1)
             \(title)
             \(sep1)
-            \(report)\
+            \(report)
             \(sep2)
             \(loopCountText)
             \(solvedText)
