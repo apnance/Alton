@@ -33,6 +33,18 @@ struct Configs {
     
     struct Complexity {
         
+        struct Expression {
+            
+            static var maxComplexity: Int {
+                
+                max(Configs.Complexity.Operand.int, Configs.Complexity.Operand.fraction)  // Operand Complexity
+                + (Configs.Complexity.Operator.max * 3)                  // Operator Complexity - can have at most 3 operators
+                + (Configs.Complexity.Operator.ope * 2)                 // Parentheses Complexity - can have at most 2 sets of parens
+                
+            }
+            
+        }
+        
         struct Operand {
             
             static var int      = 5
