@@ -181,9 +181,10 @@ struct Solver{
                 let exp = Expression(components)
                 existingExpressionHashes.insert(currentExpressionHash)
                 
-                if exp.isValid {
+                if let solution = exp.value {
                     
-                    expressions[exp.answer]?.append(exp)
+                    // TODO: Clean Up - convert optional unrwapping to forced unwrapping
+                    expressions[solution]?.append(exp)
                     
                 }
                 

@@ -10,14 +10,15 @@ import XCTest
 
 final class ExpressionTests: XCTestCase { 
     
-    func test(_ expression: String, _ expected: Int) {
+    func test(_ expression: String, _ expectedSolution: Int) {
         
-        let exp     = Expression(expression)
-        let actual  = exp.answer
-        XCTAssert(expected == actual,
-                  "'\(exp)' Expected: \(expected) - Actual: \(actual)")
+        let exp             = Expression(expression)
+        let actualSolution  = exp.value ?? Configs.Expression.invalidAnswer
         
-        print("\(exp) == \(expected)")
+        XCTAssert(expectedSolution == actualSolution,
+                  "'\(exp)' Expected: \(expectedSolution) - Actual: \(actualSolution)")
+        
+        print("\(exp) == \(expectedSolution)")
         
     }
     

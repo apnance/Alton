@@ -11,23 +11,24 @@ import APNUtil
 struct Expression {
     
     /// The theoretical maximum possible `complexity` rating for an `Expresion`
-    static var maxComplexity: Int {
+    static var maxComplexity: Int { Configs.Complexity.Expression.maxComplexity }
+    
+    /// The raison d'être of an `Expression`, `maxComplexity` returns  the valid
+    /// `Int` solution to `self` if one exist, otherwise returns `nil`.
+    var value: Int? {
         
-        max(Int.maxComplexity, Fraction.maxComplexity)  // Operand Complexity
-        + (Operator.maxComplexity * 3)                  // Operator Complexity - can have at most 3 operators
-        + (Operator.ope.complexity * 2)                 // Parentheses Complexity - can have at most 2 sets of parens
+        isValid ? (intermediaryResult as? Int) : nil
         
     }
     
     /// All components of an `Expression`, inlcuding `Operands`, and `Operators`
     ///  (including parentheses)
-    var components  = [Component]()
+    private var components  = [Component]()
     
-    // TODO: Clean Up - refactor answer/result, clarify their purpose
-    /// The evaluated result of an expression.
-    /// e.g. '1 + 2 = 3'  3 is the answer.
-    fileprivate (set) var answer        = Configs.Expression.invalidAnswer
-    fileprivate var result: any Operand = Configs.Expression.invalidAnswer
+    /// An intermediary variable used to generate `value`.
+    /// - important: `intermediaryResult` underpins entire solution mechanism
+    /// for an Expression, changes made to this property shoudl be carefully considered.
+    fileprivate var intermediaryResult: any Operand = Configs.Expression.invalidAnswer
     
     /// Flag indicating if the Expression is a valid usable Expression.
     /// e.g. 
@@ -60,13 +61,13 @@ struct Expression {
         
         self.components = components
         
-        result = eval(components) ?? result
+        intermediaryResult = eval(components) ?? intermediaryResult
         
         if !validate { return /*EXIT*/ }
         
-        if let answer = (try? result.asInteger) {
+        if let answer = (try? intermediaryResult.asInteger) {
             
-            self.answer = answer
+            self.intermediaryResult = answer
             isValid = true
             
         } else {
@@ -146,7 +147,7 @@ struct Expression {
                     
                     if !sub.isValid { return (false, []) /*EXIT*/ }
                     
-                    sansParens.append(sub.result)
+                    sansParens.append(sub.intermediaryResult)
                     
                     // Reset Sub-Expression
                     subExp = []
@@ -323,7 +324,7 @@ struct Expression {
             
             printLocal("Error occured: \(error.localizedDescription) in Expression: '\(self)'")
             
-            return (false, answer) /*EXIT*/
+            return (false, intermediaryResult) /*EXIT*/
             
         }
         
@@ -412,13 +413,13 @@ extension Expression: CustomStringConvertible {
     
     var evaluatedDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description}) = \(answer)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(intermediaryResult)"
         
     }
     
     var evaluatedWithComplexityDescription: String {
         
-        "\(components.reduce(""){ $0 + $1.description}) = \(answer) :: complexity: \(complexity)"
+        "\(components.reduce(""){ $0 + $1.description}) = \(intermediaryResult) :: complexity: \(complexity)"
         
     }
     
