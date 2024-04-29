@@ -9,10 +9,25 @@ import Foundation
 
 struct Configs {
     
+    struct Puzzle {
+        
+        static var maxTheoreticalDifficulty = 100
+        
+    }
+    
     struct Expression {
         
         static var invalidAnswer        = -1279
         static var unsolvableDifficulty = 999.0
+        
+    }
+    
+    struct Precedence {
+        
+        static var addSub   = 1
+        static var mltDiv   = 2
+        static var fraction = 3
+        static var parens   = 4
         
     }
     

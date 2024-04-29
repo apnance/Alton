@@ -181,7 +181,7 @@ struct Expression {
             let optor       = exp[i + 1] as! Operator
             let rhs         = exp[i + 2] as! any Operand
             
-            if optor.precedence == .fraction {
+            if optor.precedence == Configs.Precedence.fraction {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
                                                   operator: optor,
@@ -224,7 +224,7 @@ struct Expression {
             let optor      = exp[i + 1]  as! Operator
             let rhs        = exp[i + 2]  as! any Operand
             
-            if optor.precedence == .multiplicationDivision {
+            if optor.precedence == Configs.Precedence.mltDiv {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
                                                   operator: optor,

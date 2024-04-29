@@ -10,10 +10,10 @@ import APNUtil
 
 struct Solver{
     
-    /// Toggles printing of difficulty info
+    /// Toggles printing of difficulty info - used primarily for debugging
     var shouldPrintDiffInfo     = false
     
-    /// Toggles printing of difficulty info header
+    /// Toggles printing of difficulty info header  - used primarily for debugging
     var shouldPrintDiffHeader   = false
     
     /// Performance tracking counter.
@@ -28,92 +28,6 @@ struct Solver{
     
     /// All viable `Expression`s found for each possible answer(1-10)
     private (set) var solutions = [Int : [Expression]]()
-    
-    static var maxSolutionDifficulty = 100
-    
-    // TODO: Clean Up - convert solutionDifficulty to func
-    var solutionDifficulty: Int {
-        
-        let maxSolutionComplexity   =  Double(Expression.maxComplexity * 10)
-        let maxSolutionScarcity     = 100.0 * 10.0
-        
-        var solutionComplexity      = 0
-        var solutionScarcity        = 0.0
-        var totalSolutionCount      = 0
-        
-        for answer in 1...10 {
-            
-            // Solution Complexity Component
-            let leastComplexExpression  = leastComplexExpressionFor(answer)
-            solutionComplexity          += leastComplexExpression?.complexity ?? 0
-            
-            // Solution Scarcity Component (the fewer possible solutions the harder to solve)
-            let solutionCount = solutions[answer]?.count ?? 0
-            
-            totalSolutionCount += solutionCount
-            
-            if solutionCount > 0 {
-                
-                solutionScarcity += max(100.0 - Double(solutionCount), 0.0)
-                
-            } else {
-                
-                solutionScarcity += maxSolutionScarcity * 5.0
-                
-            }
-            
-        }
-        
-        let complexityComponent: Double = Double(solutionComplexity) / Double(maxSolutionComplexity)
-        let scarcityComponent: Double   = solutionScarcity / maxSolutionScarcity
-        
-        // Weight the different components
-        let percentMax      =   scarcityComponent * (2.0/5.0)
-                                + complexityComponent * (3.0/5.0)
-        
-        var difficulty      = Double(Solver.maxSolutionDifficulty) * percentMax
-        
-        if difficulty < 100 {
-            
-            difficulty      -= 7.0
-            difficulty      = (difficulty / 4.6)
-            
-            difficulty      = max(1, difficulty)
-            difficulty      = min(10, difficulty)
-            
-            
-        } else {
-            
-            difficulty = Configs.Expression.unsolvableDifficulty
-            
-        }
-        
-        if shouldPrintDiffInfo {
-            
-            if shouldPrintDiffHeader {
-                
-                print("Digits\tDifficulty\tTotal Solutions\tScarcity\tComplexity\tPercent Max")
-                
-            }
-            
-            print("""
-                \(originalOperands)\
-                \t\(Int(difficulty))\
-                \t\(totalSolutionCount)\
-                \t\(scarcityComponent.roundTo(3))\
-                \t\(complexityComponent.roundTo(3))\
-                \t\(percentMax.roundTo(3))
-                """)
-            
-        }
-        
-        let returnValue = Int(difficulty)
-        
-        assert(returnValue < 1000 && returnValue > 0)
-        
-        return Int(returnValue)
-        
-    }
     
     /// All answers for which no solutions were found.
     private (set) var unsolved = [Int]()
@@ -136,7 +50,7 @@ struct Solver{
         solve()
         
         // Trigger difficulty calculation?
-        if shouldPrintDiffInfo { _ = solutionDifficulty }
+        if shouldPrintDiffInfo { _ = estimatePuzzleDifficulty() }
         
     }
     
@@ -404,6 +318,90 @@ struct Solver{
         
     }
     
+    /// Estimates the difficulty of solving the puzzle represented by `originalOperands`
+    func estimatePuzzleDifficulty() -> Int {
+        
+        let maxSolutionComplexity   =  Double(Expression.maxComplexity * 10)
+        let maxSolutionScarcity     = 100.0 * 10.0
+        
+        var solutionComplexity      = 0
+        var solutionScarcity        = 0.0
+        var totalSolutionCount      = 0
+        
+        for answer in 1...10 {
+            
+            // Solution Complexity Component
+            let leastComplexExpression  = leastComplexExpressionFor(answer)
+            solutionComplexity          += leastComplexExpression?.complexity ?? 0
+            
+            // Solution Scarcity Component (the fewer possible solutions the harder to solve)
+            let solutionCount = solutions[answer]?.count ?? 0
+            
+            totalSolutionCount += solutionCount
+            
+            if solutionCount > 0 {
+                
+                solutionScarcity += max(100.0 - Double(solutionCount), 0.0)
+                
+            } else {
+                
+                solutionScarcity += maxSolutionScarcity * 5.0
+                
+            }
+            
+        }
+        
+        let complexityComponent: Double = Double(solutionComplexity) / Double(maxSolutionComplexity)
+        let scarcityComponent: Double   = solutionScarcity / maxSolutionScarcity
+        
+        // Weight the different components
+        let percentMax      =   scarcityComponent * (2.0/5.0)
+                                + complexityComponent * (3.0/5.0)
+        
+        var difficulty      = Double(Configs.Puzzle.maxTheoreticalDifficulty) * percentMax
+        
+        if difficulty < 100 {
+            
+            difficulty      -= 7.0
+            difficulty      = (difficulty / 4.6)
+            
+            difficulty      = max(1, difficulty)
+            difficulty      = min(10, difficulty)
+            
+            
+        } else {
+            
+            difficulty = Configs.Expression.unsolvableDifficulty
+            
+        }
+        
+        if shouldPrintDiffInfo {
+            
+            if shouldPrintDiffHeader {
+                
+                print("Digits\tDifficulty\tTotal Solutions\tScarcity\tComplexity\tPercent Max")
+                
+            }
+            
+            print("""
+                \(originalOperands)\
+                \t\(Int(difficulty))\
+                \t\(totalSolutionCount)\
+                \t\(scarcityComponent.roundTo(3))\
+                \t\(complexityComponent.roundTo(3))\
+                \t\(percentMax.roundTo(3))
+                """)
+            
+        }
+        
+        let returnValue = Int(difficulty)
+        
+        assert(returnValue < 1000 && returnValue > 0)
+        
+        return Int(returnValue)
+        
+    }
+    
     /// - Returns: `String` representation of the full solution to the puzzle.
     func formattedSolution() -> String {
         
@@ -428,7 +426,7 @@ struct Solver{
         let padCount    = tabular.split(separator: "\n").first?.count ?? 40
         
         let separator   = String(repeating: "-", count: padCount)
-        let difficulty  = "Difficulty: \(solutionDifficulty)/10".centerPadded(toLength: padCount)
+        let difficulty  = "Difficulty: \(estimatePuzzleDifficulty())/10".centerPadded(toLength: padCount)
         
         return """
                 \(tabular)

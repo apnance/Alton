@@ -161,7 +161,7 @@ final class SolverTests: XCTestCase {
             
             let solver  = Solver(operands)
             
-            output += "\(operands) Difficulty: \(solver.solutionDifficulty) / \(Solver.maxSolutionDifficulty)\n"
+            output += "\(operands) Difficulty: \(solver.estimatePuzzleDifficulty()) / \(Configs.Puzzle.maxTheoreticalDifficulty)\n"
             
         }
         
@@ -203,11 +203,11 @@ final class SolverTests: XCTestCase {
             let stringDigits = digits.reduce(""){ "\($0)\($1)"}
             // let stringDigits = digits.description
             
-            let actualNormalized = solver.solutionDifficulty
+            let actualNormalized = solver.estimatePuzzleDifficulty()
             XCTAssert(actualNormalized == expectedNormalized,
                       "\(digits) Expected: \(expectedNormalized) - Actual: \(actualNormalized)")
             
-            print("\(stringDigits)\t\(solver.solutionDifficulty)\t\t\t\(expectedRaw)")
+            print("\(stringDigits)\t\(solver.estimatePuzzleDifficulty())\t\t\t\(expectedRaw)")
             
         }
         

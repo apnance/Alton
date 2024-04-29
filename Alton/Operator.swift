@@ -36,24 +36,7 @@ enum OperatorError: Error, LocalizedError {
 /// .fra - rawValue `_` differs from description string value `/`,
 /// .add - rawValue `+` differs from description string value ` + `,
 /// .sub - rawValue `-` differs from description string value ` - `.
-enum Operator: String, CaseIterable, Comparable {
-    
-    static func < (lhs: Operator, rhs: Operator) -> Bool {
-        
-        lhs.precedence.rawValue < rhs.precedence.rawValue
-        
-    }
-    
-    // TODO: Clean Up - get rid of this enum, move the values down into precedence variable...
-    enum Precendence: Int {
-    
-        // TODO: Clean Up - move these magic numbers into configs
-        case additionSubtraction    = 1
-        case multiplicationDivision = 2
-        case fraction               = 3
-        case parenthetical          = 4
-        
-    }
+enum Operator: String, CaseIterable {
     
     case add = "+" // description renders as ' + '
     case sub = "-" // description renders as ' - '
@@ -63,18 +46,17 @@ enum Operator: String, CaseIterable, Comparable {
     case clo = ")" // description renders as ')'
     case fra = "_" // description renders as '/'
     
-    var precedence: Precendence {
+    var precedence: Int {
         
         switch self {
                 
-            case .add, .sub: return .additionSubtraction
-            case .mlt, .div: return .multiplicationDivision
-            case .ope, .clo: return .parenthetical
-            case .fra: return .fraction
+            case .add, .sub:    return Configs.Precedence.addSub
+            case .mlt, .div:    return Configs.Precedence.mltDiv
+            case .fra:          return Configs.Precedence.fraction
+            case .ope, .clo:    return Configs.Precedence.parens
                 
         }
     }
-    
     
     /// Array of all `Operator`s excluding open and close parens.
     static let nonParen = [Operator.add, .sub, .div, .mlt, .fra]
@@ -184,6 +166,16 @@ extension Operator: CustomStringConvertible {
             case .clo : return rawValue
                 
         }
+        
+    }
+    
+}
+
+extension Operator: Comparable {
+    
+    static func < (lhs: Operator, rhs: Operator) -> Bool {
+        
+        lhs.precedence < rhs.precedence
         
     }
     

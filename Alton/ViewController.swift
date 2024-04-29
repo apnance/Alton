@@ -87,7 +87,7 @@ class ViewController: UIViewController {
     private func pasteBoard(_ solver: Solver?) {
         
         let digits  = solver?.originalOperands.reduce(""){$0 + $1.description} ?? "?!?"
-        let diff    = solver?.solutionDifficulty.description ?? "?!?"
+        let diff    = solver?.estimatePuzzleDifficulty().description ?? "?!?"
         
         printToClipboard("""
                          ~  ~
