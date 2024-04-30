@@ -36,7 +36,6 @@ struct Configs {
         
     }
     
-    // TODO: Clean Up - Factor Configs more logically
     struct Operand {
         
         struct Complexity {
