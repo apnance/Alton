@@ -103,7 +103,7 @@ final class SolverTests: XCTestCase {
         // ran in 20.974s 04/09/24
         // ran in 52.136s 04/10/24
         // ran in 56.788s 04/13/24
-
+        
         // ran in 57.976s 04/22/24 - BEFORE optimizations
         // ran in 56.728s 04/22/24 - BEFORE optimizations
         // ran in 45.934s 04/22/24 - AFTER optimizations
@@ -121,6 +121,8 @@ final class SolverTests: XCTestCase {
         // ran in 19.202s 04/29/24
         // ran in 19.572s 04/29/24
         // ran in 18.777s 04/29/24
+        // ran in 18.318s 04/29/24
+        // ran in 18.478 s 04/29/24
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
