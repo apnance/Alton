@@ -272,7 +272,7 @@ struct Solver{
                         }
                         
                         if o3 < o1 {
-                        
+                            
                             if o2 < o3 {
                                 
                                 // 1x((2x3)x4)
@@ -287,10 +287,9 @@ struct Solver{
                             
                         }
                         
-                        
                         if o2 < o1 {
                             
-                            if o2 < o3 {
+                            if o3 < o2 {
                                 
                                 // 1x(2x(3x4))
                                 addExpressionFrom([d1, o1, pO, d2, o2, pO, d3, o3, d4, pC, pC])
