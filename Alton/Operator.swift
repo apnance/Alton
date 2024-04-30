@@ -50,10 +50,10 @@ enum Operator: String, CaseIterable {
         
         switch self {
                 
-            case .add, .sub:    return Configs.Precedence.addSub
-            case .mlt, .div:    return Configs.Precedence.mltDiv
-            case .fra:          return Configs.Precedence.fraction
-            case .ope, .clo:    return Configs.Precedence.parens
+            case .add, .sub:    return Configs.Operator.Precedence.addSub
+            case .mlt, .div:    return Configs.Operator.Precedence.mltDiv
+            case .fra:          return Configs.Operator.Precedence.fraction
+            case .ope, .clo:    return Configs.Operator.Precedence.parens
                 
         }
     }
@@ -129,19 +129,19 @@ extension Operator: Component {
     func isCloseParen() -> Bool { self == .clo }
     func isOpenParen() -> Bool { self == .ope }
     
-    static var maxComplexity = Configs.Complexity.Operator.max
+    static var maxComplexity = Configs.Operator.Complexity.max
     
     var complexity: Int {
         
         switch self {
                 
-            case .add: return Configs.Complexity.Operator.add
-            case .sub: return Configs.Complexity.Operator.sub
-            case .mlt: return Configs.Complexity.Operator.mlt
-            case .div: return Configs.Complexity.Operator.div
-            case .ope: return Configs.Complexity.Operator.ope
-            case .clo: return Configs.Complexity.Operator.clo
-            case .fra: return Configs.Complexity.Operator.fra
+            case .add: return Configs.Operator.Complexity.add
+            case .sub: return Configs.Operator.Complexity.sub
+            case .mlt: return Configs.Operator.Complexity.mlt
+            case .div: return Configs.Operator.Complexity.div
+            case .ope: return Configs.Operator.Complexity.ope
+            case .clo: return Configs.Operator.Complexity.clo
+            case .fra: return Configs.Operator.Complexity.fra
             
         }
         

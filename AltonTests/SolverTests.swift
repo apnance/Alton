@@ -117,8 +117,10 @@ final class SolverTests: XCTestCase {
         // ran in 21.349s 04/28/24
         // ran in 21.198s 04/28/24
         // ran in 21.339s 04/28/24
+        
         // ran in 19.202s 04/29/24
         // ran in 19.572s 04/29/24
+        // ran in 18.777s 04/29/24
         echoAssert([1,2,3,4],
                    [1,2,3,4],
                    [1,2,3,4],
@@ -163,7 +165,7 @@ final class SolverTests: XCTestCase {
             
             let solver  = Solver(operands)
             
-            output += "\(operands) Difficulty: \(solver.estimatePuzzleDifficulty()) / \(Configs.Puzzle.maxTheoreticalDifficulty)\n"
+            output += "\(operands) Difficulty: \(solver.estimatePuzzleDifficulty()) / \(Configs.Puzzle.Difficulty.maxTheoretical)\n"
             
         }
         
@@ -213,7 +215,7 @@ final class SolverTests: XCTestCase {
             
         }
         
-        let unsolvableDiff = Int(Configs.Expression.unsolvableDifficulty)
+        let unsolvableDiff = Int(Configs.Expression.Difficulty.unsolvable)
         
         test([9,9,9,9], unsolvableDiff, unsolvableDiff)
         test([7,7,7,7], 10, 54)

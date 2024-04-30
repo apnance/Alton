@@ -359,7 +359,7 @@ struct Solver{
         let percentMax      =   scarcityComponent * (2.0/5.0)
                                 + complexityComponent * (3.0/5.0)
         
-        var difficulty      = Double(Configs.Puzzle.maxTheoreticalDifficulty) * percentMax
+        var difficulty      = Double(Configs.Puzzle.Difficulty.maxTheoretical) * percentMax
         
         if difficulty < 100 {
             
@@ -372,7 +372,7 @@ struct Solver{
             
         } else {
             
-            difficulty = Configs.Expression.unsolvableDifficulty
+            difficulty = Configs.Expression.Difficulty.unsolvable
             
         }
         

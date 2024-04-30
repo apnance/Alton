@@ -21,7 +21,7 @@ protocol Operand: Component {
 
 extension Int: Operand {
     
-    static var maxComplexity = Configs.Complexity.Operand.int
+    static var maxComplexity = Configs.Operand.Complexity.int
     var complexity: Int { self > 9 ? Int.maxComplexity : 0 }
     var asInteger: Int { self }
     var asFraction: Fraction { Fraction(numerator: self,

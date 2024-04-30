@@ -113,7 +113,7 @@ extension Fraction: Equatable {
 extension Fraction: Operand {
     
     // Fraction's complexity is never called but
-    static var maxComplexity: Int { Configs.Complexity.Operand.fraction }
+    static var maxComplexity: Int { Configs.Operand.Complexity.fraction }
     var complexity: Int { Fraction.maxComplexity }
     
     var asInteger: Int {

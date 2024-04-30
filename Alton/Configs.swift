@@ -11,48 +11,55 @@ struct Configs {
     
     struct Puzzle {
         
-        static var maxTheoreticalDifficulty = 100
+        struct Difficulty { static var maxTheoretical = 100 }
         
     }
     
     struct Expression {
         
-        static var invalidAnswer        = -1279
-        static var unsolvableDifficulty = 999.0
+        static var invalidAnswer = -1279
         
-    }
-    
-    struct Precedence {
+        struct Difficulty { static var unsolvable = 999.0 }
         
-        static var addSub   = 1
-        static var mltDiv   = 2
-        static var fraction = 3
-        static var parens   = 4
-        
-    }
-    
-    struct Complexity {
-        
-        struct Expression {
+        struct Complexity {
             
-            static var maxComplexity: Int {
+            static var max: Int {
                 
-                max(Configs.Complexity.Operand.int, Configs.Complexity.Operand.fraction)  // Operand Complexity
-                + (Configs.Complexity.Operator.max * 3)                  // Operator Complexity - can have at most 3 operators
-                + (Configs.Complexity.Operator.ope * 2)                 // Parentheses Complexity - can have at most 2 sets of parens
+                Swift.max(Operand.Complexity.int,
+                    Operand.Complexity.fraction)    // Operand Complexity
+                + (Operator.Complexity.max * 3)     // Operator Complexity - can have at most 3 operators
+                + (Operator.Complexity.ope * 2)     // Parentheses Complexity - can have at most 2 sets of parens
                 
             }
             
         }
         
-        struct Operand {
+    }
+    
+    // TODO: Clean Up - Factor Configs more logically
+    struct Operand {
+        
+        struct Complexity {
             
             static var int      = 5
             static var fraction = 6
             
         }
         
-        struct Operator {
+    }
+    
+    struct Operator {
+        
+        struct Precedence {
+            
+            static var addSub   = 1
+            static var mltDiv   = 2
+            static var fraction = 3
+            static var parens   = 4
+            
+        }
+        
+        struct Complexity {
             
             static var add = 10
             static var sub = 11
@@ -60,18 +67,14 @@ struct Configs {
             static var div = 30
             static var ope = 40
             static var clo = 0
-            static var fra = max
+            static var fra = 65
             
-            static var max = 65
+            static var max = fra
             
         }
-    }
-    
-    
-    struct Test {
-        
-        static var printTestMessage = false
         
     }
+    
+    struct Test { static var printTestMessage = false }
     
 }

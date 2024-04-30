@@ -11,7 +11,7 @@ import APNUtil
 struct Expression {
     
     /// The theoretical maximum possible `complexity` rating for an `Expresion`
-    static var maxComplexity: Int { Configs.Complexity.Expression.maxComplexity }
+    static var maxComplexity = Configs.Expression.Complexity.max
     
     /// The raison d'être of an `Expression`, `maxComplexity` returns  the valid
     /// `Int` solution to `self` if one exist, otherwise returns `nil`.
@@ -182,7 +182,7 @@ struct Expression {
             let optor       = exp[i + 1] as! Operator
             let rhs         = exp[i + 2] as! any Operand
             
-            if optor.precedence == Configs.Precedence.fraction {
+            if optor.precedence == Configs.Operator.Precedence.fraction {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
                                                   operator: optor,
@@ -225,7 +225,7 @@ struct Expression {
             let optor      = exp[i + 1]  as! Operator
             let rhs        = exp[i + 2]  as! any Operand
             
-            if optor.precedence == Configs.Precedence.mltDiv {
+            if optor.precedence == Configs.Operator.Precedence.mltDiv {
                 
                 let (success, subVal)   = tryEval(lhs: lhs,
                                                   operator: optor,
