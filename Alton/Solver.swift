@@ -183,7 +183,6 @@ struct Solver{
                 
                 if let solution = exp.value {
                     
-                    // TODO: Clean Up - convert optional unrwapping to forced unwrapping
                     expressions[solution]?.append(exp)
                     
                 }
