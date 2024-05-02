@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet var buttonsCollection: [UIButton]!
     
+    @IBOutlet weak var versionLabel: UILabel!
     
     // MARK: - Actions
     
@@ -202,6 +203,7 @@ class ViewController: UIViewController {
         }
         
         uiSetButtons()
+        uiSetVersion()
         
         Blink.go(altonLogo)
         
@@ -211,6 +213,25 @@ class ViewController: UIViewController {
         
         returnButton.isEnabled = solver.isNil ? false : true
         deleteButton.isEnabled = inputLabel.text!.count > 0
+        
+    }
+    
+    private func uiSetVersion() {
+     
+        var formatted = AttributedString("")
+        
+        let version = "v\(Bundle.appVersion)"
+        
+        for (i, char) in version.enumerated() {
+            
+            var att = AttributedString(String(char))
+            att.foregroundColor = i % 2 == 0 ? UIColor.systemYellow.pointFourAlpha : UIColor.systemOrange.pointEightAlpha
+            formatted.append(att)
+            
+        }
+        
+        versionLabel.attributedText = NSAttributedString(formatted)
+        
         
     }
     
@@ -252,10 +273,10 @@ class ViewController: UIViewController {
     /// - Parameter answer: answer number for which solutions should be d
     fileprivate func displaySolutionsFor(_ answer: Int) {
         
-        guard let solver = solver
+        guard let puzzle = solver?.puzzle
         else { return /*EXIT*/ }
         
-        let solutions                   = solver.formattedSolutionsFor(answer)
+        let solutions                   = puzzle.formattedSolutionsFor(answer)
         displayTextView.attributedText  = colorizeSolutions(solutions)
         
     }
