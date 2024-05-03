@@ -7,7 +7,6 @@
 
 import APNUtil
 
-
 /// Represents an All Ten puzzle and is a collection of 4 digits(`Operand`s)
 ///  that may or may not have `Solution`s to all expected `Answer`s(1-10)
 ///  . A `Puzzle` with `Solution`s to `Answer`s 1-10 is considered fully solved

@@ -33,10 +33,65 @@ class ViewController: UIViewController {
         
     }
     
-    
-    // TODO: Clean Up - Refactor: re-org funcs below logically
-    
     // MARK: - Custom Methods
+    private func uiInit() {
+        
+        inputLabel.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
+        inputLabel.textColor                = UIColor.white.pointSevenAlpha
+        inputLabel.layer.borderWidth        = 1
+        inputLabel.layer.cornerRadius       = 4
+        inputLabel.clipsToBounds            = true
+        
+        displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
+        displayTextView.layer.borderWidth   = 1
+        displayTextView.layer.cornerRadius  = 4
+        displayTextView.clipsToBounds       = true
+        
+        for button in buttonsCollection {
+            
+            button.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
+            button.layer.borderWidth        = 1
+            button.layer.cornerRadius       = 4
+            button.tintColor                = UIColor.orange.halfAlpha
+            
+            button.addTarget(self,
+                             action: #selector(tapButton(sender:)),
+                             for: .touchUpInside)
+            
+        }
+        
+        uiSetButtons()
+        uiSetVersion()
+        
+        Blink.go(altonLogo)
+        
+    }
+    
+    private func uiSetButtons() {
+        
+        returnButton.isEnabled = solver.isNil ? false : true
+        deleteButton.isEnabled = inputLabel.text!.count > 0
+        
+    }
+    
+    private func uiSetVersion() {
+     
+        var formatted = AttributedString("")
+        
+        let version = "v\(Bundle.appVersion)"
+        
+        for (i, char) in version.enumerated() {
+            
+            var att = AttributedString(String(char))
+            att.foregroundColor = i % 2 == 0 ? UIColor.systemYellow.pointFourAlpha : UIColor.systemOrange.pointEightAlpha
+            formatted.append(att)
+            
+        }
+        
+        versionLabel.attributedText = NSAttributedString(formatted)
+        
+    }
+    
     @discardableResult func uiProcessInput() -> Bool {
         
         let text = inputLabel.text!
@@ -86,21 +141,37 @@ class ViewController: UIViewController {
         
     }
     
-    private func pasteBoard(_ solver: Solver?) {
+    @objc func tapButton(sender: UIButton) {
         
-        if let puzzle = solver?.puzzle {
-            
-            let digits  = puzzle.digits.reduce(""){$0 + $1.description}
-            let diff    = puzzle.difficulty!.estimated
-            let diffString = diff <= 10 ? diff.description : "@&!~"
-            
-            printToClipboard("""
-                         ~  ~
-                         a  ⧂
-                               <( \(digits) : \(diffString) )
-                         """)
-            
+        inputLabel.text = inputLabel.text == "--" ? "" : inputLabel.text
+        let numTapped = sender.tag
+        
+        switch numTapped {
+                
+            case -1:    // Clear Input
+                inputLabel.text = ""
+                solver = nil
+                
+            case -2:    // Display Sample Solution
+                
+                displayCompleteSolution()
+                return /*EXIT*/
+                
+            default:    // Enter Digits or Select Answer Number
+                
+                if inputLabel.text!.count == 4 {    // Show Answer Subset
+                
+                    displaySolutionsFor(numTapped)
+                    return /*EXIT*/
+                    
+                } else {                            // Enter Digit
+                    
+                    inputLabel.text! += numTapped.description
+                    
+                }
         }
+        
+        uiProcessInput()
         
     }
     
@@ -111,6 +182,18 @@ class ViewController: UIViewController {
         
         let solution                    = puzzle.formattedSolutionSummary()
         displayTextView.attributedText  = colorizeSolutions(solution)
+        
+    }
+    
+    /// Displays all solutions for the given answer number.
+    /// - Parameter answer: answer number for which solutions should be d
+    fileprivate func displaySolutionsFor(_ answer: Int) {
+        
+        guard let puzzle = solver?.puzzle
+        else { return /*EXIT*/ }
+        
+        let solutions                   = puzzle.formattedSolutionsFor(answer)
+        displayTextView.attributedText  = colorizeSolutions(solutions)
         
     }
     
@@ -183,107 +266,21 @@ class ViewController: UIViewController {
         
     }
     
-    private func uiInit() {
+    private func pasteBoard(_ solver: Solver?) {
         
-        inputLabel.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
-        inputLabel.textColor                = UIColor.white.pointSevenAlpha
-        inputLabel.layer.borderWidth        = 1
-        inputLabel.layer.cornerRadius       = 4
-        inputLabel.clipsToBounds            = true
-        
-        displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
-        displayTextView.layer.borderWidth   = 1
-        displayTextView.layer.cornerRadius  = 4
-        displayTextView.clipsToBounds       = true
-        
-        for button in buttonsCollection {
+        if let puzzle = solver?.puzzle {
             
-            button.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
-            button.layer.borderWidth        = 1
-            button.layer.cornerRadius       = 4
-            button.tintColor                = UIColor.orange.halfAlpha
+            let digits  = puzzle.digits.reduce(""){$0 + $1.description}
+            let diff    = puzzle.difficulty!.estimated
+            let diffString = diff <= 10 ? diff.description : "@&!~"
             
-            button.addTarget(self,
-                             action: #selector(tapButton(sender:)),
-                             for: .touchUpInside)
+            printToClipboard("""
+                         ~  ~
+                         a  ⧂
+                               <( \(digits) : \(diffString) )
+                         """)
             
         }
-        
-        uiSetButtons()
-        uiSetVersion()
-        
-        Blink.go(altonLogo)
-        
-    }
-    
-    private func uiSetButtons() {
-        
-        returnButton.isEnabled = solver.isNil ? false : true
-        deleteButton.isEnabled = inputLabel.text!.count > 0
-        
-    }
-    
-    private func uiSetVersion() {
-     
-        var formatted = AttributedString("")
-        
-        let version = "v\(Bundle.appVersion)"
-        
-        for (i, char) in version.enumerated() {
-            
-            var att = AttributedString(String(char))
-            att.foregroundColor = i % 2 == 0 ? UIColor.systemYellow.pointFourAlpha : UIColor.systemOrange.pointEightAlpha
-            formatted.append(att)
-            
-        }
-        
-        versionLabel.attributedText = NSAttributedString(formatted)
-        
-    }
-    
-    @objc func tapButton(sender: UIButton) {
-        
-        inputLabel.text = inputLabel.text == "--" ? "" : inputLabel.text
-        let numTapped = sender.tag
-        
-        switch numTapped {
-                
-            case -1:    // Clear Input
-                inputLabel.text = ""
-                solver = nil
-                
-            case -2:    // Display Sample Solution
-                
-                displayCompleteSolution()
-                return /*EXIT*/
-                
-            default:    // Enter Digits or Select Answer Number
-                
-                if inputLabel.text!.count == 4 {    // Show Answer Subset
-                
-                    displaySolutionsFor(numTapped)
-                    return /*EXIT*/
-                    
-                } else {                            // Enter Digit
-                    
-                    inputLabel.text! += numTapped.description
-                    
-                }
-        }
-        
-        uiProcessInput()
-        
-    }
-    
-    /// Displays all solutions for the given answer number.
-    /// - Parameter answer: answer number for which solutions should be d
-    fileprivate func displaySolutionsFor(_ answer: Int) {
-        
-        guard let puzzle = solver?.puzzle
-        else { return /*EXIT*/ }
-        
-        let solutions                   = puzzle.formattedSolutionsFor(answer)
-        displayTextView.attributedText  = colorizeSolutions(solutions)
         
     }
     

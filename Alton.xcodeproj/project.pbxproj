@@ -166,8 +166,8 @@
 			children = (
 				93A22EAC2A1BF93C0028929F /* iOS */,
 				93A22EB12A1BF9BE0028929F /* Solver.swift */,
-				939F38952BCEDE4200463E3E /* Blink.swift */,
 				93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */,
+				939F38952BCEDE4200463E3E /* Blink.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -184,13 +184,13 @@
 		93A22EAA2A1BF90A0028929F /* M */ = {
 			isa = PBXGroup;
 			children = (
+				93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */,
 				93D747512BB62327007A2F52 /* Expression.swift */,
-				93ADC66F2BB6425A00E7C25B /* Operator.swift */,
+				93D2D04E2BE19955009A5FF2 /* Difficulty.swift */,
 				9361BF9D2BBC7C2300425C95 /* Component.swift */,
+				93ADC66F2BB6425A00E7C25B /* Operator.swift */,
 				9335D2F92BC5C4CC009CF74A /* Operand.swift */,
 				9335D2F52BC48E7C009CF74A /* Fraction.swift */,
-				93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */,
-				93D2D04E2BE19955009A5FF2 /* Difficulty.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";

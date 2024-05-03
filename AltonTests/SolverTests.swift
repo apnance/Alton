@@ -473,7 +473,7 @@ final class SolverTests: XCTestCase {
             
         }
         
-        // Use start point to run testAllPuzzles from that puzzle on.
+        // Use start point to run testAllPlusPlus from that puzzle on.
         // e.g. startPoine = [7,7,7,7] starts with puzzle 7777 and goes to 9999
         var startPoint: Int?        = nil
         var actualUnsolvableCount   = 0

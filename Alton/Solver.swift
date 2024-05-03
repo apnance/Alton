@@ -8,7 +8,6 @@
 import Foundation
 import APNUtil
 
-
 /// A `Solution` finding `Puzzle` manager.
 ///
 /// Nomenclature:
