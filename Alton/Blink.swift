@@ -29,7 +29,6 @@ struct Blink {
         
         self.target = target
         
-        
         // Ø ⦰ ɑ ø ⱺ Ơ ⧂ ⨀ ⊛ ⩍ ⦸ ⧂
         let eyePair = [["a","⧂"],
                        ["-", "⧂"]]
@@ -56,7 +55,6 @@ struct Blink {
         }
         
     }
-    
     
     /// Prepares and initiates the random blinking animation.
     /// - Parameters:

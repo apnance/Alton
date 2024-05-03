@@ -120,7 +120,6 @@ final class FractionalMathTests: XCTestCase {
         
     }
     
-    
     func testMultiplication() {
         
         var f1          = Fraction(numerator: 1, denominator: 2)
