@@ -124,8 +124,6 @@ struct Solver{
             
         }
         
-        doubleDigits = doubleDigits.dedupe()
-        
         operands.append(contentsOf: doubleDigits)
         
         return operands
