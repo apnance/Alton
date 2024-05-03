@@ -177,7 +177,6 @@ extension Fraction: Operand {
             if rhs == 0 { throw OperatorError.divideByZero /*THROW*/ }
             else { return lhs / rhs.asFraction }
             
-            
         } else {
             
             let rhs = rhs as! Fraction
