@@ -13,7 +13,7 @@ final class ExpressionTests: XCTestCase {
     func test(_ expression: String, _ expectedSolution: Int) {
         
         let exp             = Expression(expression)
-        let actualSolution  = exp.value ?? Configs.Expression.invalidAnswer
+        let actualSolution  = exp.answer ?? Configs.Expression.invalidAnswer
         
         XCTAssert(expectedSolution == actualSolution,
                   "'\(exp)' Expected: \(expectedSolution) - Actual: \(actualSolution)")
@@ -44,7 +44,6 @@ final class ExpressionTests: XCTestCase {
     /// These Expressions have been returning erroneous answers.
     /// - Note: this is likely caused by precedence bug
     func testBrokenExpressions() {
-        
         
         // Broken
         test("(3 + 3 * 3 + 2)", 14) // Expected 14 - Actual 18
@@ -140,9 +139,8 @@ final class ExpressionTests: XCTestCase {
         
         func checkMax(_ operands: [Int]) {
             
-            let solver  = Solver(operands)
-            
-            let exps = solver.solutions.keys.reduce([Expression]()){ $0 + (solver.solutions[$1] ?? [])}.sorted{ $0.complexity < $1.complexity }
+            let puzzle  = Solver(operands).puzzle
+            let exps    = puzzle.solutions.keys.reduce([Expression]()){ $0 + (puzzle.solutions[$1] ?? [])}.sorted{ $0.complexity < $1.complexity }
             
             for exp in exps {
             
@@ -178,7 +176,6 @@ final class ExpressionTests: XCTestCase {
                 -- Complexity: \(maxComplexity) / \(Expression.maxComplexity)
                 
                 """)
-        
         
     }
     

@@ -8,18 +8,15 @@
 import Foundation
 import APNUtil
 
+/// A valid  result of evaluating an `Expression`.
+typealias Answer = Int
+
+/// A chain of `Components` that when evaluated may or may not yield a valid integer `Answer`
 struct Expression {
     
-    /// The theoretical maximum possible `complexity` rating for an `Expresion`
-    static var maxComplexity = Configs.Expression.Complexity.max
-    
-    /// The raison d'être of an `Expression`, `maxComplexity` returns  the valid
-    /// `Int` solution to `self` if one exist, otherwise returns `nil`.
-    var value: Int? {
-        
-        isValid ? (intermediaryResult as? Int) : nil
-        
-    }
+    /// The raison d'être of an `Expression`,  returns  the valid
+    /// `Answer` solution to `self` if one exist, otherwise returns `nil`.
+    var answer: Answer? { isValid ? (intermediaryResult as? Int) : nil }
     
     /// All components of an `Expression`, inlcuding `Operands`, and `Operators`
     ///  (including parentheses)
@@ -28,13 +25,13 @@ struct Expression {
     /// An intermediary variable used to generate `value`.
     /// - important: `intermediaryResult` underpins entire solution mechanism
     /// for an Expression, changes made to this property shoudl be carefully considered.
-    fileprivate var intermediaryResult: any Operand = Configs.Expression.invalidAnswer
+    private var intermediaryResult: any Operand = Configs.Expression.invalidAnswer
     
     /// Flag indicating if the Expression is a valid usable Expression.
-    /// e.g. 
+    /// e.g.
     /// '2 / 2' would be valid
     /// '1 / 0' would be invalid
-    var isValid                         = true
+    private var isValid                         = true
     
     /// Sum of complexities of all `components`
     /// The higher the number the greater the relative complexity.
@@ -44,10 +41,20 @@ struct Expression {
         
     }
     
+    /// The theoretical maximum possible `complexity` rating for an `Expresion`
+    static var maxComplexity = Configs.Expression.Complexity.max
     
     init(_ components: [Component]) {
         
-        self.init(components, validate: true)
+        self.init(components, 
+                  validate: true)
+        
+    }
+    
+    /// Parses a string containing an expression and returns the corresponding expression.
+    init(_ string: String) {
+        
+        self.init(Expression.parse(string))
         
     }
     
@@ -61,13 +68,13 @@ struct Expression {
         
         self.components = components
         
-        intermediaryResult = eval(components) ?? intermediaryResult
+        intermediaryResult = evalMain(components) ?? intermediaryResult
         
         if !validate { return /*EXIT*/ }
         
         if let answer = (try? intermediaryResult.asInteger) {
             
-            self.intermediaryResult = answer
+            intermediaryResult = answer
             isValid = true
             
         } else {
@@ -78,15 +85,8 @@ struct Expression {
         
     }
     
-    /// Parses a string containing an expression and returns the corresponding expression.
-    init(_ string: String) {
-        
-        self.init(Expression.parse(string))
-        
-    }
-    
     /// Processes `self` as a mathematical expression from left to right, observing rules of precedence.
-    func eval(_ exp: [Component]) -> (any Operand)? {
+    private func evalMain(_ exp: [Component]) -> (any Operand)? {
         
         var exp     = exp
         
@@ -119,7 +119,7 @@ struct Expression {
     }
     
     /// Evaluates parentheticals in `exp`, replacing them with their evaluated components
-    func evalParens(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+    private func evalParens(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
         
         // Replace parentheticals with their evaluated selves
         var parenCount  = 0
@@ -169,7 +169,7 @@ struct Expression {
     }
     
     /// Evaluates `Fraction`s in `exp`, replacing them with their evaluated components
-    func evalFracts(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+    private func evalFracts(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
          
         var exp = exp
         var sansFractions   = [Component]()
@@ -213,7 +213,7 @@ struct Expression {
     
     /// Evaluates multiplication and division sub-expressions, replacing them with 
     /// their evaluated `Component`s
-    func evalMltDiv(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
+    private func evalMltDiv(_ exp: [Component]) -> (success: Bool, exp: [Component]) {
         
         var exp            = exp
         var sansMltDiv     = [Component]()
@@ -256,7 +256,7 @@ struct Expression {
     
     /// Evaluates addition and subtraction sub-expressions, replacing them with 
     /// their evaluated `Component`s
-    func evalAddSub(_ exp: [Component]) -> (any Operand)? {
+    private func evalAddSub(_ exp: [Component]) -> (any Operand)? {
         
         var finalVal: any Operand   = 0
         var i                       = 0
@@ -296,7 +296,7 @@ struct Expression {
     /// `[Component]` argument.  It is expected that the first component will be
     /// the LHS `Operand`, the second will be the `Operator` and the third
     /// the RHS `Operand`.
-    func evalSimple(_ exp: [Component]) -> (success: Bool, (any Operand)?) {
+    private func evalSimple(_ exp: [Component]) -> (success: Bool, (any Operand)?) {
         
         guard exp.count == 3
         else { return (false, nil) /*EXIT*/ }
@@ -312,7 +312,7 @@ struct Expression {
     }
     
     /// Utility function for processing error prone evals
-    func tryEval(lhs: any Operand, 
+    private func tryEval(lhs: any Operand,
                  operator: Operator,
                  rhs: any Operand) -> (success: Bool, answer: any Operand) {
         
@@ -333,7 +333,7 @@ struct Expression {
     /// Parses a string containing an `Expression` before  returning an array of all `Component`s
     /// - Note: rudimentary validation of parenthetical order and balance is
     /// performed however no validation of operator/operand order/balance is done.
-    static func parse(_ string: String) -> [Component] {
+    private static func parse(_ string: String) -> [Component] {
         
         let string      = string.replacingOccurrences(of: " ", with: "")
         var components  = [Component]()
@@ -391,13 +391,22 @@ struct Expression {
 
 }
 
-
 // - MARK: Protocol Adoption
 extension Expression: Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         
         return lhs.description == rhs.description
+        
+    }
+    
+}
+
+extension Expression: Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        
+        hasher.combine(description)
         
     }
     

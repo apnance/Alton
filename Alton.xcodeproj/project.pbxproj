@@ -28,6 +28,9 @@
 		93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EB12A1BF9BE0028929F /* Solver.swift */; };
 		93A22EB52A1BFA820028929F /* APNUtil in Frameworks */ = {isa = PBXBuildFile; productRef = 93A22EB42A1BFA820028929F /* APNUtil */; };
 		93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADC66F2BB6425A00E7C25B /* Operator.swift */; };
+		93D2D04D2BE18B44009A5FF2 /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */; };
+		93D2D04F2BE19955009A5FF2 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04E2BE19955009A5FF2 /* Difficulty.swift */; };
+		93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */; };
 		93D747522BB62327007A2F52 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747512BB62327007A2F52 /* Expression.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,9 @@
 		93A22EAF2A1BF99C0028929F /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		93A22EB12A1BF9BE0028929F /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
 		93ADC66F2BB6425A00E7C25B /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
+		93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
+		93D2D04E2BE19955009A5FF2 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDeduper.swift; sourceTree = "<group>"; };
 		93D747512BB62327007A2F52 /* Expression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expression.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,6 +167,7 @@
 				93A22EAC2A1BF93C0028929F /* iOS */,
 				93A22EB12A1BF9BE0028929F /* Solver.swift */,
 				939F38952BCEDE4200463E3E /* Blink.swift */,
+				93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -182,6 +189,8 @@
 				9361BF9D2BBC7C2300425C95 /* Component.swift */,
 				9335D2F92BC5C4CC009CF74A /* Operand.swift */,
 				9335D2F52BC48E7C009CF74A /* Fraction.swift */,
+				93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */,
+				93D2D04E2BE19955009A5FF2 /* Difficulty.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -361,6 +370,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */,
+				93D2D04D2BE18B44009A5FF2 /* Puzzle.swift in Sources */,
+				93D2D04F2BE19955009A5FF2 /* Difficulty.swift in Sources */,
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
 				9335D2FC2BC70DE0009CF74A /* TextFieldTintedClearButton.swift in Sources */,
 				939F38962BCEDE4200463E3E /* Blink.swift in Sources */,
@@ -369,6 +380,7 @@
 				9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */,
 				93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */,
 				9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */,
+				93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
 				9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */,
@@ -563,7 +575,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.Alton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -591,7 +603,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.aaron.nance.Alton;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

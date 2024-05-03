@@ -7,17 +7,19 @@
 
 import Foundation
 
+/// The building block of an `Expression`. Can be either an `Operand`
+/// or an `Operator`
 protocol Component: CustomStringConvertible {
     
     /// Flag indicating if this `Component` is an open parenthesis
     func isOpenParen() -> Bool
+    
     /// Flag indicating if this `Component` is an close parenthesis
     func isCloseParen() -> Bool
     
     /// Relative measure of complexity of the `Component`
     var complexity: Int { get }
     
-    /// A `Component` is required to offer the maximum possible complexity it can have.
     static var maxComplexity: Int { get }
     
 }

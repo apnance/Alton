@@ -8,86 +8,81 @@
 import Foundation
 import APNUtil
 
-struct Solver{
+
+/// A `Solution` finding `Puzzle` manager.
+///
+/// Nomenclature:
+/// * `Solver`:  a `Solution` finding `Puzzle` manager.
+///
+/// * `Puzzle`:  Represents an All Ten puzzle and is a collection of 4 digits(`Operand`s)
+///  that may or may not have `Solution`s to all expected `Answer`s(1-10)
+///  . A `Puzzle` with `Solution`s to `Answer`s 1-10 is considered fully solved
+///  All Ten `Puzzle`
+///
+/// * `Expression`:  A chain of `Components` that when evaluated may or may not
+/// yield a valid integer `Answer`
+///
+/// * `Component`:  the building block of an `Expression`. Can be either an `Operand`
+/// or an `Operator`
+///
+/// * `Answer`: a valid  result(Integer) of evaluating an `Expression`.
+///
+/// * `Solution`: an `Expression` with an `Answer`
+struct Solver {
     
-    /// Toggles printing of difficulty info - used primarily for debugging
-    var shouldPrintDiffInfo     = false
-    
-    /// Toggles printing of difficulty info header  - used primarily for debugging
-    var shouldPrintDiffHeader   = false
-    
-    /// Performance tracking counter.
-    private (set) var loopCount = 0
+    private (set) var puzzle: Puzzle
     
     /// Backing property containing array of all possible 3-operator combinations
     /// excluding open and close parens.
     private static var operators = [[Operator]]()
     
-    /// Stores the original game digits
-    let originalOperands: [Int]
+    /// Performance tracking counter.
+    var loopCount = 0
     
-    /// All viable `Expression`s found for each possible answer(1-10)
-    private (set) var solutions = [Int : [Expression]]()
-    
-    /// All answers for which no solutions were found.
-    private (set) var unsolved = [Int]()
-    
-    /// Boolean value indicating if solutions have been found for all possible answer(1-10).
-    var fullySolved : Bool { unsolved.isEmpty }
-    
+    /// Initializes a `Solver`
+    /// - Parameters:
+    ///   - originals: Array of the puzzle digits to solve.
+    ///   - bruteForce: Flag to toggle use of very slow, brute force Expression generation.
+    ///
+    /// - Important: Do not use bruteForce except for testing.
+    /// - Note: bruteForce is meant only for testing that the solutions generated
+    /// w/o bruteForce are as thorough/exhaustive as possible.
     init(_ originals:           [Int],
-         shouldPrintDiffInfo:   Bool = false,
-         shouldPrintDiffHeader: Bool = false) {
+         useBruteForce bruteForce: Bool = false) {
         
-        assert(originals.count == 4,
-               "Expected Digit Count: 4 - Actual: \(originals.count)")
-        
-        self.shouldPrintDiffInfo = shouldPrintDiffInfo
-        self.shouldPrintDiffHeader = shouldPrintDiffHeader
-        
-        originalOperands = originals
-        
-        solve()
-        
-        // Trigger difficulty calculation?
-        if shouldPrintDiffInfo { _ = estimatePuzzleDifficulty() }
+        puzzle = Puzzle(originals)
+        solve(useBruteForce: bruteForce)
         
     }
     
     /// Solves for all possible solution `Expression` for all expected answers 1-10.
     /// This is the heart of the `Solver`.
-    mutating func solve() {
+    mutating private func solve(useBruteForce: Bool) {
         
-        solutions = buildExpressions(operands:  buildOperands(),
-                                     operators: buildOperators())
-        
-        for key in solutions.keys {
+        if useBruteForce {
             
-            if solutions[key]?.count == 0 {
+            puzzle.solutions = buildExpressionsBruteForce(operands:  buildOperands(),
+                                                          operators: buildOperators())
+            
+        }
+        else {
+            
+            puzzle.solutions = buildExpressions(operands:  buildOperands(),
+                                                operators: buildOperators())
+        }
+        for answer in puzzle.solutions.keys {
+            
+            loopCount += 1
+            
+            if puzzle.solutions[answer]?.count == 0 {
                 
-                unsolved.append(key)
+                puzzle.unsolved.append(answer)
                 
             }
             
         }
         
-    }
-    
-    /// Returns the  description of least complex `Expression` that evaluates to `num`
-    /// - Parameter answer: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
-    /// - Returns: String representation of the `Expression` or "-NA-" if no solution exists for that answer.
-    func leastComplexSolutionFor(_ answer: Int) -> String {
-        
-        leastComplexExpressionFor(answer)?.description ?? "-NA-"
-        
-    }
-    
-    /// Returns the  least complex `Expression` that evaluates to `num`
-    /// - Parameter answer: expected `Expression` answer. (e.g. the 5 in '2 + 3 = 5')
-    /// - Returns: `Expression` with the lowest `complexity` that evaluates to `answer`
-    func leastComplexExpressionFor(_ answer: Int) -> Expression? {
-        
-        solutions[answer]?.sorted{$0.complexity < $1.complexity}.first
+        puzzle.finalize()
         
     }
     
@@ -97,7 +92,7 @@ struct Solver{
         var operands = [[Int]]()
         
         // Single Digit Combinations
-        operands += originalOperands.permuteDeduped()
+        operands += puzzle.digits.permuteDeduped()
         
         // Double Digit Combinations
         var doubleDigits = [[Int]]()
@@ -156,38 +151,11 @@ struct Solver{
         
     }
     
-    // TODO: Clean Up - Factor buildExpression into sub funcs
     /// Generates all possible Expression combinations  for the given `operands`
     mutating fileprivate func buildExpressions(operands: [[Int]],
                                                operators: [[Operator]]) -> [Int : [Expression]] {
         
-        // initialize expressions
-        var expressions     = [Int : [Expression]]()
-        (1...10).forEach{ expressions[$0] = [Expression]() }
-        
-        // Optimization mechanism to prevent duplicative initalization of the
-        // same Expression which is relatively cpu intensive.
-        var existingExpressionHashes = Set<String>()
-        
-        // Prevents duplicative initialization of identical `Expression`s
-        func addExpressionFrom(_ components: [Component]) {
-            
-            let currentExpressionHash = components.reduce(""){ $0 + $1.description }
-            
-            if !existingExpressionHashes.contains(currentExpressionHash) {
-                
-                let exp = Expression(components)
-                existingExpressionHashes.insert(currentExpressionHash)
-                
-                if let solution = exp.value {
-                    
-                    expressions[solution]?.append(exp)
-                    
-                }
-                
-            }
-            
-        }
+        var deduper = ExpressionDeduper()
         
         // Parens
         let (pO, pC) = (Operator.ope, Operator.clo)
@@ -210,62 +178,69 @@ struct Solver{
                     case 2:
                         
                         // 12x12
-                        addExpressionFrom([d1, o1, d2])
+                        deduper.addExpressionFrom([d1, o1, d2])
                         
                     case 3:
                         
                         // 12x3x4
-                        addExpressionFrom([d1, o1, d2, o2, d3])
+                        deduper.addExpressionFrom([d1, o1, d2, o2, d3])
                         
                         if o1 < o2 {
                             
                             // (12x3)x4
-                            addExpressionFrom([pO, d1, o1, d2, pC, o2, d3])
+                            deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, d3])
                             
                         }
                         
                         if o2 < o1 {
                             
                             // 12x(3x4)
-                            addExpressionFrom([d1, o1, pO, d2, o2, d3, pC])
+                            deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, pC])
                             
                         }
                         
                     case 4:
                         
                         // 1x2x3x4
-                        addExpressionFrom([d1, o1, d2, o2, d3, o3, d4])
+                        deduper.addExpressionFrom([d1, o1, d2, o2, d3, o3, d4])
                         
                         if o1 < o2 {
                             
                             // (1x2)x3x4
-                            addExpressionFrom([pO, d1, o1, d2, pC, o2, d3, o3, d4])
+                            deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, d3, o3, d4])
                             
                             if o2 < o3 {
                                 
                                 // ((1x2)x3)x4
-                                addExpressionFrom([pO, pO, d1, o1, d2, pC, o2, d3, pC, o3, d4])
+                                deduper.addExpressionFrom([pO, pO, d1, o1, d2, pC, o2, d3, pC, o3, d4])
                                 
                             }
                             
                         } else if o2 < o3 {
                             
                             // (1x2x3)x4
-                            addExpressionFrom([pO, d1, o1, d2, o2, d3, pC, o3, d4])
+                            deduper.addExpressionFrom([pO, d1, o1, d2, o2, d3, pC, o3, d4])
+                            
+                        }
+                        
+                        if o1 < o2 && o3 < o2 {
+                            
+                            // (1x2)x(3x4)
+                            deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, pO, d3, o3, d4, pC])
                             
                         }
                         
                         if o2 < o3 {
                             
                             // 1x(2x3)x4
-                            addExpressionFrom([d1, o1, pO, d2, o2, d3, pC, o3, d4])
+                            deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, pC, o3, d4])
                             
                         }
                         
                         if o3 < o2 {
                             
                             // 1x2x(3x4)
-                            addExpressionFrom([d1, o1, d2, o2, pO, d3, o3, d4, pC])
+                            deduper.addExpressionFrom([d1, o1, d2, o2, pO, d3, o3, d4, pC])
                             
                         }
                         
@@ -274,12 +249,12 @@ struct Solver{
                             if o2 < o3 {
                                 
                                 // 1x((2x3)x4)
-                                addExpressionFrom([d1, o1, pO, pO, d2, o2, d3, pC, o3, d4, pC])
+                                deduper.addExpressionFrom([d1, o1, pO, pO, d2, o2, d3, pC, o3, d4, pC])
                                 
                             } else {
                                 
                                 // 1x(2x3x4)
-                                addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                                deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
                                 
                             }
                             
@@ -290,12 +265,12 @@ struct Solver{
                             if o3 < o2 {
                                 
                                 // 1x(2x(3x4))
-                                addExpressionFrom([d1, o1, pO, d2, o2, pO, d3, o3, d4, pC, pC])
+                                deduper.addExpressionFrom([d1, o1, pO, d2, o2, pO, d3, o3, d4, pC, pC])
                                 
                             } else {
                                 
                                 // 1x(2x3x4)
-                                addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                                deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
                                 
                             }
                             
@@ -311,186 +286,104 @@ struct Solver{
             
         }
         
-        return expressions
-        
-    }
-    
-    /// Estimates the difficulty of solving the puzzle represented by `originalOperands`
-    func estimatePuzzleDifficulty() -> Int {
-        
-        let maxSolutionComplexity   =  Double(Expression.maxComplexity * 10)
-        let maxSolutionScarcity     = 100.0 * 10.0
-        
-        var solutionComplexity      = 0
-        var solutionScarcity        = 0.0
-        var totalSolutionCount      = 0
-        
-        for answer in 1...10 {
-            
-            // Solution Complexity Component
-            let leastComplexExpression  = leastComplexExpressionFor(answer)
-            solutionComplexity          += leastComplexExpression?.complexity ?? 0
-            
-            // Solution Scarcity Component (the fewer possible solutions the harder to solve)
-            let solutionCount = solutions[answer]?.count ?? 0
-            
-            totalSolutionCount += solutionCount
-            
-            if solutionCount > 0 {
-                
-                solutionScarcity += max(100.0 - Double(solutionCount), 0.0)
-                
-            } else {
-                
-                solutionScarcity += maxSolutionScarcity * 5.0
-                
-            }
-            
-        }
-        
-        let complexityComponent: Double = Double(solutionComplexity) / Double(maxSolutionComplexity)
-        let scarcityComponent: Double   = solutionScarcity / maxSolutionScarcity
-        
-        // Weight the different components
-        let percentMax      =   scarcityComponent * (2.0/5.0)
-                                + complexityComponent * (3.0/5.0)
-        
-        var difficulty      = Double(Configs.Puzzle.Difficulty.maxTheoretical) * percentMax
-        
-        if difficulty < 100 {
-            
-            difficulty      -= 7.0
-            difficulty      = (difficulty / 4.6)
-            
-            difficulty      = max(1, difficulty)
-            difficulty      = min(10, difficulty)
-            
-            
-        } else {
-            
-            difficulty = Configs.Expression.Difficulty.unsolvable
-            
-        }
-        
-        if shouldPrintDiffInfo {
-            
-            if shouldPrintDiffHeader {
-                
-                print("Digits\tDifficulty\tTotal Solutions\tScarcity\tComplexity\tPercent Max")
-                
-            }
-            
-            print("""
-                \(originalOperands)\
-                \t\(Int(difficulty))\
-                \t\(totalSolutionCount)\
-                \t\(scarcityComponent.roundTo(3))\
-                \t\(complexityComponent.roundTo(3))\
-                \t\(percentMax.roundTo(3))
-                """)
-            
-        }
-        
-        let returnValue = Int(difficulty)
-        
-        assert(returnValue < 1000 && returnValue > 0)
-        
-        return Int(returnValue)
-        
-    }
-    
-    /// - Returns: `String` representation of the full solution to the puzzle.
-    func formattedSolution() -> String {
-        
-        var rows    = [[String]]()
-        let headers = ["#","Ex.", "Found"]
-        
-        for key in solutions.keys.sorted() {
-            
-            let row = [key.description,
-                       leastComplexSolutionFor(key).description,
-                       solutions[key]!.count.description]
-            
-            rows.append(row)
-            
-        }
-        
-        let tabular     = Report.columnateAutoWidth(rows,
-                                                    headers: headers,
-                                                    dataPadType: .center,
-                                                    showSeparators: false)
-        
-        let padCount    = tabular.split(separator: "\n").first?.count ?? 40
-        
-        let separator   = String(repeating: "-", count: padCount)
-        let difficulty  = "Difficulty: \(estimatePuzzleDifficulty())/10".centerPadded(toLength: padCount)
-        
-        return """
-                \(tabular)
-                \(separator)
-                \(difficulty)
-                """
-        
-    }
-    
-    /// - Returns: `String` representations solutions for the given `answer`
-    func formattedSolutionsFor(_ answer: Int) -> String {
-        
-        var rows    = [[String]]()
-        let headers = ["#","Soln.", "Comp."]
-        
-        let sorted = solutions[answer]!.sorted{ $0.complexity < $1.complexity }
-        
-        for solution in sorted {
-            
-            let row = [answer.description,
-                       solution.description,
-                       solution.complexity.description]
-            
-            rows.append(row)
-            
-        }
-        
-        if rows.count == 0 { return "No Solutions Found For: \(answer)" }
-        else {
-            
-            return Report.columnateAutoWidth(rows,
-                                             headers: headers,
-                                             dataPadType: .center,
-                                             showSeparators: false)
-            
-        }
+        return deduper.uniques
         
     }
     
 }
 
-// - MARK: Utils
 extension Solver {
     
-    /// Prints a summary of the solver's results.
-    func echoResults() {
+    /// Generates all possible Expression combinations  for the given `operands` 
+    /// ignores `Operator` precedence logic and uses all possible combinations of parens.
+    ///
+    /// * The purpose of this variant of `buildExpressions(::)` is to ensure that no `Solution`s
+    /// are missed by the significantly more efficient but also more complex `buildExpressions(::)`
+    /// * This method should be called in testing only.
+    mutating fileprivate func buildExpressionsBruteForce(operands: [[Int]],
+                                               operators: [[Operator]]) -> [Int : [Expression]] {
         
-        let report          = formattedSolution()
-        let reportWidth     = report.split(separator: "\n")[1].count
-        let sep1            = String(repeating: "=", count: reportWidth)
-        let sep2            = String(repeating: "-", count: reportWidth)
-        let title           = "\(originalOperands)".centerPadded(toLength: reportWidth)
+        var deduper = ExpressionDeduper()
         
-        let loopCountText   = ("Loop Count: \(loopCount)").centerPadded(toLength: reportWidth)
-        let solvedText      = "Fully Solved?: \(fullySolved)".centerPadded(toLength: reportWidth)
+        // Parens
+        let (pO, pC) = (Operator.ope, Operator.clo)
         
-        print("""
-            \(sep1)
-            \(title)
-            \(sep1)
-            \(report)
-            \(sep2)
-            \(loopCountText)
-            \(solvedText)
-            \(sep1)
+        for digits in operands { // Digits
             
-            """)
+            let d1 = digits[0]
+            let d2 = digits[1]
+            let d3 = digits.count > 2 ? digits[2] : Configs.Expression.invalidAnswer
+            let d4 = digits.count > 3 ? digits[3] : Configs.Expression.invalidAnswer
+            
+            for operators in operators { // Non-Paren Operators
+                
+                let o1 = operators[0]
+                let o2 = operators[1]
+                let o3 = operators[2]
+                
+                switch digits.count {
+                    
+                    case 2:
+                        
+                        // 12x12
+                        deduper.addExpressionFrom([d1, o1, d2])
+                        
+                    case 3:
+                        
+                        // 12x3x4
+                        deduper.addExpressionFrom([d1, o1, d2, o2, d3])
+                        
+                        // (12x3)x4
+                        deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, d3])
+                        
+                        // 12x(3x4)
+                        deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, pC])
+                        
+                    case 4:
+                        
+                        // 1x2x3x4
+                        deduper.addExpressionFrom([d1, o1, d2, o2, d3, o3, d4])
+                        
+                        // (1x2)x3x4
+                        deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, d3, o3, d4])
+                        
+                        // ((1x2)x3)x4
+                        deduper.addExpressionFrom([pO, pO, d1, o1, d2, pC, o2, d3, pC, o3, d4])
+                        
+                        // (1x2x3)x4
+                        deduper.addExpressionFrom([pO, d1, o1, d2, o2, d3, pC, o3, d4])
+                        
+                        // (1x2)x(3x4)
+                        deduper.addExpressionFrom([pO, d1, o1, d2, pC, o2, pO, d3, o3, d4, pC])
+                        
+                        // 1x(2x3)x4
+                        deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, pC, o3, d4])
+                        
+                        // 1x2x(3x4)
+                        deduper.addExpressionFrom([d1, o1, d2, o2, pO, d3, o3, d4, pC])
+                        
+                        // 1x((2x3)x4)
+                        deduper.addExpressionFrom([d1, o1, pO, pO, d2, o2, d3, pC, o3, d4, pC])
+                        
+                        // 1x(2x3x4)
+                        deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                        
+                        // 1x(2x(3x4))
+                        deduper.addExpressionFrom([d1, o1, pO, d2, o2, pO, d3, o3, d4, pC, pC])
+                        // 1x(2x3x4)
+                        deduper.addExpressionFrom([d1, o1, pO, d2, o2, d3, o3, d4, pC])
+                        
+                    default: fatalError()
+                        
+                }
+                
+                loopCount += 1
+                
+            }
+            
+        }
+        
+        return deduper.uniques
         
     }
     

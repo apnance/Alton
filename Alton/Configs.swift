@@ -11,7 +11,17 @@ struct Configs {
     
     struct Puzzle {
         
-        struct Difficulty { static var maxTheoretical = 100 }
+        struct Difficulty {
+            
+            static var maxTheoretical   = 100
+            static var scarcityFactor   = 0.4
+            static var complexityFactor = 0.6
+            static var offset           = -7.0
+            static var bucketSize       = 4.6
+            static var minEstimated     = 1.0
+            static var maxEstimated     = 10.0
+            
+        }
         
     }
     

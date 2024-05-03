@@ -24,8 +24,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var versionLabel: UILabel!
     
-    // MARK: - Actions
-    
     // MARK: - Overrides
     override func viewDidLoad() {
         
@@ -34,6 +32,9 @@ class ViewController: UIViewController {
         uiInit()
         
     }
+    
+    
+    // TODO: Clean Up - Refactor: re-org funcs below logically
     
     // MARK: - Custom Methods
     @discardableResult func uiProcessInput() -> Bool {
@@ -87,22 +88,28 @@ class ViewController: UIViewController {
     
     private func pasteBoard(_ solver: Solver?) {
         
-        let digits  = solver?.originalOperands.reduce(""){$0 + $1.description} ?? "?!?"
-        let diff    = solver?.estimatePuzzleDifficulty().description ?? "?!?"
-        
-        printToClipboard("""
+        if let puzzle = solver?.puzzle {
+            
+            let digits  = puzzle.digits.reduce(""){$0 + $1.description}
+            let diff    = puzzle.difficulty!.estimated
+            let diffString = diff <= 10 ? diff.description : "@&!~"
+            
+            printToClipboard("""
                          ~  ~
                          a  ⧂
-                               <( \(digits) : \(diff) )
+                               <( \(digits) : \(diffString) )
                          """)
+            
+        }
+        
     }
     
     private func displayCompleteSolution() {
         
-        guard let solver = solver
+        guard let puzzle = solver?.puzzle
         else { return /*EXIT*/ }
         
-        let solution                    = solver.formattedSolution()
+        let solution                    = puzzle.formattedSolutionSummary()
         displayTextView.attributedText  = colorizeSolutions(solution)
         
     }
@@ -231,7 +238,6 @@ class ViewController: UIViewController {
         }
         
         versionLabel.attributedText = NSAttributedString(formatted)
-        
         
     }
     
