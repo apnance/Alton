@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     var solver: Solver?
     
     // MARK: - Outlets
-    @IBOutlet weak var inputLabel: UILabel!
+    @IBOutlet weak var digitsLabel: UILabel!
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!
     
@@ -36,11 +36,7 @@ class ViewController: UIViewController {
     // MARK: - Custom Methods
     private func uiInit() {
         
-        inputLabel.layer.borderColor        = UIColor.orange.halfAlpha.cgColor
-        inputLabel.textColor                = UIColor.white.pointSevenAlpha
-        inputLabel.layer.borderWidth        = 1
-        inputLabel.layer.cornerRadius       = 4
-        inputLabel.clipsToBounds            = true
+        digitsLabel.textColor                = UIColor.white.pointSevenAlpha
         
         displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
         displayTextView.layer.borderWidth   = 1
@@ -70,7 +66,7 @@ class ViewController: UIViewController {
     private func uiSetButtons() {
         
         returnButton.isEnabled = solver.isNil ? false : true
-        deleteButton.isEnabled = inputLabel.text!.count > 0
+        deleteButton.isEnabled = digitsLabel.text!.count > 0
         
     }
     
@@ -94,7 +90,7 @@ class ViewController: UIViewController {
     
     @discardableResult func uiProcessInput() -> Bool {
         
-        let text = inputLabel.text!
+        let text = digitsLabel.text!
         var operands = [Int]()
         
         for char in text {
@@ -143,13 +139,13 @@ class ViewController: UIViewController {
     
     @objc func tapButton(sender: UIButton) {
         
-        inputLabel.text = inputLabel.text == "--" ? "" : inputLabel.text
+        digitsLabel.text = digitsLabel.text == "--" ? "" : digitsLabel.text
         let numTapped = sender.tag
         
         switch numTapped {
                 
             case -1:    // Clear Input
-                inputLabel.text = ""
+                digitsLabel.text = ""
                 solver = nil
                 
             case -2:    // Display Sample Solution
@@ -159,14 +155,14 @@ class ViewController: UIViewController {
                 
             default:    // Enter Digits or Select Answer Number
                 
-                if inputLabel.text!.count == 4 {    // Show Answer Subset
+                if digitsLabel.text!.count == 4 {    // Show Answer Subset
                 
                     displaySolutionsFor(numTapped)
                     return /*EXIT*/
                     
                 } else {                            // Enter Digit
                     
-                    inputLabel.text! += numTapped.description
+                    digitsLabel.text! += numTapped.description
                     
                 }
         }
