@@ -51,7 +51,7 @@
                                                 <rect key="frame" x="-9" y="32" width="200" height="37"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="37" id="SyC-N9-V0c"/>
-                                                    <constraint firstAttribute="width" constant="200" id="aho-RC-f3h"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="aho-RC-f3h"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="36"/>
                                                 <color key="textColor" systemColor="systemYellowColor"/>
@@ -60,7 +60,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weL-eA-b8l">
                                                 <rect key="frame" x="-4" y="60" width="200" height="40"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="2bk-Dt-jPH"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="2bk-Dt-jPH"/>
                                                     <constraint firstAttribute="height" constant="40" id="IHT-J1-R8d"/>
                                                 </constraints>
                                                 <attributedString key="attributedText">
@@ -211,17 +211,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2XH-Yu-O5W">
                                                         <rect key="frame" x="0.0" y="149.33333333333337" width="184" height="45.666666666666657"/>
                                                         <subviews>
-                                                            <button opaque="NO" tag="-2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-Oq-UHJ" userLabel="Return Button">
+                                                            <button opaque="NO" tag="-2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFb-Oq-UHJ" userLabel="Return Button">
                                                                 <rect key="frame" x="0.0" y="0.0" width="58" height="45.666666666666664"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="R5C-4N-ytb"/>
-                                                                    <constraint firstAttribute="width" secondItem="EFb-Oq-UHJ" secondAttribute="height" multiplier="1:1" id="ThD-05-qLl"/>
-                                                                </constraints>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="arrowshape.turn.up.left" catalog="system"/>
+                                                                <buttonConfiguration key="configuration" style="plain" image="list.bullet.clipboard" catalog="system"/>
                                                             </button>
-                                                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPJ-QW-qgZ">
+                                                            <button opaque="NO" tag="10" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gPJ-QW-qgZ">
                                                                 <rect key="frame" x="63" y="0.0" width="58" height="45.666666666666664"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
@@ -229,11 +225,8 @@
                                                                     <fontDescription key="titleFontDescription" name="Menlo-BoldItalic" family="Menlo" pointSize="21"/>
                                                                 </buttonConfiguration>
                                                             </button>
-                                                            <button opaque="NO" tag="-1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAH-Zv-10h" userLabel="Delete Button">
+                                                            <button opaque="NO" tag="-1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAH-Zv-10h" userLabel="Delete Button">
                                                                 <rect key="frame" x="126" y="0.0" width="58" height="45.666666666666664"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" secondItem="CAH-Zv-10h" secondAttribute="height" multiplier="1:1" id="KX8-k2-weL"/>
-                                                                </constraints>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
@@ -274,6 +267,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fjx-Gk-UeF" secondAttribute="trailing" constant="10" id="gv2-3O-SwP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="B4m-ZV-oop" secondAttribute="top" constant="1" id="hJp-Hf-95l"/>
                             <constraint firstItem="4MB-Qe-Hev" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="5" id="mPc-c6-aBq"/>
+                            <constraint firstItem="jcv-TD-d8r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="qAa-cG-FxD"/>
                         </constraints>
                     </view>
                     <connections>
@@ -281,7 +275,8 @@
                         <outlet property="deleteButton" destination="CAH-Zv-10h" id="h8O-SC-1bM"/>
                         <outlet property="digitsLabel" destination="jcv-TD-d8r" id="y1v-Hl-YkC"/>
                         <outlet property="displayTextView" destination="gBO-fV-JXr" id="eD4-ht-SpL"/>
-                        <outlet property="returnButton" destination="EFb-Oq-UHJ" id="DUO-9c-3w8"/>
+                        <outlet property="summaryButton" destination="EFb-Oq-UHJ" id="DUO-9c-3w8"/>
+                        <outlet property="tenButton" destination="gPJ-QW-qgZ" id="rTN-NV-o7x"/>
                         <outlet property="versionLabel" destination="4MB-Qe-Hev" id="yW6-ck-nRh"/>
                         <outletCollection property="buttonsCollection" destination="gUa-o4-bvm" collectionClass="NSMutableArray" id="hLy-1Q-5nu"/>
                         <outletCollection property="buttonsCollection" destination="Xfm-9y-OtV" collectionClass="NSMutableArray" id="j8r-UA-yMO"/>
@@ -386,7 +381,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="104"/>
+        <image name="list.bullet.clipboard" catalog="system" width="98" height="128"/>
         <image name="mustache" width="666.66668701171875" height="327.33334350585938"/>
         <image name="trash" catalog="system" width="117" height="128"/>
         <systemColor name="systemOrangeColor">

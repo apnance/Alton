@@ -18,8 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!
     
-    @IBOutlet weak var returnButton: UIButton!
+    @IBOutlet weak var summaryButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var tenButton: UIButton!
+    
     @IBOutlet var buttonsCollection: [UIButton]!
     
     @IBOutlet weak var versionLabel: UILabel!
@@ -63,10 +65,14 @@ class ViewController: UIViewController {
         
     }
     
-    private func uiSetButtons() {
+    private func uiSetButtons(showSummaryButton: Bool? = nil,
+                              showDeleteButton: Bool? = nil) {
         
-        returnButton.isEnabled = solver.isNil ? false : true
-        deleteButton.isEnabled = digitsLabel.text!.count > 0
+        if let summary = showSummaryButton { summaryButton.isEnabled = summary }
+        else { summaryButton.isEnabled = solver.isNil ? false : true }
+        
+        if let delete = showDeleteButton { deleteButton.isEnabled = delete }
+        else { deleteButton.isEnabled = digitsLabel.text!.count > 0 }
         
     }
     
@@ -145,12 +151,16 @@ class ViewController: UIViewController {
         switch numTapped {
                 
             case -1:    // Clear Input
+                
                 digitsLabel.text = ""
                 solver = nil
+                
+                tenButton.isEnabled = false
                 
             case -2:    // Display Sample Solution
                 
                 displayCompleteSolution()
+                
                 return /*EXIT*/
                 
             default:    // Enter Digits or Select Answer Number
@@ -179,6 +189,11 @@ class ViewController: UIViewController {
         let solution                    = puzzle.formattedSolutionSummary()
         displayTextView.attributedText  = colorizeSolutions(solution)
         
+        uiSetButtons(showSummaryButton: false,
+                     showDeleteButton: true)
+        
+        tenButton.isEnabled = true
+        
     }
     
     /// Displays all solutions for the given answer number.
@@ -190,6 +205,9 @@ class ViewController: UIViewController {
         
         let solutions                   = puzzle.formattedSolutionsFor(answer)
         displayTextView.attributedText  = colorizeSolutions(solutions)
+        
+        uiSetButtons(showSummaryButton: true, 
+                     showDeleteButton: true)
         
     }
     
