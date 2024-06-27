@@ -11,6 +11,8 @@ struct Configs {
     
     struct Puzzle {
         
+        static var originalPuzzleDate: Date = "09/20/22".simpleDate
+        
         struct Difficulty {
             
             static var maxTheoretical   = 100
@@ -79,6 +81,75 @@ struct Configs {
             static var fra = 65
             
             static var max = fra
+            
+        }
+        
+    }
+    
+    struct Archiver {
+        
+        struct File {
+            
+            static let saved    = (name:"SavedPuzzles",
+                                   subDir: "Data")
+            
+            static let defaults = (name:"puzzle.default.data",
+                                   type: "txt")
+            
+        }
+        
+    }
+    
+    struct Console {
+        
+        struct Command {
+            
+            static var category = "alton"
+            
+            struct Add {
+                
+                static var token = "add"
+                static var category =  Configs.Console.Command.category
+                static var helpText =  """
+                                        Attemps to add the specified puzzle(s) to archive.
+                                        \tUsage:
+                                        \t* 'add 1234 5678 9999' adds puzzles [1,2,3,4], [5,6,7,8], and [9,9,9,9]
+                                        \t  to archived puzzles.
+                                        """
+                
+            }
+            
+            struct Del {
+                
+                static var token = "del"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "'del 1234' deletes puzzle with digits 1,2,3, & 4.  Digit order is irrelevant.'"
+                
+            }
+            
+            struct Last {
+                
+                static var token = "last"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "'last 5' echoes the last 5 puzzles archived."
+                
+            }
+            
+            struct CSV {
+                
+                static var token = "csv"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "Formats remembered answer as CSV and copies to pasteboard."
+                
+            }
+            
+            struct Gaps {
+                
+                static var token = "gaps"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "Echoes a list of all missing archived puzzles."
+                
+            }
             
         }
         
