@@ -34,7 +34,7 @@ struct Puzzle {
         assert(originals.count == 4,
                "Expected Digit Count: 4 - Actual: \(originals.count)")
         
-        digits = originals
+        digits = originals.sorted()
         
     }
     
