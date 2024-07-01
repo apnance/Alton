@@ -5,6 +5,7 @@
 //  Created by Aaron Nance on 4/30/24.
 //
 
+import UIKit
 import APNUtil
 
 /// Represents an All Ten puzzle and is a collection of 4 digits(`Operand`s)
@@ -149,6 +150,95 @@ extension Puzzle {
             \(sep1)
             
             """)
+        
+    }
+    
+    /// Colorizes and formats the display text as an `NSAttributedString`
+    /// - Parameter puzzle: display text to format.
+    /// - Parameter forAnswer: optional `Answer` for which to display all solutions.
+    /// - Returns: either a `Puzzle` or a set of solutions for a given `Answer`.
+    /// If an `Answer` is specified the function will return a list of solution the specified
+    /// `Puzzle` for the given `Answer`.  If no `Answer` is specified the
+    /// function returns a general solution for the entire`Puzzle`. colorized/formatted
+    /// `NSAttributedString` version of `text`
+    func colorizeSolutions(forAnswer: Answer? = nil, 
+                           withFont font: UIFont? = nil) -> NSAttributedString {
+        
+        let solutionText: String!
+        
+        if let answer = forAnswer {
+            
+            solutionText    = formattedSolutionsFor(answer)
+            
+        } else {
+            
+            solutionText    = formattedSolutionSummary()
+            
+        }
+        
+        var buffer      = ""
+        var formatted   = AttributedString()
+        
+        func processBuffer() {
+            
+            if buffer.count > 0 {
+                
+                var asBuffer                = AttributedString(buffer)
+                asBuffer.foregroundColor    = UIColor.white
+                formatted.append(asBuffer)
+                
+                buffer                      = "" // Clear Buffer
+                
+            }
+            
+        }
+        
+        let lines = solutionText.split(separator: "\n")
+        
+        let formatStartBound = 2
+        let formatEndBound = String(lines[0]).contains("Found") ? 11 : Int.max
+                
+        for (num, text) in lines.enumerated() {
+            
+            if num < formatStartBound || num > formatEndBound { // Heading
+                
+                var att = AttributedString(text)
+                att.foregroundColor = num == 0 ? UIColor.white : UIColor.white.pointFourAlpha
+                formatted.append(att)
+                
+            } else { // Body
+                
+                for char in text {
+                    
+                    let strChar     = String(char)
+                    if let color    = Operator.colorFor(char) {
+                        
+                        // Buffer
+                        processBuffer()
+                        
+                        var colorized               = AttributedString(strChar)
+                        colorized.foregroundColor   = color
+                        formatted.append(colorized)
+                        
+                    }
+                    else { buffer += strChar }
+                }
+                
+                // Buffer
+                processBuffer()
+                
+            }
+            
+            // New Line
+            formatted.append(AttributedString("\n"))
+            
+        }
+        
+        // Font
+        let font = font ?? UIFont(name: "Menlo", size: 21)
+        formatted.font = font
+        
+        return NSAttributedString(formatted)
         
     }
     
