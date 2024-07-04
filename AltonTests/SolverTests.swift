@@ -496,7 +496,7 @@ final class SolverTests: XCTestCase {
                         
                         if startPoint.isNotNil {
                             
-                            let num = i.concatonated(j)!.concatonated(k)!.concatonated(l)!
+                            let num = i.concatenated(j)!.concatenated(k)!.concatenated(l)!
                             
                             print(num)
                             

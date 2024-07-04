@@ -122,9 +122,9 @@ struct Solver {
             let d4  = operand[3]
             
             // Double Digits
-            let dd1 = d1.concatonated(d2)!
-            let dd2 = d2.concatonated(d3)!
-            let dd3 = d3.concatonated(d4)!
+            let dd1 = d1.concatenated(d2)!
+            let dd2 = d2.concatenated(d3)!
+            let dd3 = d3.concatenated(d4)!
             
             doubleDigits.append([dd1,   d3,    d4])
             doubleDigits.append([d1,    dd2,   d4])

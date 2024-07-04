@@ -433,8 +433,6 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             
         }
         
-        // TODO: Clean Up - tidy/commit
-        
         /// Runs several diagnostic tests on `archive` data.
         /// - Parameter _: does not require or process arguments.
         func comDiagnostic (_ args :[String]?) -> CommandOutput {
