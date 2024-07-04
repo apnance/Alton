@@ -7,6 +7,7 @@
 
 import UIKit
 import APNUtil
+import APNConsoleView
 
 class ViewController: UIViewController {
     
@@ -14,6 +15,7 @@ class ViewController: UIViewController {
     var solver: Solver?
     
     // MARK: - Outlets
+    @IBOutlet weak var consoleView: APNConsoleView!
     @IBOutlet weak var digitsLabel: UILabel!
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!
@@ -35,15 +37,29 @@ class ViewController: UIViewController {
         
     }
     
+    @objc private func handleDisplayTap(_ sender: UITextView) {
+        
+            consoleView.showHide(.show)
+        
+    }
+    
     // MARK: - Custom Methods
     private func uiInit() {
         
-        digitsLabel.textColor                = UIColor.white.pointSevenAlpha
+        // Console
+        AltonConsoleConfigurator(consoleView: consoleView)
+        consoleView.showHide(.hide)
+        consoleView.layer.cornerRadius  = Configs.UI.View.cornerRadius
         
-        displayTextView.layer.borderColor   = UIColor.orange.halfAlpha.cgColor
-        displayTextView.layer.borderWidth   = 1
-        displayTextView.layer.cornerRadius  = 4
+        digitsLabel.textColor               = UIColor.white.pointSevenAlpha
+        
+        displayTextView.layer.borderColor   = Configs.UI.View.borderColor
+        displayTextView.layer.borderWidth   = Configs.UI.View.borderWidth
+        displayTextView.layer.cornerRadius  = Configs.UI.View.cornerRadius
         displayTextView.clipsToBounds       = true
+        
+        displayTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, 
+                                                                    action: #selector(handleDisplayTap(_:))))
         
         for button in buttonsCollection {
             
@@ -126,6 +142,9 @@ class ViewController: UIViewController {
                 self.solver = Solver(operands)
                 self.uiSetButtons()
                 self.displayCompleteSolution()
+                
+                PuzzleArchiver.shared.confirmSave(self.solver?.puzzle)
+                
                 self.pasteBoard(self.solver)
                 
             }
@@ -186,8 +205,7 @@ class ViewController: UIViewController {
         guard let puzzle = solver?.puzzle
         else { return /*EXIT*/ }
         
-        let solution                    = puzzle.formattedSolutionSummary()
-        displayTextView.attributedText  = colorizeSolutions(solution)
+        displayTextView.attributedText  = puzzle.colorizeSolutions()
         
         uiSetButtons(showSummaryButton: false,
                      showDeleteButton: true)
@@ -203,80 +221,10 @@ class ViewController: UIViewController {
         guard let puzzle = solver?.puzzle
         else { return /*EXIT*/ }
         
-        let solutions                   = puzzle.formattedSolutionsFor(answer)
-        displayTextView.attributedText  = colorizeSolutions(solutions)
+        displayTextView.attributedText  = puzzle.colorizeSolutions(forAnswer: answer)
         
         uiSetButtons(showSummaryButton: true, 
                      showDeleteButton: true)
-        
-    }
-    
-    /// Colorizes and formats the display text as an `NSAttributedString`
-    /// - Parameter text: display text to format.
-    /// - Returns: colorized/formatted `NSAttributedString` version of `text`
-    private func colorizeSolutions(_ text: String) -> NSAttributedString {
-        
-        var buffer      = ""
-        var formatted   = AttributedString()
-        
-        func processBuffer() {
-            
-            if buffer.count > 0 {
-                
-                var asBuffer                = AttributedString(buffer)
-                asBuffer.foregroundColor    = UIColor.white
-                formatted.append(asBuffer)
-                
-                buffer                      = "" // Clear Buffer
-                
-            }
-            
-        }
-        
-        let lines = text.split(separator: "\n")
-        let formatStartBound = 2
-        let formatEndBound = String(lines[0]).contains("Found") ? 11 : Int.max
-                
-        for (num, text) in lines.enumerated() {
-            
-            if num < formatStartBound || num > formatEndBound { // Heading
-                
-                var att = AttributedString(text)
-                att.foregroundColor = num == 0 ? UIColor.white : UIColor.white.pointFourAlpha
-                formatted.append(att)
-                
-            } else { // Body
-                
-                for char in text {
-                    
-                    let strChar     = String(char)
-                    if let color    = Operator.colorFor(char) {
-                        
-                        // Buffer
-                        processBuffer()
-                        
-                        var colorized               = AttributedString(strChar)
-                        colorized.foregroundColor   = color
-                        formatted.append(colorized)
-                        
-                    }
-                    else { buffer += strChar }
-                }
-                
-                // Buffer
-                processBuffer()
-                
-            }
-            
-            // New Line
-            formatted.append(AttributedString("\n"))
-            
-        }
-        
-        // Global Font Size
-        formatted.font = UIFont(name: "Menlo", size: 21)
-        
-        return NSAttributedString(formatted)
         
     }
     

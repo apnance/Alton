@@ -5,9 +5,19 @@
 //  Created by Aaron Nance on 5/22/23.
 //
 
-import Foundation
+import UIKit
 
 struct Configs {
+    
+    struct UI {
+        
+        struct View {
+            
+            static var borderWidth  = 0.5
+            static var cornerRadius = 4.0
+            static var borderColor  = UIColor.orange.halfAlpha.cgColor
+        }
+    }
     
     struct Puzzle {
         
@@ -106,9 +116,25 @@ struct Configs {
             
             static var category = "alton"
             
+            struct Solve {
+                
+                static var token    = "solve"
+                static var category =  Configs.Console.Command.category
+                static var helpText = """
+                Attemps to solve the specified puzzle.
+                \tUsage:
+                \t* 'solve 1234' creates a solver with digits `1234`
+                \t  then echos the general solution.
+                \t* 'solve 5678 3' creates a solver with digits `5678`
+                \t  then displays all solutions for answer '3'.
+                
+                """
+                
+            }
+            
             struct Add {
                 
-                static var token = "add"
+                static var token    = "add"
                 static var category =  Configs.Console.Command.category
                 static var helpText =  """
                                         Attemps to add the specified puzzle(s) to archive.
@@ -121,15 +147,39 @@ struct Configs {
             
             struct Del {
                 
-                static var token = "del"
+                static var token    = "del"
                 static var category =  Configs.Console.Command.category
                 static var helpText = "'del 1234' deletes puzzle with digits 1,2,3, & 4.  Digit order is irrelevant.'"
                 
             }
             
+            struct Nuke {
+                
+                static var token    = "nuke"
+                static var category =  Configs.Console.Command.category
+                static var helpText = """
+                Reverts archived puzzle data to defaults from file \
+                puzzle.defaults.data.txt
+                \tUsage:
+                \t* 'nuke' challenges the user to confirm the request
+                \t  before nuking.
+                \t* 'nuke Y' bypasses the confirmation nuking archive
+                \t  immediately.
+                """
+                
+            }
+            
+            struct First {
+                
+                static var token    = "first"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "'first 5' echoes the first 5 puzzles archived."
+                
+            }
+                        
             struct Last {
                 
-                static var token = "last"
+                static var token    = "last"
                 static var category =  Configs.Console.Command.category
                 static var helpText = "'last 5' echoes the last 5 puzzles archived."
                 
@@ -137,17 +187,24 @@ struct Configs {
             
             struct CSV {
                 
-                static var token = "csv"
+                static var token    = "csv"
                 static var category =  Configs.Console.Command.category
                 static var helpText = "Formats remembered answer as CSV and copies to pasteboard."
                 
             }
-            
             struct Gaps {
                 
-                static var token = "gaps"
+                static var token    = "gaps"
                 static var category =  Configs.Console.Command.category
                 static var helpText = "Echoes a list of all missing archived puzzles."
+                
+            }
+            
+            struct Diagnostic {
+                
+                static var token    = "diag"
+                static var category =  Configs.Console.Command.category
+                static var helpText = "Performs diagnostic test(s)."
                 
             }
             

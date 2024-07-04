@@ -26,21 +26,22 @@
                                 <color key="textColor" systemColor="systemOrangeColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="B4m-ZV-oop">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
                                 <rect key="frame" x="10" y="58" width="373" height="450"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBO-fV-JXr">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="450"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <attributedString key="attributedText"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
-                                    </textView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="450" id="OAm-R5-kT1"/>
+                                    <constraint firstAttribute="height" constant="450" id="UCV-ia-xEj"/>
                                 </constraints>
-                            </stackView>
+                                <attributedString key="attributedText"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
+                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-4a-HrG" customClass="APNConsoleView" customModule="APNConsoleView">
+                                <rect key="frame" x="10" y="58" width="373" height="450"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="450" id="6xB-li-PPt"/>
+                                </constraints>
+                            </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="fjx-Gk-UeF">
                                 <rect key="frame" x="10" y="518" width="373" height="195"/>
                                 <subviews>
@@ -256,22 +257,26 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="fjx-Gk-UeF" firstAttribute="top" secondItem="B4m-ZV-oop" secondAttribute="bottom" constant="10" id="Fvz-Ed-89j"/>
-                            <constraint firstItem="B4m-ZV-oop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="IPE-3z-LRH"/>
+                            <constraint firstItem="fjx-Gk-UeF" firstAttribute="top" secondItem="gBO-fV-JXr" secondAttribute="bottom" constant="10" id="Fvz-Ed-89j"/>
+                            <constraint firstItem="gBO-fV-JXr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="KoK-Nc-Euz"/>
+                            <constraint firstItem="lhD-4a-HrG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="58" id="MiR-X9-3M2"/>
                             <constraint firstItem="jcv-TD-d8r" firstAttribute="top" secondItem="fjx-Gk-UeF" secondAttribute="bottom" id="MoP-TI-fsq"/>
                             <constraint firstItem="jcv-TD-d8r" firstAttribute="width" secondItem="wpG-rJ-kVl" secondAttribute="width" id="OO4-PV-9lw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="B4m-ZV-oop" secondAttribute="trailing" constant="10" id="Skq-Nc-fOP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jcv-TD-d8r" secondAttribute="trailing" constant="10" id="UXZ-Hj-HnC"/>
                             <constraint firstItem="fjx-Gk-UeF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="ZHD-5Z-6Om"/>
+                            <constraint firstItem="lhD-4a-HrG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="aBY-7C-BGZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lhD-4a-HrG" secondAttribute="trailing" constant="10" id="cKS-N8-MX0"/>
                             <constraint firstItem="4MB-Qe-Hev" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dPN-Lq-oZd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fjx-Gk-UeF" secondAttribute="trailing" constant="10" id="gv2-3O-SwP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="B4m-ZV-oop" secondAttribute="top" constant="1" id="hJp-Hf-95l"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gBO-fV-JXr" secondAttribute="trailing" constant="10" id="lSa-Kk-Nce"/>
                             <constraint firstItem="4MB-Qe-Hev" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="5" id="mPc-c6-aBq"/>
                             <constraint firstItem="jcv-TD-d8r" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" symbolic="YES" id="qAa-cG-FxD"/>
+                            <constraint firstItem="gBO-fV-JXr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="58" id="r0P-a1-VLL"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="altonLogo" destination="weL-eA-b8l" id="PFb-J3-DMx"/>
+                        <outlet property="consoleView" destination="lhD-4a-HrG" id="hr3-lV-nlM"/>
                         <outlet property="deleteButton" destination="CAH-Zv-10h" id="h8O-SC-1bM"/>
                         <outlet property="digitsLabel" destination="jcv-TD-d8r" id="y1v-Hl-YkC"/>
                         <outlet property="displayTextView" destination="gBO-fV-JXr" id="eD4-ht-SpL"/>
@@ -384,6 +389,9 @@
         <image name="list.bullet.clipboard" catalog="system" width="98" height="128"/>
         <image name="mustache" width="666.66668701171875" height="327.33334350585938"/>
         <image name="trash" catalog="system" width="117" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

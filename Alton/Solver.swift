@@ -29,6 +29,8 @@ import APNUtil
 /// * `Solution`: an `Expression` with an `Answer`
 struct Solver {
     
+    static var cached = [[Int] : Puzzle]()
+    
     private (set) var puzzle: Puzzle
     
     /// Backing property containing array of all possible 3-operator combinations
@@ -46,11 +48,26 @@ struct Solver {
     /// - Important: Do not use bruteForce except for testing.
     /// - Note: bruteForce is meant only for testing that the solutions generated
     /// w/o bruteForce are as thorough/exhaustive as possible.
-    init(_ originals:           [Int],
+    init(_ originals: [Int],
          useBruteForce bruteForce: Bool = false) {
         
-        puzzle = Puzzle(originals)
-        solve(useBruteForce: bruteForce)
+        let originals = originals.sorted()
+        
+        if !bruteForce,
+           let puzzle = Self.cached[originals] {
+            
+            self.puzzle = puzzle
+            
+            return /*EXIT*/
+            
+        } else {
+            
+            puzzle = Puzzle(originals)
+            solve(useBruteForce: bruteForce)
+            
+            Self.cached[originals] = puzzle
+            
+        }
         
     }
     
