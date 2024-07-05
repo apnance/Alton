@@ -172,9 +172,9 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             else {
                 
                 return consoleView.formatCommandOutput("""
-                                                    [ERROR] Please specify valid 4 digit puzzle \
-                                                    (e.g. 'add 1234')
-                                                    """) /*EXIT*/
+                                                        [ERROR] Please specify valid 4 digit puzzle \
+                                                        (e.g. 'add 1234')
+                                                        """) /*EXIT*/
                 
             }
             
