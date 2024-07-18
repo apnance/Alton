@@ -9,7 +9,7 @@ import Foundation
 import APNUtil
 
 /// Simple data structure to capture pertinent Puzzle information suitable for archiving.
-struct ArchivedPuzzle: Managable {
+struct ArchivedPuzzle: Manageable {
     
     let digits: [Int]
     let date: Date
