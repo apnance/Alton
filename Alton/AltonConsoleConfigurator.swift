@@ -114,14 +114,13 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         /// - Returns: colorized puzzle solution results.
         func comSolve(args: [String]?) -> CommandOutput {
             
-            let argsCount = args?.count ?? 0
-            
-            let arg1: String = argsCount > 0 ? args![0] : ""
-            let arg2: String = argsCount > 1 ? args![1] : ""
+            let arg1 = args.elementNum(0)
+            let arg2 = args.elementNum(1)
             
             let answer: Int? = arg2.isEmpty ? nil : Int(arg2)
             
-            guard let digits = Int(arg1)?.digits
+            guard let digits = Int(arg1)?.digits,
+                    digits.count == 4
             else {
                 
                 return consoleView.formatCommandOutput("""
@@ -160,15 +159,18 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         /// - Parameter args: array containing puzzle digits at first index and
         /// optional date at second index.
         ///
+        /// - note: unlike companion method comDel, you cannot add more than
+        /// puzzle at a time.
+        ///
         /// - Returns: status report `CommandOutput` message.
         func comAdd(_ args :[String]?) -> CommandOutput {
             
-            let argsCount = args?.count ?? 0
+            let arg1 = args.elementNum(0)
+            let arg2 = args.elementNum(1)
             
-            let arg1: String = argsCount > 0 ? args![0] : ""
-            let arg2: String = argsCount > 1 ? args![1] : ""
-            
-            guard let puzzleNums = Int(arg1)
+            guard let puzzleNums = Int(arg1),
+                  puzzleNums > 0,
+                  puzzleNums.digits.count == 4
             else {
                 
                 return consoleView.formatCommandOutput("""
@@ -261,34 +263,33 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             var commandOutput = ""
             let expectedResponses = ["Y","N"]
             
-            if let arg1 = args?.first {
-                
-                switch arg1 {
-                    case "Y":
-                        
-                        let startCount  = PuzzleArchiver.shared.count
-                        PuzzleArchiver.shared.nuke()
-                        let deleteCount = startCount - PuzzleArchiver.shared.count
-                        
-                        commandOutput   = "Nuke successful: \(deleteCount) user saved puzzle(s) deleted."
-                        
-                    default:
-                        
-                        commandOutput   = "Nuke operation aborted."
-                        
-                }
-                
-            } else {
-                
-                consoleView.registerCommand(Configs.Console.Command.Nuke.token,
-                                            expectingResponse: expectedResponses)
-                
-                commandOutput = """
+            let arg1 = args.elementNum(0)
+            
+            switch arg1 {
+                    
+                case "Y":
+                    
+                    let startCount  = PuzzleArchiver.shared.count
+                    PuzzleArchiver.shared.nuke()
+                    let deleteCount = startCount - PuzzleArchiver.shared.count
+                    
+                    commandOutput   = "Nuke successful: \(deleteCount) user saved puzzle(s) deleted."
+                    
+                case "N":
+                    
+                    commandOutput   = "Nuke operation aborted."
+                    
+                default:
+                    
+                    consoleView.registerCommand(Configs.Console.Command.Nuke.token,
+                                                expectingResponse: expectedResponses)
+                    
+                    commandOutput = """
                                     [Warning] Nuking cannot be undone and will *DELETE ALL* user-saved answers.
                                     
                                     'N' to abort - 'Y' to proceed.
                                     """
-                
+                    
             }
             
             return consoleView.formatCommandOutput(commandOutput)
@@ -319,31 +320,34 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             var requestedCount = 1
             var k = 1
             
-            if let args = args,
-               args.count > 0 {
+            let arg1 = args.elementNum(0)
+            
+            if arg1 != "" {
                 
-                let arg1 = args.first!
-                
-                guard let count = Int(arg1)
-                else {
+                if let count = Int(arg1) {
+                    
+                    if count >= 1 {
+                        
+                        k = min(count, sortedArchived.count)
+                        
+                        requestedCount = count
+                        
+                    } else {
+                        
+                        return consoleView.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. [Error] specify count argument > 0") // EXIT
+                        
+                    }
+                    
+                    
+                } else {
                     
                     return consoleView.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. Specify Integer count value.") // EXIT
                     
                 }
                 
-                if count < 1 {
-                    
-                    return consoleView.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. [Error] specify count argument > 0") // EXIT
-                    
-                }
-                
-                k = min(count, sortedArchived.count)
-                
-                requestedCount = count
-                
             }
             
-            let puzzles =  first ? sortedArchived.first(x: k)! : sortedArchived.last(k)
+            let puzzles =  first ? sortedArchived.first(k: k) : sortedArchived.last(k)
             let hintText = first ? "First" : "Last"
             
             output += consoleView.formatCommandOutput("\(hintText) \(puzzles.count) Archived Puzzle(s)")
@@ -370,7 +374,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                 
                 output += consoleView.formatCommandOutput("""
                         
-                        Note: Requested (\(requestedCount)) > Total(\(puzzles.count))
+                        Note: Requested(\(requestedCount)) > Total(\(puzzles.count))
                         """)
                 
             }
