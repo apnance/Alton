@@ -201,11 +201,6 @@ class PuzzleArchiver {
     /// Wipes out archive and reloads default puzzle data.
     func nuke() {
         
-//        HERE...
-//        BUG: Alton is unable to find a solution for answer 2 for puzzle 3799 from 7/19/24
-        // FIXME: Alton is unable to find a solution for answer 2 for puzzle 3799 from 7/19/24
-        
-        // TODO: Clean Up - use alert to confirm this action.
         archive.reset()
         loadArchiveFromDefaults()
         
