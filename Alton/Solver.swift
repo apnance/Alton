@@ -246,6 +246,13 @@ struct Solver {
                             
                         }
                         
+                        if(o1 < o3 && o2 < o3) {
+                            
+                            // (1 + (2 / 3)) x 4
+                            deduper.addExpressionFrom([pO, d1, o1, pO, d2, o2, d3, pC, pC, o3, d4])
+                            
+                        }
+                        
                         if o2 < o3 {
                             
                             // 1x(2x3)x4

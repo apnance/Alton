@@ -54,6 +54,13 @@ final class SolverTests: XCTestCase {
         
     }
     
+    /// Tests puzzles that Alton has failed to solve but that have appeared on All Ten
+    func testBuggedPuzzles() {
+        
+        echoAssert(3799.digits)  // Failed to solve for 2 - solution (7-(9 / 9) / 3) not found
+        
+    }
+    
     func testGeneral() {
         
         echoAssert([1,2,3,4],
@@ -67,23 +74,17 @@ final class SolverTests: XCTestCase {
         
     }
     
-    /// Checks for solutions to actual puzzles from All Ten
+    /// Checks for solutions to previous puzzles from All Ten stored in puzzle.default.data.txt
     func testHistoric() {
         
-        echoAssert([3,5,7,8], // 10.04.22 - only 2 solutions for 5 - both require fractions
-                   [1,3,6,6], // 04.09.24
-                   [3,5,5,8], // 04.10.24 - only 1 solution for 7 - requires fraction
-                   [2,3,4,6], // 04.11.24
-                   [2,3,4,5], // 04.12.24
-                   [4,5,6,6], // 04.22.24
-                   [2,5,6,7], // 04.23.24
-                   [2,2,4,5], // 04.24.24
-                   [5,6,7,7], // 04.27.24
-                   [3,3,3,8], // 04.29.24
-                   [4,5,8,8], // 04.30.24
-                   [3,3,3,6], //05.01.24
-                   [2,5,7,9], //05.02.24
-                   [2,7,8,9]) //05.03.24
+        let historicPuzzles = PuzzleArchiver.loadDefaults()
+        
+        for puzzle in historicPuzzles {
+            
+            echoAssert(puzzle.digits)
+            
+        }
+        
     }
     
     func testNeedsParentheticalSubExpressions() {
@@ -415,6 +416,8 @@ final class SolverTests: XCTestCase {
         test([9,3,2,1], 1, 1214, 0.103, 0.119, 0.113)
         test([7,3,1,2], 1, 1049, 0.157, 0.105, 0.126)
         test([6,3,2,1], 1, 1907, 0.079, 0.102, 0.093)
+        test([3,7,9,9], 1, 1907, 0.079, 0.102, 0.093)
+        
          /**/
         
         print(Report.columnateAutoWidth(rows,
@@ -481,7 +484,7 @@ final class SolverTests: XCTestCase {
         // e.g. startPoine = [7,7,7,7] starts with puzzle 7777 and goes to 9999
         var startPoint: Int?        = nil
         var actualUnsolvableCount   = 0
-        let expectedUnsolvableCount = 1006
+        let expectedUnsolvableCount = 994 //Used to be 1006 before added // (1 + (2 / 3)) x 4 expressions to Solver
         var testedCount             = 0
         
         if shouldEchoForCSV { print(Difficulty.header) }
