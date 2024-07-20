@@ -52,8 +52,10 @@ class PuzzleArchiver {
         
         if archive.count > 0 { return /*EXIT*/ }
         
+        // Load
         var archivedPuzzles = PuzzleArchiver.loadDefaults()
         
+        // Archive
         archive.addEntries(&archivedPuzzles,
                            allowDuplicates: true)
         
