@@ -29,7 +29,7 @@ class PuzzleArchiver {
     /// Use `shared` singleton
     private init() {
         
-        loadFromDefaults()
+        loadArchiveFromDefaults()
         
     }
     
@@ -47,10 +47,23 @@ class PuzzleArchiver {
         
     }
     
-    /// Loads archived `ArchivedPuzzle` into archive
-    private func loadFromDefaults() {
+    /// Loads archived `ArchivedPuzzle`in `puzzle.default.data.txt` into `archive`
+    private func loadArchiveFromDefaults() {
         
         if archive.count > 0 { return /*EXIT*/ }
+        
+        var archivedPuzzles = PuzzleArchiver.loadDefaults()
+        
+        archive.addEntries(&archivedPuzzles,
+                           allowDuplicates: true)
+        
+        // Save
+        save()
+        
+    }
+    
+    /// Loads and returns all default puzzle data in puzzle.default.data.txt  as `[ArchivedPuzzle]`
+    static func loadDefaults() -> [ArchivedPuzzle] {
         
         // Defaults - Hard-Coded List of Previous Puzzles
         let file = Configs.Archiver.File.defaults
@@ -83,12 +96,14 @@ class PuzzleArchiver {
         }
         
         assert(headerRowCount != lines.count,
-                       """
-                       Unable to find end of header.
-                       Something/s wrong. Check header in \(file.name).\(file.type).
-                       """)
+                           """
+                           Unable to find end of header.
+                           Something/s wrong. Check header in \(file.name).\(file.type).
+                           """)
         
         lines.removeFirst(headerRowCount)
+        
+        var output = [ArchivedPuzzle]()
         
         // Process Answers
         for line in lines {
@@ -104,10 +119,13 @@ class PuzzleArchiver {
             let difficultyRating    = Int(data[1])!
             let puzzleDate          = String(data[2]).simpleDate
             
-            var archivedPuzzle = ArchivedPuzzle(digits: digits,
-                                                date: puzzleDate,
-                                                difficulty: difficultyRating)
+            let archivedPuzzle      = ArchivedPuzzle(digits: digits,
+                                                     date: puzzleDate,
+                                                     difficulty: difficultyRating)
             
+            output.append(archivedPuzzle)
+            
+            // Check Actual Puzzle# vs Calculated Puzzle#
             if data.count == 4 {
                 
                 let saved       = Int(data[3])!
@@ -118,14 +136,9 @@ class PuzzleArchiver {
                 
             }
             
-            archivedPuzzle.managedID =  archive.add(archivedPuzzle,
-                                                    allowDuplicates: true,
-                                                    shouldArchive: false )
-            
         }
         
-        // Save
-        save()
+        return output
         
     }
     
@@ -186,9 +199,13 @@ class PuzzleArchiver {
     /// Wipes out archive and reloads default puzzle data.
     func nuke() {
         
+//        HERE...
+//        BUG: Alton is unable to find a solution for answer 2 for puzzle 3799 from 7/19/24
+        // FIXME: Alton is unable to find a solution for answer 2 for puzzle 3799 from 7/19/24
+        
         // TODO: Clean Up - use alert to confirm this action.
         archive.reset()
-        loadFromDefaults()
+        loadArchiveFromDefaults()
         
     }
     
