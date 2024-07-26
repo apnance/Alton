@@ -7,7 +7,7 @@
 
 import UIKit
 import APNUtil
-import APNConsoleView
+import ConsoleView
 
 class ViewController: UIViewController {
     
@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     var solver: Solver?
     
     // MARK: - Outlets
-    @IBOutlet weak var consoleView: APNConsoleView!
+    @IBOutlet weak var consoleView: ConsoleView!
     @IBOutlet weak var digitsLabel: UILabel!
     @IBOutlet weak var displayTextView: UITextView!
     @IBOutlet weak var altonLogo: UILabel!

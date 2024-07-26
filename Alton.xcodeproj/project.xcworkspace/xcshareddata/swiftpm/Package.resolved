@@ -1,21 +1,21 @@
 {
   "pins" : [
     {
-      "identity" : "apnconsoleview",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apnance/APNConsoleView",
-      "state" : {
-        "branch" : "main",
-        "revision" : "7bd0cea35ea7aabf98f2b926d672df5eb56b4bcb"
-      }
-    },
-    {
       "identity" : "apnutil",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apnance/APNUtil",
       "state" : {
-        "revision" : "35db65b7805db58fd4f6e7d851df08c594e57b87",
-        "version" : "1.3.0"
+        "revision" : "e99f517e561c7f156455e32c4540ddb2d9bec08f",
+        "version" : "1.3.2"
+      }
+    },
+    {
+      "identity" : "consoleview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apnance/ConsoleView",
+      "state" : {
+        "branch" : "main",
+        "revision" : "024cf7064caeb1926fba9e2869645368689fe3d8"
       }
     }
   ],

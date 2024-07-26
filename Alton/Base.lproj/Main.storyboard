@@ -35,7 +35,7 @@
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardType="numberPad"/>
                             </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-4a-HrG" customClass="APNConsoleView" customModule="APNConsoleView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhD-4a-HrG" customClass="ConsoleView" customModule="ConsoleView">
                                 <rect key="frame" x="10" y="58" width="373" height="450"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>

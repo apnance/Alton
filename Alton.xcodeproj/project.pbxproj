@@ -30,13 +30,13 @@
 		93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADC66F2BB6425A00E7C25B /* Operator.swift */; };
 		93C40FA52C2651E3001540F5 /* PuzzleArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */; };
 		93C40FA72C26561B001540F5 /* puzzle.default.data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93C40FA62C26561B001540F5 /* puzzle.default.data.txt */; };
-		93C40FAA2C28F99D001540F5 /* APNConsoleView in Frameworks */ = {isa = PBXBuildFile; productRef = 93C40FA92C28F99D001540F5 /* APNConsoleView */; };
 		93C40FAE2C29230C001540F5 /* AltonConsoleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */; };
 		93D2D04D2BE18B44009A5FF2 /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */; };
 		93D2D04F2BE19955009A5FF2 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04E2BE19955009A5FF2 /* Difficulty.swift */; };
 		93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */; };
 		93D747522BB62327007A2F52 /* Expression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D747512BB62327007A2F52 /* Expression.swift */; };
 		93D7D8FE2C360558009AD397 /* puzzle.test.data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93D7D8FD2C360558009AD397 /* puzzle.test.data.txt */; };
+		93DEECFE2C53442700473587 /* ConsoleView in Frameworks */ = {isa = PBXBuildFile; productRef = 93DEECFD2C53442700473587 /* ConsoleView */; };
 		93E0D8EC2C2B7CD5005EAA7D /* ArchivedPuzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0D8EB2C2B7CD5005EAA7D /* ArchivedPuzzle.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,7 +100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A22EB52A1BFA820028929F /* APNUtil in Frameworks */,
-				93C40FAA2C28F99D001540F5 /* APNConsoleView in Frameworks */,
+				93DEECFE2C53442700473587 /* ConsoleView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,7 +267,7 @@
 			name = Alton;
 			packageProductDependencies = (
 				93A22EB42A1BFA820028929F /* APNUtil */,
-				93C40FA92C28F99D001540F5 /* APNConsoleView */,
+				93DEECFD2C53442700473587 /* ConsoleView */,
 			);
 			productName = Alton;
 			productReference = 93A22E752A1BF8DC0028929F /* Alton.app */;
@@ -343,7 +343,7 @@
 			mainGroup = 93A22E6C2A1BF8DC0028929F;
 			packageReferences = (
 				93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */,
-				93C40FA82C28F99D001540F5 /* XCRemoteSwiftPackageReference "APNConsoleView" */,
+				93DEECFC2C53442700473587 /* XCRemoteSwiftPackageReference "ConsoleView" */,
 			);
 			productRefGroup = 93A22E762A1BF8DC0028929F /* Products */;
 			projectDirPath = "";
@@ -766,9 +766,9 @@
 				minimumVersion = 1.0.0;
 			};
 		};
-		93C40FA82C28F99D001540F5 /* XCRemoteSwiftPackageReference "APNConsoleView" */ = {
+		93DEECFC2C53442700473587 /* XCRemoteSwiftPackageReference "ConsoleView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apnance/APNConsoleView";
+			repositoryURL = "https://github.com/apnance/ConsoleView";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -782,10 +782,10 @@
 			package = 93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */;
 			productName = APNUtil;
 		};
-		93C40FA92C28F99D001540F5 /* APNConsoleView */ = {
+		93DEECFD2C53442700473587 /* ConsoleView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 93C40FA82C28F99D001540F5 /* XCRemoteSwiftPackageReference "APNConsoleView" */;
-			productName = APNConsoleView;
+			package = 93DEECFC2C53442700473587 /* XCRemoteSwiftPackageReference "ConsoleView" */;
+			productName = ConsoleView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

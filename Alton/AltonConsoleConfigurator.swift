@@ -7,11 +7,11 @@
 
 import UIKit
 import APNUtil
-import APNConsoleView
+import ConsoleView
 
 struct AltonConsoleConfigurator: ConsoleConfigurator {
     
-    @discardableResult init(consoleView: APNConsoleView) {
+    @discardableResult init(consoleView: ConsoleView) {
         
         self.consoleView = consoleView
         
@@ -19,7 +19,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         
     }
     
-    var consoleView: APNConsoleView
+    var consoleView: ConsoleView
     
     var commandGroups: [CommandGroup] {
         
@@ -43,6 +43,10 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         configs.shouldMakeCommandFirstResponder = true
         configs.shouldHideOnScreenTap           = true
         
+        configs.fgColorHistoryBarCommand            = .systemOrange
+        configs.fgColorHistoryBarCommandArgument    = .systemYellow
+        configs.bgColorHistoryBarMain               = .black.pointEightAlpha
+        
         return configs
         
     }
@@ -51,9 +55,9 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         
         private var solver: Solver?
         
-        private let consoleView: APNConsoleView
+        private let consoleView: ConsoleView
         
-        init(consoleView: APNConsoleView) {
+        init(consoleView: ConsoleView) {
             
             self.consoleView = consoleView
             
