@@ -21,13 +21,9 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
     
     var consoleView: ConsoleView
     
-    var commandGroups: [CommandGroup] {
-        
-        [AltonCommandGroup(consoleView: consoleView)]
-        
-    }
+    var commandGroups: [CommandGroup]? { [altonCommandGroup] }
     
-    var configs: ConsoleViewConfigs {
+    var configs: ConsoleViewConfigs? {
         
         var configs = ConsoleViewConfigs()
         
@@ -51,72 +47,64 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         
     }
     
-    fileprivate class AltonCommandGroup: CommandGroup {
+    var altonCommandGroup: CommandGroup {
         
-        private var solver: Solver?
+        var solver: Solver?
         
-        private let consoleView: ConsoleView
-        
-        init(consoleView: ConsoleView) {
-            
-            self.consoleView = consoleView
-            
-        }
-        
-        var commands: [Command] {
-            [
+        return [
                 Command(token: Configs.Console.Command.Solve.token,
-                        process: comSolve,
+                        processor: comSolve,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Solve.helpText),
                 
                 Command(token: Configs.Console.Command.Add.token,
-                        process: comAdd,
+                        processor: comAdd,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Add.helpText),
                 
                 Command(token: Configs.Console.Command.Del.token,
-                        process: comDel,
+                        processor: comDel,
                         category: Configs.Console.Command.category,
                         helpText: Configs.Console.Command.Del.helpText),
                 
                 Command(token: Configs.Console.Command.Nuke.token,
-                        process: comNuke,
+                        processor: comNuke,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Nuke.helpText),
                 
                 Command(token: Configs.Console.Command.First.token,
-                        process: comFirst,
+                        processor: comFirst,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.First.helpText),
                 
                 Command(token: Configs.Console.Command.Last.token,
-                        process: comLast,
+                        processor: comLast,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Last.helpText),
                 
                 Command(token: Configs.Console.Command.CSV.token,
-                        process: comCSV,
+                        processor: comCSV,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.CSV.helpText),
                 
                 Command(token: Configs.Console.Command.Gaps.token,
-                        process: comGaps,
+                        processor: comGaps,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Gaps.helpText),
                 
                 Command(token: Configs.Console.Command.Diagnostic.token,
-                        process: comDiagnostic,
+                        processor: comDiagnostic,
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.Diagnostic.helpText),
                 
             ]
-        }
+        
+        // - MARK: Command Methods
         
         /// Solves the specified `Puzzle` digits displaying a general result or the results for a specified `Answer`.
         /// - Parameter args: String array containing string formated puzzle digits and maybe an `Answer`
         /// - Returns: colorized puzzle solution results.
-        func comSolve(args: [String]?) -> CommandOutput {
+        func comSolve(args: [String]?, console: ConsoleView) -> CommandOutput {
             
             let arg1 = args.elementNum(0)
             let arg2 = args.elementNum(1)
@@ -127,7 +115,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                     digits.count == 4
             else {
                 
-                return consoleView.formatCommandOutput("""
+                return console.formatCommandOutput("""
                                                     [ERROR] Please specify valid 4 digit puzzle \
                                                     (e.g. 'solve 1234')
                                                     """) /*EXIT*/
@@ -140,7 +128,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                     || answer! < 1
                     || answer! > 10 {
                     
-                    return consoleView.formatCommandOutput("""
+                    return console.formatCommandOutput("""
                                                             [ERROR] '\(arg2)' is not a valid answer. \
                                                             Valid answers are integers ranging from 1-10.
                                                             """) /*EXIT*/
@@ -151,7 +139,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             
             solver      = Solver(digits)
             
-            let font    = consoleView.configs.font
+            let font    = console.configs.font
             let atts    = AttributedString(solver!.puzzle.colorizeSolutions(forAnswer: answer,
                                                                             withFont: font))
             
@@ -167,7 +155,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         /// puzzle at a time.
         ///
         /// - Returns: status report `CommandOutput` message.
-        func comAdd(_ args :[String]?) -> CommandOutput {
+        func comAdd(_ args :[String]?, console: ConsoleView) -> CommandOutput {
             
             let arg1 = args.elementNum(0)
             let arg2 = args.elementNum(1)
@@ -177,7 +165,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                   puzzleNums.digits.count == 4
             else {
                 
-                return consoleView.formatCommandOutput("""
+                return console.formatCommandOutput("""
                                                         [ERROR] Please specify valid 4 digit puzzle \
                                                         (e.g. 'add 1234')
                                                         """) /*EXIT*/
@@ -189,7 +177,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             PuzzleArchiver.shared.add(puzzleWithDigits: puzzleNums,
                                       withDate: date)
             
-            return consoleView.formatCommandOutput("""
+            return console.formatCommandOutput("""
                                                     Attempted Archival:
                                                     \tDigits: \(puzzleNums.digits)
                                                     \tDate: \(date.simple)
@@ -202,13 +190,13 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         /// list digits.
         /// - Parameter args: one or more 4 digit Int encoded `Puzzle` digits.
         /// - Returns: status report `CommandOutput` message.
-        func comDel(_ args:[String]?) -> CommandOutput {
+        func comDel(_ args:[String]?, console: ConsoleView) -> CommandOutput {
             
             guard let args = args,
                   args.count > 0
             else {
                 
-                return consoleView.formatCommandOutput("""
+                return console.formatCommandOutput("""
                                                         Please specify 1 or more sets of \
                                                         puzzle digits to delete.\
                                                         \nex. 'del 1234' or \
@@ -255,14 +243,14 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                 
             }
             
-            return consoleView.formatCommandOutput(output)
+            return console.formatCommandOutput(output)
             
         }
         
         /// Deletes all user saved `Puzzle` data and reloads defaults from file.
         /// - Parameter args: used to handle response to Y/N query.
         /// - Returns: message indicating result of command.
-        func comNuke(args :[String]?) -> CommandOutput {
+        func comNuke(args :[String]?, console: ConsoleView) -> CommandOutput {
             
             var commandOutput = ""
             let expectedResponses = ["Y","N"]
@@ -285,7 +273,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                     
                 default:
                     
-                    consoleView.registerCommand(Configs.Console.Command.Nuke.token,
+                    console.registerCommand(Configs.Console.Command.Nuke.token,
                                                 expectingResponse: expectedResponses)
                     
                     commandOutput = """
@@ -296,28 +284,28 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                     
             }
             
-            return consoleView.formatCommandOutput(commandOutput)
+            return console.formatCommandOutput(commandOutput)
             
         }
         
         /// Attempts to return the first `n` `ArchivedPuzzle` resutls
         /// - Returns: `CommandOutput`
-        func comFirst(_ args:[String]?) -> CommandOutput {
+        func comFirst(_ args:[String]?, console: ConsoleView) -> CommandOutput {
             
-            firstLast(args, first: true)
+            firstLast(args, first: true, console: console)
             
         }
         
         /// Attempts to return the last `n` `ArchivedPuzzle` resutls
         /// - Returns: `CommandOutput`
-        func comLast(_ args:[String]?) -> CommandOutput {
+        func comLast(_ args:[String]?, console: ConsoleView) -> CommandOutput {
             
-            firstLast(args, first: false)
+            firstLast(args, first: false, console: console)
             
         }
         
         /// Common function used by `comFirst(_:)` & `comLast(_:)`
-        private func firstLast(_ args:[String]?, first: Bool) -> CommandOutput {
+        func firstLast(_ args:[String]?, first: Bool, console: ConsoleView) -> CommandOutput {
             
             let sortedArchived = PuzzleArchiver.shared.byDate()
             var output = AttributedString("")
@@ -338,14 +326,14 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                         
                     } else {
                         
-                        return consoleView.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. [Error] specify count argument > 0") // EXIT
+                        return console.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. [Error] specify count argument > 0") // EXIT
                         
                     }
                     
                     
                 } else {
                     
-                    return consoleView.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. Specify Integer count value.") // EXIT
+                    return console.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. Specify Integer count value.") // EXIT
                     
                 }
                 
@@ -354,15 +342,15 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             let puzzles =  first ? sortedArchived.first(k: k) : sortedArchived.last(k)
             let hintText = first ? "First" : "Last"
             
-            output += consoleView.formatCommandOutput("\(hintText) \(puzzles.count) Archived Puzzle(s)")
+            output += console.formatCommandOutput("\(hintText) \(puzzles.count) Archived Puzzle(s)")
             
             for (i, archivedPuzzle) in puzzles.enumerated() {
                 
                 let rowColor =  (i % 2 == 0)
-                ? consoleView.configs.fgColorScreenOutput.pointSixAlpha
-                : consoleView.configs.fgColorScreenOutput
+                ? console.configs.fgColorScreenOutput.pointSixAlpha
+                : console.configs.fgColorScreenOutput
                 
-                let word = consoleView.formatCommandOutput("""
+                let word = console.formatCommandOutput("""
                                                            
                                                            \t     #: \(archivedPuzzle.puzzleNum)
                                                            \tPuzzle: \(archivedPuzzle.digits)
@@ -376,7 +364,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             
             if requestedCount != k {
                 
-                output += consoleView.formatCommandOutput("""
+                output += console.formatCommandOutput("""
                         
                         Note: Requested(\(requestedCount)) > Total(\(puzzles.count))
                         """)
@@ -391,7 +379,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         /// data in `archive`
         /// - Parameter _: does not require or process arguments.
         /// - Returns: CSV version of all `ArchivedPuzzle` data  in `archive`
-        func comCSV(_:[String]?) -> CommandOutput {
+        func comCSV(_:[String]?, console: ConsoleView) -> CommandOutput {
             
             let sortedPuzzles = Array(PuzzleArchiver.shared.byDate())
             
@@ -420,7 +408,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                                             [Note: above output copied to pasteboard]
                                             """
             
-            var atts                = consoleView.formatCommandOutput(archivedPuzzles)
+            var atts                = console.formatCommandOutput(archivedPuzzles)
             atts.foregroundColor    = UIColor.lightGray
             
             return atts
@@ -429,7 +417,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         
         /// Echoes an ASCII representation of all of missing `ArchivedPuzzle` data.
         /// - Parameter _: does not require or process arguments.
-        func comGaps(_:[String]?) -> CommandOutput {
+        func comGaps(_:[String]?, console: ConsoleView) -> CommandOutput {
             
             let puzzleNums = PuzzleArchiver.shared.byDate().map{$0.puzzleNum}
             let searchRange = 1...PuzzleArchiver.todaysPuzzleNumber
@@ -437,13 +425,13 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             let output  = GapFinder.describeGaps(in: puzzleNums,
                                              usingRange: searchRange)
             
-            return consoleView.formatCommandOutput(output)
+            return console.formatCommandOutput(output)
             
         }
         
         /// Runs several diagnostic tests on `archive` data.
         /// - Parameter _: does not require or process arguments.
-        func comDiagnostic (_ args :[String]?) -> CommandOutput {
+        func comDiagnostic (_ args :[String]?, console: ConsoleView) -> CommandOutput {
             
             var diagnosticResult    = ""
             
@@ -455,7 +443,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             diagnosticResult += GapFinder.compactDescribeGaps(in: puzzleNums,
                                                               usingRange: searchRange)
             
-            return consoleView.formatCommandOutput(diagnosticResult)
+            return console.formatCommandOutput(diagnosticResult)
             
         }
         
