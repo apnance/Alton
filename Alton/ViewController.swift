@@ -46,8 +46,12 @@ class ViewController: UIViewController {
     // MARK: - Custom Methods
     private func uiInit() {
         
-        // Console
+        // Console - Configurators
         AltonConsoleConfigurator(consoleView: consoleView)
+        DataManagerConfigurator(consoleView: consoleView,
+                                data: PuzzleArchiver.shared)
+        
+        // Console - UI
         consoleView.showHide(.hide)
         consoleView.layer.cornerRadius  = Configs.UI.View.cornerRadius
         

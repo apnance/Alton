@@ -87,11 +87,6 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
                         category: Configs.Console.Command.category,
                         helpText:  Configs.Console.Command.CSV.helpText),
                 
-                Command(token: Configs.Console.Command.Gaps.token,
-                        processor: comGaps,
-                        category: Configs.Console.Command.category,
-                        helpText:  Configs.Console.Command.Gaps.helpText),
-                
                 Command(token: Configs.Console.Command.Diagnostic.token,
                         processor: comDiagnostic,
                         category: Configs.Console.Command.category,
@@ -415,20 +410,6 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             
         }
         
-        /// Echoes an ASCII representation of all of missing `ArchivedPuzzle` data.
-        /// - Parameter _: does not require or process arguments.
-        func comGaps(_:[String]?, console: ConsoleView) -> CommandOutput {
-            
-            let puzzleNums = PuzzleArchiver.shared.byDate().map{$0.puzzleNum}
-            let searchRange = 1...PuzzleArchiver.todaysPuzzleNumber
-            
-            let output  = GapFinder.describeGaps(in: puzzleNums,
-                                             usingRange: searchRange)
-            
-            return console.formatCommandOutput(output)
-            
-        }
-        
         /// Runs several diagnostic tests on `archive` data.
         /// - Parameter _: does not require or process arguments.
         func comDiagnostic (_ args :[String]?, console: ConsoleView) -> CommandOutput {
@@ -436,12 +417,6 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             var diagnosticResult    = ""
             
             diagnosticResult        += PuzzleArchiver.shared.diagnose()
-            
-            let puzzleNums          = PuzzleArchiver.shared.byDate().map{$0.puzzleNum}
-            let searchRange         = 1...PuzzleArchiver.todaysPuzzleNumber
-            
-            diagnosticResult += GapFinder.compactDescribeGaps(in: puzzleNums,
-                                                              usingRange: searchRange)
             
             return console.formatCommandOutput(diagnosticResult)
             

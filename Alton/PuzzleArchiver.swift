@@ -7,6 +7,7 @@
 
 import APNUtil
 import Foundation
+import ConsoleView
 
 class PuzzleArchiver {
     
@@ -15,7 +16,6 @@ class PuzzleArchiver {
     
     private var archive: ManagedCollection<ArchivedPuzzle> = ManagedCollection.load(file: Configs.Archiver.File.saved.name,
                                                                                     inSubDir: Configs.Archiver.File.saved.subDir)
-    
     
     /// Returns the number of archived `Puzzle`s
     var count: Int { archive.count }
@@ -424,5 +424,20 @@ extension PuzzleArchiver {
                 """
         
     }
+    
+}
+
+extension PuzzleArchiver: DataManagerConfiguratorDataSource {
+    
+    var gapFindableData: [GapFindable]? {
+    
+        let puzzleNums = Self.shared.archive.values.map{$0.puzzleNum}
+        
+        return puzzleNums
+        
+    }
+    
+    var gapFindableRange: ClosedRange<Int>? { 1...PuzzleArchiver.todaysPuzzleNumber }
+    var gapFindableStride: Int? { 1 }
     
 }
