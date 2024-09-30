@@ -43,7 +43,7 @@ struct AltonOutputCSV: Command {
                             ==============================
                             Puzzle Count: \(sortedPuzzles.count)
                             Last Update:  \(Date().simple)
-                            Source:       comCSV()
+                            Source:       AltonOutputCSV.process()
                             ==============================
                             Digits Difficulty Date Puzzle#
                             ------------------------------\
