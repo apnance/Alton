@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		930F91642CAA4AE3003D3C9A /* AltonSolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F91632CAA4AE3003D3C9A /* AltonSolve.swift */; };
+		930F91662CAA4AFB003D3C9A /* AltonAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F91652CAA4AFB003D3C9A /* AltonAdd.swift */; };
+		930F91682CAA4B03003D3C9A /* AltonDel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F91672CAA4B03003D3C9A /* AltonDel.swift */; };
+		930F916A2CAA4B0C003D3C9A /* AltonNuke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F91692CAA4B0C003D3C9A /* AltonNuke.swift */; };
+		930F916C2CAA4B1B003D3C9A /* AltonFirst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F916B2CAA4B1B003D3C9A /* AltonFirst.swift */; };
+		930F916E2CAA4B26003D3C9A /* AltonLast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F916D2CAA4B26003D3C9A /* AltonLast.swift */; };
+		930F91702CAA4B32003D3C9A /* AltonCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F916F2CAA4B32003D3C9A /* AltonCSV.swift */; };
+		930F91722CAA4B40003D3C9A /* AltonDiagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F91712CAA4B40003D3C9A /* AltonDiagnostic.swift */; };
 		9335D2F62BC48E7C009CF74A /* Fraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F52BC48E7C009CF74A /* Fraction.swift */; };
 		9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F72BC49125009CF74A /* FractionalMathTests.swift */; };
 		9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F92BC5C4CC009CF74A /* Operand.swift */; };
@@ -58,6 +66,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		930F91632CAA4AE3003D3C9A /* AltonSolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonSolve.swift; sourceTree = "<group>"; };
+		930F91652CAA4AFB003D3C9A /* AltonAdd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonAdd.swift; sourceTree = "<group>"; };
+		930F91672CAA4B03003D3C9A /* AltonDel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonDel.swift; sourceTree = "<group>"; };
+		930F91692CAA4B0C003D3C9A /* AltonNuke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonNuke.swift; sourceTree = "<group>"; };
+		930F916B2CAA4B1B003D3C9A /* AltonFirst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonFirst.swift; sourceTree = "<group>"; };
+		930F916D2CAA4B26003D3C9A /* AltonLast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonLast.swift; sourceTree = "<group>"; };
+		930F916F2CAA4B32003D3C9A /* AltonCSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonCSV.swift; sourceTree = "<group>"; };
+		930F91712CAA4B40003D3C9A /* AltonDiagnostic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AltonDiagnostic.swift; sourceTree = "<group>"; };
 		9335D2F52BC48E7C009CF74A /* Fraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fraction.swift; sourceTree = "<group>"; };
 		9335D2F72BC49125009CF74A /* FractionalMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionalMathTests.swift; sourceTree = "<group>"; };
 		9335D2F92BC5C4CC009CF74A /* Operand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operand.swift; sourceTree = "<group>"; };
@@ -121,6 +137,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		930F91612CAA4A73003D3C9A /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				930F91622CAA4A7C003D3C9A /* Commands */,
+				93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */,
+			);
+			path = Console;
+			sourceTree = "<group>";
+		};
+		930F91622CAA4A7C003D3C9A /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				930F91632CAA4AE3003D3C9A /* AltonSolve.swift */,
+				930F91652CAA4AFB003D3C9A /* AltonAdd.swift */,
+				930F91672CAA4B03003D3C9A /* AltonDel.swift */,
+				930F91692CAA4B0C003D3C9A /* AltonNuke.swift */,
+				930F916B2CAA4B1B003D3C9A /* AltonFirst.swift */,
+				930F916D2CAA4B26003D3C9A /* AltonLast.swift */,
+				930F916F2CAA4B32003D3C9A /* AltonCSV.swift */,
+				930F91712CAA4B40003D3C9A /* AltonDiagnostic.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		93A22E6C2A1BF8DC0028929F = {
 			isa = PBXGroup;
 			children = (
@@ -176,12 +216,12 @@
 		93A22EA82A1BF9020028929F /* C */ = {
 			isa = PBXGroup;
 			children = (
+				930F91612CAA4A73003D3C9A /* Console */,
 				93A22EAC2A1BF93C0028929F /* iOS */,
 				93A22EB12A1BF9BE0028929F /* Solver.swift */,
 				93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */,
 				939F38952BCEDE4200463E3E /* Blink.swift */,
 				93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */,
-				93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -400,14 +440,22 @@
 				939F38962BCEDE4200463E3E /* Blink.swift in Sources */,
 				93D747522BB62327007A2F52 /* Expression.swift in Sources */,
 				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
+				930F91642CAA4AE3003D3C9A /* AltonSolve.swift in Sources */,
 				9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */,
+				930F91722CAA4B40003D3C9A /* AltonDiagnostic.swift in Sources */,
 				93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */,
 				93C40FAE2C29230C001540F5 /* AltonConsoleConfigurator.swift in Sources */,
 				9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */,
 				93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */,
+				930F916A2CAA4B0C003D3C9A /* AltonNuke.swift in Sources */,
+				930F916C2CAA4B1B003D3C9A /* AltonFirst.swift in Sources */,
+				930F91682CAA4B03003D3C9A /* AltonDel.swift in Sources */,
+				930F91702CAA4B32003D3C9A /* AltonCSV.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
+				930F916E2CAA4B26003D3C9A /* AltonLast.swift in Sources */,
 				9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */,
+				930F91662CAA4AFB003D3C9A /* AltonAdd.swift in Sources */,
 				9335D2F62BC48E7C009CF74A /* Fraction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
