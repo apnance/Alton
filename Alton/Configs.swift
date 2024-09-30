@@ -112,14 +112,14 @@ struct Configs {
     
     struct Console {
         
-        struct Command {
+        struct Commands {
             
-            static var category = "alton"
+            static var category = "ALTON"
             
             struct Solve {
                 
                 static var token    = "solve"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = """
                 Attemps to solve the specified puzzle.
                 \tUsage:
@@ -135,7 +135,7 @@ struct Configs {
             struct Add {
                 
                 static var token    = "add"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText =  """
                                         Attemps to add the specified puzzle(s) to archive.
                                         \tUsage:
@@ -148,7 +148,7 @@ struct Configs {
             struct Del {
                 
                 static var token    = "del"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "'del 1234' deletes puzzle with digits 1,2,3, & 4.  Digit order is irrelevant.'"
                 
             }
@@ -156,7 +156,7 @@ struct Configs {
             struct Nuke {
                 
                 static var token    = "nuke"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = """
                 Reverts archived puzzle data to defaults from file \
                 puzzle.defaults.data.txt
@@ -172,7 +172,7 @@ struct Configs {
             struct First {
                 
                 static var token    = "first"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "'first 5' echoes the first 5 puzzles archived."
                 
             }
@@ -180,7 +180,7 @@ struct Configs {
             struct Last {
                 
                 static var token    = "last"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "'last 5' echoes the last 5 puzzles archived."
                 
             }
@@ -188,14 +188,14 @@ struct Configs {
             struct CSV {
                 
                 static var token    = "csv"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "Formats remembered answer as CSV and copies to pasteboard."
                 
             }
             struct Gaps {
                 
                 static var token    = "gaps"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "Echoes a list of all missing archived puzzles."
                 
             }
@@ -203,7 +203,7 @@ struct Configs {
             struct Diagnostic {
                 
                 static var token    = "diag"
-                static var category =  Configs.Console.Command.category
+                static var category =  Configs.Console.Commands.category
                 static var helpText = "Performs diagnostic test(s)."
                 
             }
