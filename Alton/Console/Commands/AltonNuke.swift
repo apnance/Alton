@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to delete all user saved `Puzzle` data and reloads defaults from file.
 @available(iOS 15, *)
 struct AltonNuke: Command {
     

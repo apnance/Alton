@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command the runs various diagnostic tests in `Console`.
 @available(iOS 15, *)
 struct AltonDiagnostic: Command {
     

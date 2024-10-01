@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to delete puzzle digits from archive.
 @available(iOS 15, *)
 struct AltonDel: Command {
     

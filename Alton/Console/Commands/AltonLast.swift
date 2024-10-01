@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to retrieve the last `n` `ArchivedPuzzle` results.
 @available(iOS 15, *)
 struct AltonLast: Command {
     

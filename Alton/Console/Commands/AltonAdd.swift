@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to add puzzle digits to archive.
 @available(iOS 15, *)
 struct AltonAdd: Command {
     
@@ -48,6 +47,8 @@ struct AltonAdd: Command {
                                                     """) /*EXIT*/
             
         }
+        
+#warning("ADD ability to specify date for puzzle digits.")
         
         let date = arg2.simpleDateMaybe ?? Date().simple.simpleDate
         

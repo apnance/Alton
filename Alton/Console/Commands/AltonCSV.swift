@@ -9,8 +9,7 @@ import UIKit
 import APNUtil
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to retrieve a comma separated list of all`ArchivedPuzzle`data.
 @available(iOS 15, *)
 struct AltonOutputCSV: Command {
     

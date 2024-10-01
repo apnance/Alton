@@ -8,7 +8,7 @@
 import Foundation
 import ConsoleView
 
-
+/// Command to solve an All Ten puzzle.
 @available(iOS 15, *)
 struct AltonSolve: Command {
     

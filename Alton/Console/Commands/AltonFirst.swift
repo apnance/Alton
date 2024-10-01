@@ -8,8 +8,7 @@
 import Foundation
 import ConsoleView
 
-// TODO: Clean Up - Add command summary comment.
-/// Add command summary comment
+/// Command to retrieve the first `n` `ArchivedPuzzle` results.
 @available(iOS 15, *)
 struct AltonFirst: Command {
     
@@ -24,7 +23,7 @@ struct AltonFirst: Command {
     
     var helpText        = Configs.Console.Commands.First.helpText
     
-    /// Attempts to return the first `n` `ArchivedPuzzle` resutls
+    /// Attempts to return the first `n` `ArchivedPuzzle` results.
     /// - Returns: `CommandOutput`
     func process(_ args: [String]?) -> CommandOutput {
         
