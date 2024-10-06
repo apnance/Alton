@@ -11,7 +11,7 @@ import ConsoleView
 
 /// Command to retrieve a comma separated list of all`ArchivedPuzzle`data.
 @available(iOS 15, *)
-struct AltonOutputCSV: Command {
+struct AltonCSV: Command {
     
     // - MARK: Command Requirements
     var console: Console

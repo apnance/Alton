@@ -32,7 +32,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             AltonNuke(console: console),
             AltonFirst(console: console),
             AltonLast(console: console),
-            AltonOutputCSV(console: console),
+            AltonCSV(console: console),
             AltonDiagnostic(console: console)
             
         ]
