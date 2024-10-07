@@ -137,10 +137,13 @@ struct Configs {
                 static var token    = "add"
                 static var category =  Configs.Console.Commands.category
                 static var helpText =  """
-                                        Attemps to add the specified puzzle(s) to archive.
+                                        Attempts to add the specified puzzle(s) to archive with optional per-puzzle trailing date. If no date is specified for a given puzzle, today's date is assumed.
                                         \tUsage:
-                                        \t* 'add 1234 5678 9999' adds puzzles [1,2,3,4], [5,6,7,8], and [9,9,9,9]
-                                        \t  to archived puzzles.
+                                        \t* 'add 1234' adds puzzle [1,2,3,4] with today's date.
+                                        \t* 'add 1234 5-24-73' adds puzzle [1,2,3,4] with date of 5-24-1973.
+                                        \t* 'add 1234 5-24-73 2244 3355' adds puzzle [1,2,3,4] with date of 
+                                        \t  5-24-1973 and puzzles [2,2,4,4] and [3,3,5,5] both with 
+                                        \t  today's date.
                                         """
                 
             }
