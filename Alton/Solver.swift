@@ -71,6 +71,21 @@ struct Solver {
         
     }
     
+    /// Determines if the specified `String` is a valid 4-digit puzzle candidate
+    /// - Parameter digits: `String` value to appraise as possible 4-digit puzzle.
+    /// - Returns: success flag, true if `digits` is a valid 4-digit puzzle candidate.
+    static func validate(_ digits: String) -> Bool {
+        
+        guard let puzzleNums = Int(digits),
+              puzzleNums > 0,
+              puzzleNums.digits.count == 4
+        else { return false /*EXIT*/ }
+        
+        return true /*EXIT*/
+        
+    }
+    
+    
     /// Solves for all possible solution `Expression` for all expected answers 1-10.
     /// This is the heart of the `Solver`.
     mutating private func solve(useBruteForce: Bool) {
