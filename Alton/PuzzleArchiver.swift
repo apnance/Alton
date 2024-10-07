@@ -144,16 +144,6 @@ class PuzzleArchiver {
         
     }
     
-    /// Converts `puzzle` to `ArchviedPuzzle` and archives to `archive` `ManagedCollection`
-    /// - Parameter puzzle: `Puzzle` to add to archive.
-    private func add(puzzle: ArchivedPuzzle) {
-        
-        // Add and Save
-        archive.add(puzzle,
-                    shouldArchive: true)
-        
-    }
-    
     /// Attempts to add an `ArchivedPuzzle`with the specified puzzle digits to the archive.
     /// - Parameters:
     ///   - puzzleNums: Expects a positive 4-digit `Int` represening an All Ten puzzle.
@@ -267,7 +257,10 @@ class PuzzleArchiver {
                 _ in
                 
                 self.delete(puzzles: existing)
-                self.add(puzzle: archivedPuzzle)
+                
+                var copy = archivedPuzzle
+                self.archive.addEntry(&copy,
+                                      shouldArchive: true)
                 
             })
             
@@ -278,7 +271,9 @@ class PuzzleArchiver {
                         yesHandler: {
                 _ in
                 
-                self.add(puzzle: archivedPuzzle)
+                var copy = archivedPuzzle
+                self.archive.addEntry(&copy,
+                                      shouldArchive: true)
                 
             })
             
