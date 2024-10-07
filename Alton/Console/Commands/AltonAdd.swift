@@ -23,44 +23,60 @@ struct AltonAdd: Command {
     
     var helpText        = Configs.Console.Commands.Add.helpText
     
-    /// Attempts to add puzzle digits(arg 1) to archive with optional date(arg 2)
-    /// - Parameter args: array containing puzzle digits at first index and
-    /// optional date at second index.
-    ///
-    /// - note: unlike companion method comDel, you cannot add more than
-    /// puzzle at a time.
+    /// Attempts to add puzzle digits to archive with optional date
+    /// - Parameter args: array containing puzzle digits alternating with
+    /// optional date strings. If a date string follows digits the digits are
+    /// archived under that date if possible.  If no date follows a set of puzzle digits
+    /// the current date is used.
     ///
     /// - Returns: status report `CommandOutput` message.
     func process(_ args: [String]?) -> CommandOutput {
         
-        let arg1 = args.elementNum(0)
-        let arg2 = args.elementNum(1)
+        var i = 0
+        var output = CommandOutput()
+        let screen = console.screen!
         
-        guard let puzzleNums = Int(arg1),
-              puzzleNums > 0,
-              puzzleNums.digits.count == 4
-        else {
+        repeat {
             
-            return console.screen.formatCommandOutput("""
-                                                    [ERROR] Please specify valid 4 digit puzzle \
-                                                    (e.g. 'add 1234')
-                                                    """) /*EXIT*/
+            let puzzle  = args.elementNum(i)
+            let date    = args.elementNum(i + 1).simpleDateMaybe
             
-        }
+            i += date.isNotNil ? 2 : 1
+            
+            if Solver.validate(puzzle) {
+                
+                let puzzle  = Int(puzzle)!
+                let date    = date  ?? Date().simple.simpleDate
+                
+                var (result, format) = ("Failed",
+                                        FormatTarget.outputWarning)
+                
+                if PuzzleArchiver.shared.add(puzzleWithDigits: puzzle,
+                                             andDate: date) {
+                    
+                    (result, format) = ("Succeeded",
+                                        .output)
+                    
+                }
+                
+                output += screen.format("Archiving \(puzzle.digits),  \(date.simple) ... \(result)\n"
+                                        , target: format)
+                
+            } else {
+                
+                output += screen.format("""
+                                        [ERROR] Please specify valid 4 digit puzzle \
+                                        (e.g. 'add 1234')
+                                        """,
+                                        target: .outputWarning) /*EXIT*/
+                
+            }
+            
+        } while args.elementNum(i).isNotEmpty
         
-#warning("ADD ability to specify date for puzzle digits.")
-        
-        let date = arg2.simpleDateMaybe ?? Date().simple.simpleDate
-        
-        PuzzleArchiver.shared.add(puzzleWithDigits: puzzleNums,
-                                  withDate: date)
-        
-        return console.screen.formatCommandOutput("""
-                                                Attempted Archival:
-                                                \tDigits: \(puzzleNums.digits)
-                                                \tDate: \(date.simple)
-                                                """)
+        return output
         
     }
+    
 }
 

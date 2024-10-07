@@ -154,15 +154,34 @@ class PuzzleArchiver {
         
     }
     
-    /// Attempts to add the `ArchivedPuzzle` with digits matching `puzzleNum` to `archive`
-    /// - Parameter puzzleWithDigits: digits for the puzzle to be added, digit order is not important.
-    /// - Parameter withDate: date of the `ArchivedPuzzle` to be added.
+    /// Attempts to add an `ArchivedPuzzle`with the specified puzzle digits to the archive.
+    /// - Parameters:
+    ///   - puzzleNums: Expects a positive 4-digit `Int` represening an All Ten puzzle.
+    ///   - date: Date for which to archive this puzzle.
+    /// - Returns: boolean indicating the success or failure of the attemped archival.
     func add(puzzleWithDigits puzzleNums: Int,
-             withDate: Date) {
+             andDate date: Date?) -> Bool {
         
         let solved = Solver(puzzleNums.digits).puzzle
         
-        confirmSave(solved, withDate: withDate)
+        var success = false
+        
+        if solved.isFullySolved {
+            
+            let archivedDate = date ?? Date().simple.simpleDate
+            
+            var archivedPuzzle  = ArchivedPuzzle(digits: solved.digits,
+                                                 date: archivedDate,
+                                                 difficulty: solved.difficulty!.estimated)
+            
+            archive.addEntry(&archivedPuzzle,
+                             shouldArchive: true)
+            
+            success = true
+            
+        }
+        
+        return success /*EXIT*/
         
     }
     
