@@ -240,7 +240,7 @@ class PuzzleArchiver {
         
         let puzzleNum       = PuzzleArchiver.calcPuzzleNum(forDate: archivedPuzzle.date)
         
-        let existing        = getPuzzlesNumbered(puzzleNum)
+        let existing        = getFor(puzzleNum.description)
         
         if existing.count > 0 {
             
@@ -281,27 +281,7 @@ class PuzzleArchiver {
         
     }
     
-    /// - Parameter num: puzzle number to match
-    /// - Returns: an array `[ArchivedPuzzle]` with `puzzleNumber`s matching `num`
-    private func getPuzzlesNumbered(_ num: Int) -> [ArchivedPuzzle] {
-        
-        var matches = [ArchivedPuzzle]()
-        
-        for puzzle in archive.values {
-            
-            if puzzle.puzzleNum == num {
-                
-                matches.append(puzzle)
-                
-            }
-            
-        }
-        
-        return matches
-        
-    }
-    
-    /// Attempts to retrieve answer(s) for specified argument(date, puzzle#, digits, or range of puzzle#s)
+    /// Attempts to retrieve `ArchivedPuzzle`(s) for specified argument(date, puzzle#, digits, or range of puzzle#s)
     func getFor(_ arg: Argument) -> [ArchivedPuzzle] {
         
         var matches     = [ArchivedPuzzle]()
