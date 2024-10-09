@@ -301,6 +301,77 @@ class PuzzleArchiver {
         
     }
     
+    /// Attempts to retrieve answer(s) for specified argument(date, puzzle#, digits, or range of puzzle#s)
+    func getFor(_ arg: Argument) -> [ArchivedPuzzle] {
+        
+        var matches     = [ArchivedPuzzle]()
+        let archived    = archive.values.sorted{ $0.puzzleNum < $1.puzzleNum }
+        
+        switch arg.type {
+                
+            case .date:
+                
+                let simpleDate = arg.simpleDate.simple
+                for puzzle in archived {
+                    
+                    if puzzle.date.simple == simpleDate {
+                        
+                        matches.append(puzzle)
+                        
+                    }
+                    
+                }
+                
+            case .puzzleNum:
+                
+                let puzzleNum = Int(arg)!
+                for puzzle in archived {
+                    
+                    if puzzle.puzzleNum == puzzleNum {
+                        
+                        matches.append(puzzle)
+                        
+                    }
+                    
+                }
+                
+            case .puzzleNumRange:
+                
+                let bounds = arg.split(separator: "-").map{ Int($0) ?? -1 }
+                let (low,hi) = (bounds.first!, bounds.last!)
+                
+                let range = min(low, hi)...max(low, hi)
+                
+                for puzzle in archived {
+                    
+                    if range.contains(puzzle.puzzleNum) {
+                        
+                        matches.append(puzzle)
+                        
+                    }
+                    
+                }
+                
+            case .digits:
+                
+                let digits = (-Int(arg)!).digits.sorted()
+                for puzzle in archived {
+                    
+                    if puzzle.digits.sorted() == digits {
+                        
+                        matches.append(puzzle)
+                        
+                    }
+                    
+                }
+                
+            case .option, .unknown: break /*Do Nothing*/
+                
+        }
+        
+        return matches
+        
+    }
     
     /// Checks for `Puzzle`s digits in the `archive` returning true if found, else false.
     /// - Parameter toCheck: `Puzzle` who's digits should be checked against

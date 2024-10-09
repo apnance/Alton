@@ -148,6 +148,38 @@ struct Configs {
                 
             }
             
+            struct Get {
+                
+                static var token    = "get"
+                static var category =  Configs.Console.Commands.category
+                static var helpText =   """
+                                        Attempts to retrieve data about archived puzzles.
+                                        \tUsage:
+                                        \t* 'get <date|puzzle#|-digits>' retrieves the associated archived puzzle.
+                                        \t   ex1. 'get 04-24-24' retrieves the archived puzzle with date 
+                                        \t         04-24-2024.
+                                        \t   ex2. 'get 589' retrieves the archived puzzle data for the 589th 
+                                        \t         puzzle.
+                                        \t   ex3. 'get -1234' retrieves archived data for puzzle [1,2,3,4].
+                                        \t* 'get <low-hi>' retrieves the range of archived puzzles 
+                                        \t   associated with puzzle #s from low to high. 
+                                        \t   ex. 'get 629-741' retrieves the range of archived puzzles with 
+                                        \t        numbers 629 to 741.
+                                        \t* 'get - <puzzle#|date|low-hi>' retrieves only the digits associated with the specified puzzle number, date or range.
+                                        \t* 'get d <puzzle#|-digits|low-hi>' retrieves only the date associated 
+                                        \t   with the specified puzzle number or digits.
+                                        \t* 'get n <date|-digits|low-hi>' retrieves only the puzzle number 
+                                        \t   associated with the specified date, digits or range.
+                                        \t   ex1. 'get n 12-07-23' gets the puzzle number for the puzzle from
+                                        \t         12-07-2023.
+                                        \t   ex2. 'get n -1234' gets the puzzle number for puzzle [1,2,3,4].
+                                        \t* 'get c <puzzle#|date|-digits|low-hi>'retrieves only the count of
+                                        \t   puzzles associated with the specified puzzle number, date, word
+                                        \t   or range.
+                                        """
+                
+            }
+            
             struct Del {
                 
                 static var token    = "del"

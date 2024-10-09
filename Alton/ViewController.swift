@@ -39,7 +39,7 @@ class ViewController: UIViewController {
     
     @objc private func handleDisplayTap(_ sender: UITextView) {
         
-            consoleView.showHide(.show)
+        consoleView.showHide(.show)
         
     }
     
@@ -47,7 +47,8 @@ class ViewController: UIViewController {
     private func uiInit() {
         
         // Console - Configurators
-        AltonConsoleConfigurator(consoleView: consoleView)
+        AltonConsoleConfigurator(consoleView: consoleView,
+                                 archiver: PuzzleArchiver.shared)
         DataManagerConfigurator(consoleView: consoleView,
                                 data: PuzzleArchiver.shared)
         

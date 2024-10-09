@@ -11,14 +11,17 @@ import ConsoleView
 
 struct AltonConsoleConfigurator: ConsoleConfigurator {
     
-    @discardableResult init(consoleView: ConsoleView) {
+    @discardableResult init(consoleView: ConsoleView,
+                            archiver: PuzzleArchiver) {
         
-        self.consoleView = consoleView
+        self.consoleView    = consoleView
+        self.archiver       = archiver
         
         load()
         
     }
     
+    var archiver: PuzzleArchiver
     var consoleView: ConsoleView
     var console: Console { consoleView.console }
     
@@ -28,6 +31,7 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
             
             AltonSolve(console: console),
             AltonAdd(console: console),
+            AltonGet(archiver: archiver, console: console),
             AltonDel(console: console),
             AltonNuke(console: console),
             AltonFirst(console: console),

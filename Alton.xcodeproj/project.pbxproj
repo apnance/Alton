@@ -23,6 +23,8 @@
 		9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA12BBE004100425C95 /* ExpressionTests.swift */; };
 		9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA32BC0B6B300425C95 /* Globals.swift */; };
 		939F38962BCEDE4200463E3E /* Blink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939F38952BCEDE4200463E3E /* Blink.swift */; };
+		93A1B92D2CB37B0D007472B1 /* AltonGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A1B92C2CB37B09007472B1 /* AltonGet.swift */; };
+		93A1B92F2CB47FE0007472B1 /* Argument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A1B92E2CB47FD8007472B1 /* Argument.swift */; };
 		93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E782A1BF8DC0028929F /* AppDelegate.swift */; };
 		93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */; };
 		93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22E7C2A1BF8DC0028929F /* ViewController.swift */; };
@@ -83,6 +85,8 @@
 		9361BFA12BBE004100425C95 /* ExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
 		9361BFA32BC0B6B300425C95 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		939F38952BCEDE4200463E3E /* Blink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blink.swift; sourceTree = "<group>"; };
+		93A1B92C2CB37B09007472B1 /* AltonGet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonGet.swift; sourceTree = "<group>"; };
+		93A1B92E2CB47FD8007472B1 /* Argument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Argument.swift; sourceTree = "<group>"; };
 		93A22E752A1BF8DC0028929F /* Alton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A22E782A1BF8DC0028929F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A22E7A2A1BF8DC0028929F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		930F91612CAA4A73003D3C9A /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				93A1B92E2CB47FD8007472B1 /* Argument.swift */,
 				930F91622CAA4A7C003D3C9A /* Commands */,
 				93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */,
 			);
@@ -149,6 +154,7 @@
 		930F91622CAA4A7C003D3C9A /* Commands */ = {
 			isa = PBXGroup;
 			children = (
+				93A1B92C2CB37B09007472B1 /* AltonGet.swift */,
 				930F91632CAA4AE3003D3C9A /* AltonSolve.swift */,
 				930F91652CAA4AFB003D3C9A /* AltonAdd.swift */,
 				930F91672CAA4B03003D3C9A /* AltonDel.swift */,
@@ -437,6 +443,8 @@
 				93A22E7D2A1BF8DC0028929F /* ViewController.swift in Sources */,
 				93E0D8EC2C2B7CD5005EAA7D /* ArchivedPuzzle.swift in Sources */,
 				9335D2FC2BC70DE0009CF74A /* TextFieldTintedClearButton.swift in Sources */,
+				93A1B92F2CB47FE0007472B1 /* Argument.swift in Sources */,
+				93A1B92D2CB37B0D007472B1 /* AltonGet.swift in Sources */,
 				939F38962BCEDE4200463E3E /* Blink.swift in Sources */,
 				93D747522BB62327007A2F52 /* Expression.swift in Sources */,
 				93A22EB02A1BF99C0028929F /* Configs.swift in Sources */,
