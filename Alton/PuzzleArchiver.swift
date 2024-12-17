@@ -447,7 +447,7 @@ extension PuzzleArchiver {
         let (byDigit, byDate) = PuzzleArchiver.shared.findDupes()
         
         var digitOutput = "  Digits(\(byDigit.count)):\n"
-        var dateOutput  = "  Dates(\(byDate.count)):\n"
+        var dateOutput  = "   Dates(\(byDate.count)):\n"
         
         if byDigit.count > 0 || byDate.count > 0 {
             

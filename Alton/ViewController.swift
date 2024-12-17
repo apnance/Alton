@@ -47,10 +47,8 @@ class ViewController: UIViewController {
     private func uiInit() {
         
         // Console - Configurators
-        AltonConsoleConfigurator(consoleView: consoleView,
-                                 archiver: PuzzleArchiver.shared)
-        DataManagerConfigurator(consoleView: consoleView,
-                                data: PuzzleArchiver.shared)
+        AltonConsoleConfigurator(archiver: PuzzleArchiver.shared)
+        DataManagerConfigurator(data: PuzzleArchiver.shared)
         
         // Console - UI
         consoleView.showHide(.hide)

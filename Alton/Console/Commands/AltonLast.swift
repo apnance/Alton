@@ -12,9 +12,7 @@ import ConsoleView
 @available(iOS 15, *)
 struct AltonLast: Command {
     
-    // - MARK: Command Requirements
-    var console: Console
-    
+    // - MARK: Command Requirements    
     var commandToken    = Configs.Console.Commands.Last.token
     
     var isGreedy        = false
@@ -27,7 +25,7 @@ struct AltonLast: Command {
     /// - Returns: `CommandOutput`
     func process(_ args: [String]?) -> CommandOutput {
         
-        AltonFirst.firstLast(args, first: false, console: console)
+        AltonFirst.firstLast(args, first: false)
         
     }
 }

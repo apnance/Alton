@@ -13,8 +13,6 @@ import ConsoleView
 struct AltonDiagnostic: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.Diagnostic.token
     
     var isGreedy        = false
@@ -27,11 +25,7 @@ struct AltonDiagnostic: Command {
     /// - Parameter _: does not require or process arguments.
     func process(_ args: [String]?) -> CommandOutput {
         
-        var diagnosticResult    = ""
-        
-        diagnosticResult        += PuzzleArchiver.shared.diagnose()
-        
-        return console.screen.formatCommandOutput(diagnosticResult)
+        CommandOutput.output(PuzzleArchiver.shared.diagnose())
         
     }
 }

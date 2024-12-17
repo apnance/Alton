@@ -16,8 +16,6 @@ struct AltonGet: Command {
     var archiver: PuzzleArchiver
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.Get.token
     
     var isGreedy        = false
@@ -48,19 +46,13 @@ struct AltonGet: Command {
         func output() -> CommandOutput {
             
             var output  = CommandOutput()
-            var row     = 0
             
-            for content in contents {
+            for (i, content) in contents.enumerated() {
                 
                 let content = content.tidy()
                 
-                let target = (row % 2 == 0) ? FormatTarget.output : .outputDeemphasized
-                
-                output += console.screen.format(content + "\n",
-                                                target: target,
-                                                overrideFGColor: nil)
-                // Next
-                row += 1
+                output += CommandOutput.output(content + "\n",
+                                               overrideFGColor: Console.rowColor(i))
                 
             }
             

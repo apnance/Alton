@@ -13,8 +13,6 @@ import ConsoleView
 struct AltonDel: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.Del.token
     
     var isGreedy        = false
@@ -33,16 +31,16 @@ struct AltonDel: Command {
               args.count > 0
         else {
             
-            return console.screen.formatCommandOutput("""
-                                                    Please specify 1 or more sets of \
-                                                    puzzle digits to delete.\
-                                                    \nex. 'del 1234' or \
-                                                    'del 1234 2245 2345'
-                                                    """) /*EXIT*/
+            return CommandOutput.error(msg: """
+                                            Please specify 1 or more sets of \
+                                            puzzle digits to delete.\
+                                            \nex. 'del 1234' or \
+                                            'del 1234 2245 2345'
+                                            """) /*EXIT*/
             
         }
         
-        var output = ""
+        var output = CommandOutput()
         
         var deleted = Array(repeating: false, count: args.count)
         
@@ -70,17 +68,17 @@ struct AltonDel: Command {
         
         if matched.count > 0 {
             
-            output += "\nDeleted puzzles(s): \(matched.asCommaSeperatedString(conjunction: "&"))"
+            output += CommandOutput.warning("Deleted puzzles(s):\n\(matched.asCommaSeperatedString(conjunction: "&"))\n")
             
         }
         
         if unmatched.count > 0 {
             
-            output += "\n[ERROR] Puzzle(s) not found: \(unmatched.asCommaSeperatedString(conjunction: "&"))"
+            output += CommandOutput.error(msg: "puzzle(s) not found: \(unmatched.asCommaSeperatedString(conjunction: "&"))")
             
         }
         
-        return console.screen.formatCommandOutput(output)
+        return output
         
     }
 }

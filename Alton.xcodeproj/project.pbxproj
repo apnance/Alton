@@ -37,6 +37,7 @@
 		93A22EB02A1BF99C0028929F /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EAF2A1BF99C0028929F /* Configs.swift */; };
 		93A22EB22A1BF9BE0028929F /* Solver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A22EB12A1BF9BE0028929F /* Solver.swift */; };
 		93A22EB52A1BFA820028929F /* APNUtil in Frameworks */ = {isa = PBXBuildFile; productRef = 93A22EB42A1BFA820028929F /* APNUtil */; };
+		93A543AC2D0DBA8400701BA2 /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A543AB2D0DBA8400701BA2 /* Console.swift */; };
 		93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ADC66F2BB6425A00E7C25B /* Operator.swift */; };
 		93C40FA52C2651E3001540F5 /* PuzzleArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */; };
 		93C40FA72C26561B001540F5 /* puzzle.default.data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93C40FA62C26561B001540F5 /* puzzle.default.data.txt */; };
@@ -102,6 +103,7 @@
 		93A22E9B2A1BF8DF0028929F /* AltonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		93A22EAF2A1BF99C0028929F /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		93A22EB12A1BF9BE0028929F /* Solver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solver.swift; sourceTree = "<group>"; };
+		93A543AB2D0DBA8400701BA2 /* Console.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		93ADC66F2BB6425A00E7C25B /* Operator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operator.swift; sourceTree = "<group>"; };
 		93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleArchiver.swift; sourceTree = "<group>"; };
 		93C40FA62C26561B001540F5 /* puzzle.default.data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = puzzle.default.data.txt; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		930F91612CAA4A73003D3C9A /* Console */ = {
 			isa = PBXGroup;
 			children = (
+				93A543AB2D0DBA8400701BA2 /* Console.swift */,
 				93A1B92E2CB47FD8007472B1 /* Argument.swift */,
 				930F91622CAA4A7C003D3C9A /* Commands */,
 				93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */,
@@ -461,6 +464,7 @@
 				930F91702CAA4B32003D3C9A /* AltonCSV.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
+				93A543AC2D0DBA8400701BA2 /* Console.swift in Sources */,
 				930F916E2CAA4B26003D3C9A /* AltonLast.swift in Sources */,
 				9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */,
 				930F91662CAA4AFB003D3C9A /* AltonAdd.swift in Sources */,

@@ -13,8 +13,6 @@ import ConsoleView
 struct AltonSolve: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.Solve.token
     
     var isGreedy        = false
@@ -37,10 +35,10 @@ struct AltonSolve: Command {
                 digits.count == 4
         else {
             
-            return console.screen.formatCommandOutput("""
-                                                [ERROR] Please specify valid 4 digit puzzle \
-                                                (e.g. 'solve 1234')
-                                                """) /*EXIT*/
+            return CommandOutput.error(msg:"""
+                                            please specify valid 4 digit puzzle \
+                                            (e.g. 'solve 1234')
+                                            """) /*EXIT*/
             
         }
         
@@ -50,10 +48,10 @@ struct AltonSolve: Command {
                 || answer! < 1
                 || answer! > 10 {
                 
-                return console.screen.formatCommandOutput("""
-                                                        [ERROR] '\(arg2)' is not a valid answer. \
-                                                        Valid answers are integers ranging from 1-10.
-                                                        """) /*EXIT*/
+                return CommandOutput.error(msg:"""
+                                                '\(arg2)' is not a valid answer. \
+                                                Valid answers are integers ranging from 1-10.
+                                                """) /*EXIT*/
                 
             }
             
@@ -63,7 +61,7 @@ struct AltonSolve: Command {
         
         var output          = CommandOutput()
         
-        let font            = console.screen.configs.font
+        let font            = Console.configs.font
         output.formatted    = AttributedString(solver.puzzle.colorizeSolutions(forAnswer: answer,
                                                                         withFont: font))
         

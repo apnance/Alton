@@ -13,8 +13,6 @@ import ConsoleView
 struct AltonAdd: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.Add.token
     
     var isGreedy        = false
@@ -34,7 +32,6 @@ struct AltonAdd: Command {
         
         var i = 0
         var output = CommandOutput()
-        let screen = console.screen!
         
         repeat {
             
@@ -48,27 +45,24 @@ struct AltonAdd: Command {
                 let puzzle  = Int(puzzle)!
                 let date    = date  ?? Date().simple.simpleDate
                 
-                var (result, format) = ("Failed",
-                                        FormatTarget.outputWarning)
-                
                 if PuzzleArchiver.shared.add(puzzleWithDigits: puzzle,
                                              andDate: date) {
                     
-                    (result, format) = ("Succeeded",
-                                        .output)
+                    output += CommandOutput.output("Archiving \(puzzle.digits),  \(date.simple) ... Succeeded.\n")
+                    
+                    
+                } else {
+                    
+                    output += CommandOutput.warning("Archiving \(puzzle.digits),  \(date.simple) ... Failed.\n")
                     
                 }
                 
-                output += screen.format("Archiving \(puzzle.digits),  \(date.simple) ... \(result)\n"
-                                        , target: format)
-                
             } else {
                 
-                output += screen.format("""
-                                        [ERROR] Please specify valid 4 digit puzzle \
-                                        (e.g. 'add 1234')
-                                        """,
-                                        target: .outputWarning) /*EXIT*/
+                output += CommandOutput.error(msg: """
+                                                    please specify valid 4 digit puzzle \
+                                                    (e.g. 'add 1234')
+                                                    """) /*EXIT*/
                 
             }
             

@@ -13,8 +13,6 @@ import ConsoleView
 struct AltonFirst: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.First.token
     
     var isGreedy        = false
@@ -27,12 +25,12 @@ struct AltonFirst: Command {
     /// - Returns: `CommandOutput`
     func process(_ args: [String]?) -> CommandOutput {
         
-        Self.firstLast(args, first: true, console: console)
+        Self.firstLast(args, first: true)
         
     }
     
     /// Common function used by `comFirst(_:)` & `comLast(_:)`
-    static func firstLast(_ args:[String]?, first: Bool, console: Console) -> CommandOutput {
+    static func firstLast(_ args:[String]?, first: Bool) -> CommandOutput {
         
         let sortedArchived = PuzzleArchiver.shared.byDate()
         
@@ -55,14 +53,14 @@ struct AltonFirst: Command {
                     
                 } else {
                     
-                    return console.screen.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. [Error] specify count argument > 0") // EXIT
+                    return CommandOutput.error(msg: "invalid argument: '\(arg1)'. Specify count argument > 0") // EXIT
                     
                 }
                 
                 
             } else {
                 
-                return console.screen.formatCommandOutput("[Error] Invalid argument: '\(arg1)'. Specify Integer count value.") // EXIT
+                return CommandOutput.error(msg: "invalid argument: '\(arg1)'. Specify Integer count value.") // EXIT
                 
             }
             
@@ -71,21 +69,17 @@ struct AltonFirst: Command {
         let puzzles =  first ? sortedArchived.first(k: k) : sortedArchived.last(k)
         let hintText = first ? "First" : "Last"
         
-        output += console.screen.formatCommandOutput("\(hintText) \(puzzles.count) Archived Puzzle(s)")
+        output += CommandOutput.output("\(hintText) \(puzzles.count) Archived Puzzle(s)")
         
         for (i, archivedPuzzle) in puzzles.enumerated() {
             
-            let rowColor =  (i % 2 == 0)
-            ? console.screen.configs.fgColorScreenOutput.pointSixAlpha
-            : console.screen.configs.fgColorScreenOutput
-            
-            let word = console.screen.formatCommandOutput("""
+            let word = CommandOutput.output("""
                                                        
-                                                       \t     #: \(archivedPuzzle.puzzleNum)
-                                                       \tPuzzle: \(archivedPuzzle.digits)
-                                                       \t  Date: \(archivedPuzzle.date.simple)
-                                                       """,
-                                                       overrideColor: rowColor)
+                                                #: \(archivedPuzzle.puzzleNum)
+                                           Puzzle: \(archivedPuzzle.digits)
+                                             Date: \(archivedPuzzle.date.simple)
+                                           """,
+                                            overrideFGColor: Console.rowColor(i))
             
             output += word
             
@@ -93,10 +87,7 @@ struct AltonFirst: Command {
         
         if requestedCount != k {
             
-            output += console.screen.formatCommandOutput("""
-                    
-                    Note: Requested(\(requestedCount)) > Total(\(puzzles.count))
-                    """)
+            output += CommandOutput.note("requested(\(requestedCount)) > Total(\(puzzles.count))")
             
         }
         
@@ -105,4 +96,3 @@ struct AltonFirst: Command {
     }
     
 }
-

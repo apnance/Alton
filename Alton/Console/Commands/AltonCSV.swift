@@ -14,8 +14,6 @@ import ConsoleView
 struct AltonCSV: Command {
     
     // - MARK: Command Requirements
-    var console: Console
-    
     var commandToken    = Configs.Console.Commands.CSV.token
     
     var isGreedy        = false
@@ -50,17 +48,9 @@ struct AltonCSV: Command {
                             """
         
         printToClipboard(archivedPuzzles)
-        
-        archivedPuzzles                 = """
-                                            \(archivedPuzzles)
-                                            
-                                            [Note: above output copied to pasteboard]
-                                            """
-        
-        var atts                        = console.screen.formatCommandOutput(archivedPuzzles)
-        atts.formatted.foregroundColor  = UIColor.lightGray
-        
-        return atts
+      
+       return   CommandOutput.output(archivedPuzzles, overrideFGColor: UIColor.lightGray)
+                + CommandOutput.note("above output copied to pasteboard", newLines: 2)
         
     }
 }
