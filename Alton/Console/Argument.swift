@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum ArgType { case date, puzzleNum, puzzleNumRange, digits, option, unknown }
+enum AltonArgType { case date, puzzleNum, puzzleNumRange, digits, option, unknown }
 
 /// Custom treatment of `String`s for when they are used as arguments to `Command`s
 typealias Argument  = String
 extension Argument {
     
-    var type: ArgType {
+    var type: AltonArgType {
         
         if isDigits() { return .digits              /*EXIT*/ }
         else if isPuzzleNum() { return .puzzleNum   /*EXIT*/ }
@@ -25,12 +25,11 @@ extension Argument {
     }
     
     private func isDigits()     -> Bool { matches("^-[0-9]{4}") }
-    private func isOption()     -> Bool { isWord(ofLen: 1) }
+    private func isOption()     -> Bool { matches("^[a-zA-Z\\-]$") }
     private func isRange()      -> Bool { matches("^[0-9]+-[0-9]+$") }
     private func isPuzzleNum()  -> Bool { matches("^[0-9]+$") }
     private func isDate()       -> Bool { simpleDateMaybe.isNotNil }
-
-    private func isWord(ofLen chars: Int) -> Bool { matches("^[a-zA-Z]{\(chars)}$") }
+    
     private func isNumeric(ofLen digits: Int) -> Bool { matches("^[0-9]{\(digits)}$") }
     
     private func matches(_ regExp:String) -> Bool {

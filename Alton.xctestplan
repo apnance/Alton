@@ -4,7 +4,17 @@
       "id" : "52E942C5-BBAE-4A91-A769-D2FA93BF2C3F",
       "name" : "Test Scheme Action",
       "options" : {
-
+        "environmentVariableEntries" : [
+          {
+            "key" : "IS_TESTING",
+            "value" : "true"
+          }
+        ],
+        "targetForVariableExpansion" : {
+          "containerPath" : "container:Alton.xcodeproj",
+          "identifier" : "93A22E742A1BF8DC0028929F",
+          "name" : "Alton"
+        }
       }
     }
   ],
@@ -19,7 +29,7 @@
     {
       "skippedTests" : [
         "SolverTests\/testAllBruteForce()",
-        "SolverTests\/testAllPlusPlus()",
+        "SolverTests\/testAllPlusPlus()"
       ],
       "target" : {
         "containerPath" : "container:Alton.xcodeproj",
