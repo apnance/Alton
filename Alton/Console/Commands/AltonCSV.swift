@@ -14,13 +14,15 @@ import ConsoleView
 struct AltonCSV: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.CSV.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.CSV.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.CSV.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.CSV.validationPattern
     
     /// Builds and returns a comma separated values list of `ArchivedPuzzle`
     /// data in `archive`

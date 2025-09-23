@@ -1,5 +1,5 @@
 //
-//  AltonSolve.swift
+//  AltonFirst.swift
 //  Alton
 //
 //  Created by Aaron Nance on 9/29/24.
@@ -13,13 +13,15 @@ import ConsoleView
 struct AltonFirst: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.First.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.First.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.First.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.First.validationPattern
     
     /// Attempts to return the first `n` `ArchivedPuzzle` results.
     /// - Returns: `CommandOutput`
@@ -34,7 +36,7 @@ struct AltonFirst: Command {
         
         let sortedArchived = PuzzleArchiver.shared.byDate()
         
-        var output = CommandOutput()
+        var output = CommandOutput.empty
         
         var requestedCount = 1
         var k = 1

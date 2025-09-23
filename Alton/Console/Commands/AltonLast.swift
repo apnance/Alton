@@ -12,14 +12,16 @@ import ConsoleView
 @available(iOS 15, *)
 struct AltonLast: Command {
     
-    // - MARK: Command Requirements    
-    var commandToken    = Configs.Console.Commands.Last.token
+    // - MARK: Command Requirements
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Last.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Last.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Last.validationPattern
     
     /// Attempts to return the last `n` `ArchivedPuzzle` resutls
     /// - Returns: `CommandOutput`

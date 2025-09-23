@@ -13,13 +13,15 @@ import ConsoleView
 struct AltonDel: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Del.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Del.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Del.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Del.validationPattern
     
     /// Attempts to delete `ArchivedPuzzle`s with digits matching argument
     /// list digits.
@@ -40,7 +42,7 @@ struct AltonDel: Command {
             
         }
         
-        var output = CommandOutput()
+        var output = CommandOutput.empty
         
         var deleted = Array(repeating: false, count: args.count)
         

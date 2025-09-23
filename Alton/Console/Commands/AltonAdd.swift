@@ -13,30 +13,32 @@ import ConsoleView
 struct AltonAdd: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Add.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Add.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Add.helpText
     
-    /// Attempts to add puzzle digits to archive with optional date
-    /// - Parameter args: array containing puzzle digits alternating with
-    /// optional date strings. If a date string follows digits the digits are
-    /// archived under that date if possible.  If no date follows a set of puzzle digits
-    /// the current date is used.
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Add.validationPattern
+    
+    /// Attempts to add puzzle digits to archive with optional date; today's date is used if none provided.
     ///
     /// - Returns: status report `CommandOutput` message.
     func process(_ args: [String]?) -> CommandOutput {
         
+        // Note: the actual capability of this function for handling inputs is
+        // greater than specified in comment above, however `validationPattern`
+        // restrict inputs to those specified(i.e. "add 1232" or "add 1232 12-12-12")
+        
         var i = 0
-        var output = CommandOutput()
+        var output = CommandOutput.empty
         
         repeat {
             
-            let puzzle  = args.elementNum(i)
-            let date    = args.elementNum(i + 1).simpleDateMaybe
+            let puzzle      = args.elementNum(i)
+            let date        = args.elementNum(i + 1).simpleDateMaybe
             
             i += date.isNotNil ? 2 : 1
             
@@ -45,15 +47,16 @@ struct AltonAdd: Command {
                 let puzzle  = Int(puzzle)!
                 let date    = date  ?? Date().simple.simpleDate
                 
+                let digits  = puzzle.digits.sorted()
+                
                 if PuzzleArchiver.shared.add(puzzleWithDigits: puzzle,
                                              andDate: date) {
                     
-                    output += CommandOutput.output("Archiving \(puzzle.digits),  \(date.simple) ... Succeeded.\n")
-                    
+                    output += CommandOutput.output("Archiving \(digits),  \(date.simple) ... Succeeded.\n")
                     
                 } else {
                     
-                    output += CommandOutput.warning("Archiving \(puzzle.digits),  \(date.simple) ... Failed.\n")
+                    output += CommandOutput.warning("Archiving \(digits),  \(date.simple) ... Failed.\n")
                     
                 }
                 

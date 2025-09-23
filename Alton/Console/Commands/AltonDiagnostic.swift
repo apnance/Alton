@@ -13,13 +13,15 @@ import ConsoleView
 struct AltonDiagnostic: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Diagnostic.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Diagnostic.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Diagnostic.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Diagnostic.validationPattern
     
     /// Runs several diagnostic tests on `archive` data.
     /// - Parameter _: does not require or process arguments.

@@ -16,14 +16,15 @@ struct AltonGet: Command {
     var archiver: PuzzleArchiver
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Get.token
+    static var flags    = ["-", "d", "n", "c"]
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Get.token
     
     var category        = Configs.Console.Commands.category
     
-    // TODO: Clean Up - update Configs.Console.Commands.Get.helpText
     var helpText        = Configs.Console.Commands.Get.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Get.validationPattern
     
     func process(_ args: [String]?) -> CommandOutput {
         
@@ -45,7 +46,7 @@ struct AltonGet: Command {
         /// Formats content as `CommandOutput`
         func output() -> CommandOutput {
             
-            var output  = CommandOutput()
+            var output  = CommandOutput.empty
             
             for (i, content) in contents.enumerated() {
                 

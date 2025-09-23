@@ -13,13 +13,15 @@ import ConsoleView
 struct AltonNuke: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Nuke.token
+    static var flags = ["Y", "N"]
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Nuke.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Nuke.helpText
+    
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Nuke.validationPattern
     
     /// Deletes all user saved `Puzzle` data and reloads defaults from file.
     /// - Parameter args: used to handle response to Y/N query.
@@ -62,5 +64,6 @@ struct AltonNuke: Command {
         return output
         
     }
+    
 }
 

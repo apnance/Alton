@@ -13,16 +13,18 @@ import ConsoleView
 struct AltonSolve: Command {
     
     // - MARK: Command Requirements
-    var commandToken    = Configs.Console.Commands.Solve.token
+    static var flags    = [Token]()
     
-    var isGreedy        = false
+    var commandToken    = Configs.Console.Commands.Solve.token
     
     var category        = Configs.Console.Commands.category
     
     var helpText        = Configs.Console.Commands.Solve.helpText
     
+    let validationPattern: CommandArgPattern? = Configs.Console.Commands.Solve.validationPattern
+    
     /// Solves the specified `Puzzle` digits displaying a general result or the results for a specified `Answer`.
-    /// - Parameter args: String array containing string formated puzzle digits and maybe an `Answer`
+    /// - Parameter args: `String` array containing `String` formated puzzle digits and maybe an `Answer`
     /// - Returns: colorized puzzle solution results.
     func process(_ args: [String]?) -> CommandOutput {
         
@@ -31,8 +33,8 @@ struct AltonSolve: Command {
         
         let answer: Int? = arg2.isEmpty ? nil : Int(arg2)
         
-        guard let digits = Int(arg1)?.digits,
-                digits.count == 4
+        guard let   digits = Int(arg1)?.digits,
+                    digits.count == 4
         else {
             
             return CommandOutput.error(msg:"""
@@ -59,11 +61,11 @@ struct AltonSolve: Command {
         
         let solver          = Solver(digits)
         
-        var output          = CommandOutput()
-        
+        var output          = CommandOutput.empty
         let font            = Console.configs.font
         output.formatted    = AttributedString(solver.puzzle.colorizeSolutions(forAnswer: answer,
                                                                         withFont: font))
+        output.raw          = output.formatted.string
         
         return output
         

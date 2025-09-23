@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ConsoleView
 
 struct Configs {
     
@@ -48,9 +49,9 @@ struct Configs {
             static var max: Int {
                 
                 Swift.max(Operand.Complexity.int,
-                    Operand.Complexity.fraction)    // Operand Complexity
-                + (Operator.Complexity.max * 3)     // Operator Complexity - can have at most 3 operators
-                + (Operator.Complexity.ope * 2)     // Parentheses Complexity - can have at most 2 sets of parens
+                          Operand.Complexity.fraction)  // Operand Complexity
+                + (Operator.Complexity.max * 3)         // Operator Complexity - can have at most 3 operators
+                + (Operator.Complexity.ope * 2)         // Parentheses Complexity - can have at most 2 sets of parens
                 
             }
             
@@ -130,6 +131,9 @@ struct Configs {
                 
                 """
                 
+                static var validationPattern = CommandArgPattern(.numSingle,
+                                                                 .numSingleOptional).labeled("Puzzle Digits", "For Answer #")
+                
             }
             
             struct Add {
@@ -137,14 +141,14 @@ struct Configs {
                 static var token    = "add"
                 static var category =  Configs.Console.Commands.category
                 static var helpText =  """
-                                        Attempts to add the specified puzzle(s) to archive with optional per-puzzle trailing date. If no date is specified for a given puzzle, today's date is assumed.
+                                        Attempts to add the specified puzzle(s) to archive with optional date. If no date is specified today's date is assumed.
                                         \tUsage:
                                         \t* 'add 1234' adds puzzle [1,2,3,4] with today's date.
-                                        \t* 'add 1234 5-24-73' adds puzzle [1,2,3,4] with date of 5-24-1973.
-                                        \t* 'add 1234 5-24-73 2244 3355' adds puzzle [1,2,3,4] with date of 
-                                        \t  5-24-1973 and puzzles [2,2,4,4] and [3,3,5,5] both with 
-                                        \t  today's date.
+                                        \t* 'add 1234 \"5-24-73\"' adds puzzle [1,2,3,4] with date of 5-23-1983.
                                         """
+                
+                static var validationPattern = CommandArgPattern(.numSingle,
+                                                                 .dateSingleOptional).labeled("Puzzle Digits", "w/ Date")
                 
             }
             
@@ -178,6 +182,9 @@ struct Configs {
                                         \t   or range.
                                         """
                 
+                static var validationPattern = CommandArgPattern(.flagSingleOptional,
+                                                                 .anyNonFlagMultiOptional).labeled(AltonGet.flagSyntax, "date|puzzle#|-digits")
+                
             }
             
             struct Del {
@@ -185,6 +192,8 @@ struct Configs {
                 static var token    = "del"
                 static var category =  Configs.Console.Commands.category
                 static var helpText = "'del 1234' deletes puzzle with digits 1,2,3, & 4.  Digit order is irrelevant.'"
+                
+                static var validationPattern = CommandArgPattern(.numSingle).labeled("Puzzle Digits")
                 
             }
             
@@ -202,6 +211,8 @@ struct Configs {
                 \t  immediately.
                 """
                 
+                static var validationPattern = CommandArgPattern(.flagSingleOptional).labeled(AltonNuke.flagSyntax)
+                
             }
             
             struct First {
@@ -210,13 +221,17 @@ struct Configs {
                 static var category =  Configs.Console.Commands.category
                 static var helpText = "'first 5' echoes the first 5 puzzles archived."
                 
+                static var validationPattern = CommandArgPattern(.numSingleOptional).labeled("First n- Count")
+                
             }
-                        
+            
             struct Last {
                 
                 static var token    = "last"
                 static var category =  Configs.Console.Commands.category
                 static var helpText = "'last 5' echoes the last 5 puzzles archived."
+                
+                static var validationPattern = CommandArgPattern(.numSingleOptional).labeled("Last n- Count")
                 
             }
             
@@ -225,6 +240,8 @@ struct Configs {
                 static var token    = "csv"
                 static var category =  Configs.Console.Commands.category
                 static var helpText = "Formats remembered answer as CSV and copies to pasteboard."
+                
+                static var validationPattern = CommandArgPattern(.empty)
                 
             }
             struct Gaps {
@@ -241,6 +258,8 @@ struct Configs {
                 static var category =  Configs.Console.Commands.category
                 static var helpText = "Performs diagnostic test(s)."
                 
+                static var validationPattern = CommandArgPattern(.empty)
+                
             }
             
         }
@@ -248,5 +267,14 @@ struct Configs {
     }
     
     struct Test { static var printTestMessage = false }
+    
+}
+
+
+// TODO: Clean Up - Delete this extension when it collides with
+// ConsoleView.Command in the not distant future.
+extension Command {
+    
+    static var flagSyntax: String { flags.asCommaSeperatedString(conjunction: "") }
     
 }
