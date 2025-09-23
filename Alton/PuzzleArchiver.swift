@@ -453,11 +453,11 @@ extension PuzzleArchiver {
             
             for key in byDigit.keys.sorted() {
                 
-                digitOutput += "\t* [\(key)]\n"
+                digitOutput += "    * [\(key)]\n"
                 
                 for puzz in byDigit[key]! {
                     
-                    digitOutput += "\t\(puzz)\n"
+                    digitOutput += "    \(puzz)\n"
                     
                 }
                 
@@ -467,11 +467,11 @@ extension PuzzleArchiver {
             
             for key in byDate.keys.sorted() {
                 
-                dateOutput += "\t* \(key.simple)\n"
+                dateOutput += "    * \(key.simple)\n"
                 
                 for puzz in byDate[key]! {
                     
-                    dateOutput += "\t\(puzz)\n"
+                    dateOutput += "    \(puzz)\n"
                     
                 }
                 
