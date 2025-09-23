@@ -42,7 +42,7 @@ final class SolverTests: XCTestCase {
         
         let solver = Solver([1,1,1,1])
         
-        let actualSolutions     = Set<Expression>(solver.puzzle.solutions[4]!)
+        let actualSolutions     = Set<Alton.Expression>(solver.puzzle.solutions[4]!)
         let expectedSolutions   = [Expression("1+1+1+1"), Expression("(1+1)*(1+1)")]
         
         for expected in expectedSolutions {

@@ -135,12 +135,12 @@ final class ExpressionTests: XCTestCase {
     func testMaxComplexity() {
         
         var maxComplexity = 0
-        var mostComplex: Expression?
+        var mostComplex: Alton.Expression?
         
         func checkMax(_ operands: [Int]) {
             
             let puzzle  = Solver(operands).puzzle
-            let exps    = puzzle.solutions.keys.reduce([Expression]()){ $0 + (puzzle.solutions[$1] ?? [])}.sorted{ $0.complexity < $1.complexity }
+            let exps    = puzzle.solutions.keys.reduce([Alton.Expression]()){ $0 + (puzzle.solutions[$1] ?? [])}.sorted{ $0.complexity < $1.complexity }
             
             for exp in exps {
             
