@@ -28,40 +28,15 @@ struct AltonNuke: Command {
     /// - Returns: message indicating result of command.
     func process(_ args: [String]?) -> CommandOutput {
         
-        var output = CommandOutput()
-        
-        let expectedResponses = ["Y","N"]
-        
-        let arg1 = args.elementNum(0)
-        
-        switch arg1 {
-                
-            case "Y":
-                
-                let startCount  = PuzzleArchiver.shared.count
-                PuzzleArchiver.shared.nuke()
-                let deleteCount = startCount - PuzzleArchiver.shared.count
-                
-                output  = CommandOutput.note("Nuke successful: \(deleteCount) user saved puzzle(s) deleted.")
-                
-            case "N":
-                
-                output  = CommandOutput.warning("Nuke operation aborted.")
-                
-            default:
-                
-                Console.shared.registerCommand(Configs.Console.Commands.Nuke.token,
-                                               expectingResponse: expectedResponses)
-                
-                output  = CommandOutput.warning("""
-                                                Nuking cannot be undone and will *DELETE ALL* user-saved answers.
-                                                
-                                                'N' to abort - 'Y' to proceed.
-                                                """)
-                
-        }
-        
-        return output
+        return yesNo(prompt: """
+                                Nuking cannot be undone and will *DELETE ALL* user-saved answers.
+                                
+                                'N' to abort - 'Y' to proceed.
+                                """,
+                     yesMsg: CommandOutput.warning("Nuke successful: user saved puzzle(s) deleted."),
+                     noMsg: CommandOutput.emphasized("Nuke operation aborted."),
+                     args: args,
+                     yesCallback: { PuzzleArchiver.shared.nuke() })
         
     }
     
