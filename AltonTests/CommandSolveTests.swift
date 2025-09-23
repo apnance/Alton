@@ -1,5 +1,5 @@
 //
-//  CommandGetTests.swift
+//  CommandSolveTests.swift
 //  AltonTests
 //
 //  Created by Aaron Nance on 9/20/25.
@@ -10,219 +10,90 @@ import APNUtil
 
 @testable import Alton
 
-final class CommandGetTests: ConsoleViewTestCase {
+final class CommandSolveTests: ConsoleViewTestCase {
     
-    // get <date>
-    //
-    // 'get 04-24-24' retrieves the archived puzzle with date  04-24-2024.
-    func testGetByDate() {
+    func testSolveGeneral() {
         
-        setData()
+        utils.testCommand("solve 1234",
+                          ["""
+                              #       Ex.       Found 
+                            ---------------------------
+                              1  1 × 2 + 3 - 4   355  
+                              2  1 + 2 + 3 - 4   294  
+                              3  1 + 2 × 3 - 4   244  
+                              4  1 + 2 - 3 + 4   232  
+                              5    12 - 3 - 4    262  
+                              6  1 - 2 + 3 + 4   247  
+                              7     31 - 24       63  
+                              8  2 - 1 + 3 + 4   111  
+                              9     23 - 14      218  
+                             10  1 + 2 + 3 + 4   143  
+                            --------------------------
+                                 Difficulty: 1/10
+                            """],
+                          shouldTrimOutput: true)
         
-        for i in 0..<Data.dates.count {
-            
-            let date        = Data.dates[i]
-            let num         = Data.puzzleNums[i]
-            let digits      = Data.digits[i]
-            let digitArray  = Int(digits)!.digits.sorted()
-            
-            let searchTerm  = date
-            
-            // No flag
-            utils.testCommand("get \"\(searchTerm)\"",
-                              ["\(searchTerm): \(RegExp.fullGetOutput)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'c' flag "Count"
-            utils.testCommand("get c \"\(searchTerm)\"",
-                              ["\(searchTerm): 1 puzzle(s)"], shouldTrimOutput: true)
-            
-            // '-' flag "Digits"
-            utils.testCommand("get \"-\" \"\(searchTerm)\"",
-                              ["\(searchTerm): \(digitArray)"], shouldTrimOutput: true)
-            
-            // 'd' flag "Date"
-            utils.testCommand("get d \"\(searchTerm)\"",
-                              ["\(searchTerm)\\: \(RegExp.zeroPaddedSimpleDate)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'n' flag "Puzzle #"
-            utils.testCommand("get n \"\(searchTerm)\"",
-                              ["\(searchTerm): \(num)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-        }
+        utils.testCommand("solve 1279",
+                          ["""
+                            #       Ex.       Found 
+                            ---------------------------
+                              1  1 + 2 + 7 - 9   308  
+                              2    27 ÷ 9 - 1     73  
+                              3  2 - 1 - 7 + 9    70  
+                              4    7 - 12 + 9    154  
+                              5    21 - 7 - 9     65  
+                              6    17 - 2 - 9     38  
+                              7    72 ÷ 9 - 1     11  
+                              8     27 - 19       81  
+                              9    1 + 72 ÷ 9     17  
+                             10    12 + 7 - 9     18  
+                            --------------------------
+                                 Difficulty: 3/10
+                            """],
+                          shouldTrimOutput: true)
+        
+        utils.testCommand("solve 1117",
+                          ["""
+                            #        Ex.        Found 
+                            -----------------------------
+                              1  1 + (1 - 1) × 7    11  
+                              2        -NA-         0   
+                              3     11 - 1 - 7      4   
+                              4   7 - 1 - 1 - 1     17  
+                              5     11 + 1 - 7      28  
+                              6      17 - 11        89  
+                              7   1 - 1 + 1 × 7    209  
+                              8   1 + 1 - 1 + 7    171  
+                              9   1 + 1 + 1 × 7     72  
+                             10   1 + 1 + 1 + 7     4   
+                            ----------------------------
+                                   Unsolvable: [2]
+                            """],
+                          shouldTrimOutput: true)
         
     }
     
-    // 'get 589' retrieves the archived puzzle data for the 589th
-    // puzzle.
-    func testGetByPuzzleNum() {
+    func testSolveForSpecificAnswer() {
         
-        setData()
+        utils.testCommand("solve 1111 9",
+                          ["""
+                            #     Soln.    Comp. 
+                            -----------------------
+                             9  11 - 1 - 1    27 
+                            """],
+                          shouldTrimOutput: true)
         
-        for i in 0..<Data.dates.count {
-            
-            let num         = Data.puzzleNums[i]
-            let digits      = Data.digits[i]
-            let digitArray  = Int(digits)!.digits.sorted()
-            
-            let searchTerm  = num
-            
-            // No flag
-            utils.testCommand("get \"\(searchTerm)\"",
-                              ["\(searchTerm): \(RegExp.fullGetOutput)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'c' flag "Count"
-            utils.testCommand("get c \"\(searchTerm)\"",
-                              ["\(searchTerm): 1 puzzle(s)"], shouldTrimOutput: true)
-            
-            // '-' flag "Digits"
-            utils.testCommand("get \"-\" \"\(searchTerm)\"",
-                              ["\(searchTerm): \(digitArray)"], shouldTrimOutput: true)
-            
-            // 'd' flag "Date"
-            utils.testCommand("get d \"\(searchTerm)\"",
-                              ["\(searchTerm)\\: \(RegExp.zeroPaddedSimpleDate)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'n' flag "Puzzle #"
-            utils.testCommand("get n \"\(searchTerm)\"",
-                              ["\(searchTerm): \(num)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-        }
+        utils.testCommand("solve 1119 6",
+                          ["""
+                            #      Soln.      Comp. 
+                            --------------------------
+                             6  9 - 1 - 1 - 1    33 
+                            """],
+                          shouldTrimOutput: true)
         
-    }
-    
-    // get -<digits>
-    //
-    //  'get -1234' retrieves archived data for puzzle [1,2,3,4].
-    //
-    func testGetByDigits() {
-        
-        setData()
-        
-        for i in 0..<Data.dates.count {
-            
-            let date        = Data.dates[i]
-            let num         = Data.puzzleNums[i]
-            let digits      = Data.digits[i]
-            let digitArray  = Int(digits)!.digits.sorted()
-            
-            let searchTerm  = "-\(digits)"
-            
-            // No flag
-            utils.testCommand("get \"\(searchTerm)\"",
-                              ["\(searchTerm): \(RegExp.fullGetOutput)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'c' flag "Count"
-            utils.testCommand("get c \"\(searchTerm)\"",
-                              ["\(searchTerm): 1 puzzle(s)"], shouldTrimOutput: true)
-            
-            // '-' flag "Digits"
-            utils.testCommand("get \"-\" \"\(searchTerm)\"",
-                              ["\(searchTerm): \(digitArray)"], shouldTrimOutput: true)
-            
-            // 'd' flag "Date"
-            utils.testCommand("get d \"\(searchTerm)\"",
-                              ["\(searchTerm)\\: \(RegExp.zeroPaddedSimpleDate)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-            // 'n' flag "Puzzle #"
-            utils.testCommand("get n \"\(searchTerm)\"",
-                              ["\(searchTerm): \(num)"],
-                              shouldTrimOutput: true,
-                              useRegExMatching: true)
-            
-        }
-        
-    }
-    
-    // get 359-400
-    //
-    // 'get 359-400' retrieves all saved puzzles with numbers from 359 to 400
-    func testGetByRange() {
-        
-        setData()
-        
-        let ranges = ["665-666",
-                      "666-667",
-                      "665-667"]
-        
-        let puzzleNums =
-        [
-            [665,666],
-            [666,667],
-            [665,666,667]
-        ]
-        
-        for i in 0..<ranges.count {
-            
-            let num             = Data.puzzleNums[i]
-            
-            let firstNum        = puzzleNums[i].first!
-            let lastNum         = puzzleNums[i].last!
-            let expectedCount   = (lastNum - firstNum) + 1
-            
-            let searchTerm      = "\(firstNum)-\(lastNum)"
-            
-            var expectedMultiNoFlag = ""
-            var expectedDigitArrays = ""
-            var expectedDates       = ""
-            var expectedNums        = ""
-            
-            for num in puzzleNums[i] {
-                
-                let puzzleData = Data.puzzleNumToData[num]!
-                
-                let raw = puzzleData.joined(separator: ";")
-                expectedMultiNoFlag += " \(raw) \n"
-                
-                // Build Digits Output
-                let digits          = puzzleData[0]
-                expectedDigitArrays += Int(digits)!.digits.sorted().description + " "
-                
-                // Build Dates
-                expectedDates += puzzleData[2] + " "
-                
-                // Build Nums
-                expectedNums += puzzleData[3] + " "
-                
-            }
-            
-            // No flag
-            utils.testCommand("get \"\(searchTerm)\"",
-                              ["\(searchTerm):\(expectedMultiNoFlag)"],
-                              shouldTrimOutput: true)
-            
-            // 'c' flag "Count"
-            utils.testCommand("get c \"\(searchTerm)\"",
-                              ["\(searchTerm): \(expectedCount) puzzle(s)"], shouldTrimOutput: true)
-            
-            // '-' flag "Digits"
-            utils.testCommand("get \"-\" \"\(searchTerm)\"",
-                              ["\(searchTerm): \(expectedDigitArrays.trim())"], shouldTrimOutput: true)
-            
-            // 'd' flag "Date"
-            utils.testCommand("get d \"\(searchTerm)\"",
-                              ["\(searchTerm): \(expectedDates.trim())"], shouldTrimOutput: true)
-            
-            // 'n' flag "Puzzle #"
-            utils.testCommand("get n \"\(searchTerm)\"",
-                              ["\(searchTerm): \(expectedNums.trim())"], shouldTrimOutput: true)
-            
-        }
+        utils.testCommand("solve 1117 2",
+                          ["No Solutions Found For: 2"],
+                          shouldTrimOutput: true)
         
     }
     

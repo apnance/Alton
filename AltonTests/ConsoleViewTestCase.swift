@@ -1,16 +1,16 @@
 //
-//  ConsoleTestCase.swift
-//  ConsoleView
+//  ConsoleViewTestCase.swift
+//  Alton
 //
-//  Created by Aaron Nance on 6/4/23.
+//  Created by Aaron Nance on 9/19/25.
 //
 
 import XCTest
 import UIKit
 import APNUtil
-import FrameworkTestSupport
-
+@testable import Alton
 @testable import ConsoleView
+@testable import FrameworkTestSupport
 
 // courtesy of ChatGPT
 func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {
@@ -35,6 +35,19 @@ func print(_ items: Any..., separator: String = " ", terminator: String = "\n") 
 @available(iOS 16, *)
 class ConsoleViewTestCase: XCTestCase  {
     
+    // NOTE: must import both to replicate ConsoleViewTestCase found in ConsoleView unit tests.
+    // @testable import ConsoleView
+    // @testable import FrameworkTestSupport
+    
+    struct RegExp {
+        
+        /// Matches 08-08-24
+        static let zeroPaddedSimpleDate = "\\d{2}-\\d{2}-\\d{2}"
+        static let fullGetOutput        = "\\d{4};\\d;\(zeroPaddedSimpleDate);-{0,1}\\d+"
+        
+    }
+    
+    
     // BEG : Convenience Shortcuts
     var console: Console { utils.console}
     var utils = CommandTestUtils()
@@ -46,10 +59,6 @@ class ConsoleViewTestCase: XCTestCase  {
     override func setUp() {
         
         super.setUp()
-        
-        // Initializing a ConsoleView triggers initializion of Console singleton
-        // shared with this ConsoleView set as the singelton's ConsoleView.
-        consoleView = ConsoleView(frame: CGRect.zero)
         
         // Load HelperConfigurator Test Commands Into Console
         TestConfigurator()
@@ -66,50 +75,94 @@ class ConsoleViewTestCase: XCTestCase  {
     var defaultFontColor    = "blue"
     var defaultFontColorHex: String { UIColor.getColor(named: defaultFontColor)!.hexValue! }
     
-    // - MARK: Console Shortcuts
-    /// Runs commands to get font into known/testable starting state.
-    /// - Returns: Expected command output of running "font"  command.
-    @discardableResult func resetFont() -> String {
-        utils.eval("font min \(defaultFontMin)")
-        utils.eval("font max \(defaultFontMax)")
-        utils.eval("font size \(defaultFontSize)")
-        utils.eval("font name \(defaultFontName)")
-        utils.eval("font color \(defaultFontColor)")
-        
-        let expected = buildExpectedOutputWith()
-        
-        utils.testCommand("font", [expected])
-        
-        // Expected output
-        return expected
-        
-    }
+}
+
+// - MARK: - DATA
+extension ConsoleViewTestCase {
     
-    /// Returns an expected font command output with the specified values.
-    func buildExpectedOutputWith(fontName: String? = nil,
-                                 fontSize: Double? = nil,
-                                 fontColorHexValue: String? = nil) -> String {
+    /// Ensures that archived data is in  known state for beginning of tests.
+    func setData() {
         
-        var fontSizeText = "\(fontSize ?? defaultFontSize)"
+        assert(Data.dates.count >= Data.digits.count)
         
-        let fontSize            = fontSize ?? defaultFontSize
-        let fontName            = fontName ?? defaultFontName
-        let fontColorHexValue   =  fontColorHexValue ?? defaultFontColorHex
+        // Nuke - Get Rid of User Inputted Digits
+        utils.testCommand("nuke Y",
+                          ["[Warning] Nuke successful: user saved puzzle(s) deleted."])
         
-        if (fontSize < defaultFontMin) {
+        // Check Expected Count
+        utils.testCommand("get c \"0-3000\"",
+                          ["0-3000: 152 puzzle(s)\n"])
+        
+        for i in 0..<Data.dates.count {
+            let date = Data.dates[i]
+            let digits = Data.digits[i]
             
-            fontSizeText = "\(defaultFontMin) <- min font size reached"
-            
-        } else if fontSize > defaultFontMax {
-            
-            fontSizeText = "\(defaultFontMax) <- max font size reached"
+            utils.testCommand("add \(digits) \"\(date)\"",
+                              ["Archiving.*Succeeded\\.\\n"], useRegExMatching: true)
             
         }
         
-        return  """
-                  name: \(fontName) - size: \(fontSizeText) - color: \(fontColorHexValue)
-                  """
+    }
+    
+    /// Nukes user entered data - resets to default data.
+    func nuke() { utils.runCommandSimple("nuke Y")}
+    
+    /// Adds some known puzzles for deletion.
+    func addDeletables() {
+        
+        utils.testCommand("add 1234 \"04-25-71\"", ["Archiving [1, 2, 3, 4],  04-25-71 ... Succeeded.\n"])
+        utils.testCommand("add 1156 \"09-09-09\"", ["Archiving [1, 1, 5, 6],  09-09-09 ... Succeeded.\n"])
         
     }
     
+    struct Data {
+        
+        
+        
+        static let puzzleNumToData: [Int : [String]] = [
+            
+            665 : ["4458", "6", "07-15-24", "665"],
+            666 : ["1344", "4", "07-16-24", "666"],
+            667 : ["1335", "4", "07-17-24", "667"],
+            668 : ["3566", "5", "07-18-24", "668"],
+            669 : ["3799", "7", "07-19-24", "669"],
+            670 : ["1458", "3", "07-20-24", "670"],
+            671 : ["2299", "7", "07-21-24", "671"],
+            672 : ["2458", "2", "07-22-24", "672"]
+            
+        ]
+        
+        static let dates = [
+            "07-15-24",
+            "07-16-24",
+            "07-17-24",
+            "07-18-24",
+            "07-19-24",
+            "07-20-24",
+            "07-21-24",
+            "07-22-24"
+        ]
+        
+        static let digits = [
+            "4458",
+            "1344",
+            "1335",
+            "3566",
+            "3799",
+            "1458",
+            "2299",
+            "2458"
+        ]
+        
+        static let puzzleNums = [
+            "665",
+            "666",
+            "667",
+            "668",
+            "669",
+            "670",
+            "671",
+            "672"
+        ]
+    }
 }

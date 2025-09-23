@@ -1,8 +1,8 @@
 //
-//  SolverTests.swift
+//  CommandGetTests.swift
 //  AltonTests
 //
-//  Created by Aaron Nance on 5/22/23.
+//  Created by Aaron Nance on 9/20/25.
 //
 
 import XCTest
@@ -11,79 +11,6 @@ import APNUtil
 @testable import Alton
 
 final class CommandGetTests: ConsoleViewTestCase {
-    
-    // TODO: Clean Up - Move Data Struct to ConsoleViewTestCase
-    struct Data {
-        
-        static let puzzleNumToData: [Int : [String]] = [
-            
-            665 : ["4458", "6", "07-15-24", "665"],
-            666 : ["1344", "4", "07-16-24", "666"],
-            667 : ["1335", "4", "07-17-24", "667"],
-            668 : ["3566", "5", "07-18-24", "668"],
-            669 : ["3799", "7", "07-19-24", "669"],
-            670 : ["1458", "3", "07-20-24", "670"],
-            671 : ["2299", "7", "07-21-24", "671"],
-            672 : ["2458", "2", "07-22-24", "672"]
-            
-        ]
-        
-        static let dates = [
-            "07-15-24",
-            "07-16-24",
-            "07-17-24",
-            "07-18-24",
-            "07-19-24",
-            "07-20-24",
-            "07-21-24",
-            "07-22-24"
-        ]
-        
-        static let digits = [
-            "4458",
-            "1344",
-            "1335",
-            "3566",
-            "3799",
-            "1458",
-            "2299",
-            "2458"
-        ]
-        
-        static let puzzleNums = [
-            "665",
-            "666",
-            "667",
-            "668",
-            "669",
-            "670",
-            "671",
-            "672"
-        ]
-    }
-    
-    func setData() {
-        
-        assert(Data.dates.count >= Data.digits.count)
-        
-        // Nuke - Get Rid of User Inputted Digits
-        utils.testCommand("nuke Y",
-                          ["[Warning] Nuke successful: user saved puzzle(s) deleted."])
-        
-        // Check Expected Count
-        utils.testCommand("get c \"0-3000\"",
-                          ["0-3000: 152 puzzle(s)\n"])
-        
-        for i in 0..<Data.dates.count {
-            let date = Data.dates[i]
-            let digits = Data.digits[i]
-            
-            utils.testCommand("add \(digits) \"\(date)\"",
-                              ["Archiving.*Succeeded\\.\\n"], useRegExMatching: true)
-            
-        }
-        
-    }
     
     // get <date>
     //
@@ -139,7 +66,6 @@ final class CommandGetTests: ConsoleViewTestCase {
         
         for i in 0..<Data.dates.count {
             
-            let date        = Data.dates[i]
             let num         = Data.puzzleNums[i]
             let digits      = Data.digits[i]
             let digitArray  = Int(digits)!.digits.sorted()
@@ -223,8 +149,10 @@ final class CommandGetTests: ConsoleViewTestCase {
         
     }
     
-    
     // get 359-400
+    //
+    // 'get 359-400' retrieves all saved puzzles with numbers from 359 to 400
+    //
     func testGetByRange() {
         
         setData()
@@ -241,8 +169,6 @@ final class CommandGetTests: ConsoleViewTestCase {
         ]
         
         for i in 0..<ranges.count {
-            
-            let num             = Data.puzzleNums[i]
             
             let firstNum        = puzzleNums[i].first!
             let lastNum         = puzzleNums[i].last!

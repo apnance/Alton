@@ -1,5 +1,5 @@
 //
-//  CommandDelTests.swift
+//  CommandNukeTests.swift
 //  AltonTests
 //
 //  Created by Aaron Nance on 9/22/25.
@@ -10,52 +10,40 @@ import APNUtil
 
 @testable import Alton
 
-final class CommandDelTests: ConsoleViewTestCase {
+final class CommandNukeTests: ConsoleViewTestCase {
     
-    /// Adds some known puzzles for deletion.
-    private func addDeletables() {
+    func testNukeGeneral() {
         
-        utils.testCommand("add 1234 \"04-25-71\"", ["Archiving [1, 2, 3, 4],  04-25-71 ... Succeeded.\n"])
-        utils.testCommand("add 1156 \"09-09-09\"", ["Archiving [1, 1, 5, 6],  09-09-09 ... Succeeded.\n"])
-        
-    }
-    
-    func testDelGeneral() {
+        func confirmUserData(_ isPresent: Bool) {
+            
+            if isPresent {
+                
+                utils.testCommand("get -1234", ["-1234: 1234;1;04-25-71;-18774\n"])
+                utils.testCommand("get -1156", ["-1156: 1156;6;09-09-09;-4758\n"])
+                
+            } else {
+                
+                utils.testCommand("get -1234", ["-1234: nothing to get.\n"])
+                utils.testCommand("get -1156", ["-1156: nothing to get.\n"])
+                
+            }
+            
+        }
         
         // Test Deleting w/ Digits in Order
         
         // Add Some to Delete
         addDeletables()
         
-        // Delete
-        utils.testCommand("del 1234", ["""
-                                        [Warning] Deleted puzzles(s):
-                                        '1234'
-                                        
-                                        """])
-        utils.testCommand("del 1156", ["""
-                                        [Warning] Deleted puzzles(s):
-                                        '1156'
-                                        
-                                        """])
-        
-        // Test Deleting w/ Digits Scrambled
+        confirmUserData(true)
+        utils.testCommand("nuke Y",["[Warning] Nuke successful: user saved puzzle(s) deleted."])
+        confirmUserData(false)
         
         addDeletables()
+        confirmUserData(true)
         
-        // Delete
-        utils.testCommand("del 3412", ["""
-                                        [Warning] Deleted puzzles(s):
-                                        '3412'
-                                        
-                                        """])
-        utils.testCommand("del 1651", ["""
-                                        [Warning] Deleted puzzles(s):
-                                        '1651'
-                                        
-                                        """])
-        
-
+        utils.testCommand("nuke N",["Nuke operation aborted."])
+        confirmUserData(true)
         
     }
     

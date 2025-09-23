@@ -10,19 +10,42 @@ import APNUtil
 
 @testable import Alton
 
-final class CommandAddTests: ConsoleViewTestCase {
+final class CommandDelTests: ConsoleViewTestCase {
     
-    func testAddGeneral() {
+    func testDelGeneral() {
         
-        let today = Date().simple
+        // Test Deleting w/ Digits in Order
         
-        // Succeed
-        utils.testCommand("add 1234", ["Archiving [1, 2, 3, 4],  \(today) ... Succeeded.\n"])
-        utils.testCommand("add 1234 \"04-25-71\"", ["Archiving [1, 2, 3, 4],  04-25-71 ... Succeeded.\n"])
+        // Add Some to Delete
+        addDeletables()
         
-        // Fail
-        utils.testCommand("add 1111", ["[Warning] Archiving [1, 1, 1, 1],  \(today) ... Failed.\n"])
-        utils.testCommand("add 1111 \"04-26-79\"", ["[Warning] Archiving [1, 1, 1, 1],  04-26-79 ... Failed.\n"])
+        // Delete
+        utils.testCommand("del 1234", ["""
+                                        [Warning] Deleted puzzles(s):
+                                        '1234'
+                                        
+                                        """])
+        utils.testCommand("del 1156", ["""
+                                        [Warning] Deleted puzzles(s):
+                                        '1156'
+                                        
+                                        """])
+        
+        // Test Deleting w/ Digits Scrambled
+        
+        addDeletables()
+        
+        // Delete
+        utils.testCommand("del 3412", ["""
+                                        [Warning] Deleted puzzles(s):
+                                        '3412'
+                                        
+                                        """])
+        utils.testCommand("del 1651", ["""
+                                        [Warning] Deleted puzzles(s):
+                                        '1651'
+                                        
+                                        """])
         
     }
     

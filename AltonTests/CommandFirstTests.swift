@@ -1,5 +1,5 @@
 //
-//  CommandNukeTests.swift
+//  CommandFirstTests.swift
 //  AltonTests
 //
 //  Created by Aaron Nance on 9/22/25.
@@ -10,41 +10,63 @@ import APNUtil
 
 @testable import Alton
 
-final class CommandNukeTests: ConsoleViewTestCase {
+final class CommandFirstTests: ConsoleViewTestCase {
     
-    func testNukeGeneral() {
+    func testFirstGeneral() {
         
-        func confirmUserData(_ isPresent: Bool) {
-            
-            if isPresent {
-                
-                utils.testCommand("get -1234", ["-1234: 1234;1;04-25-71;-18774\n"])
-                utils.testCommand("get -1156", ["-1156: 1156;6;09-09-09;-4758\n"])
-                
-            } else {
-                
-                utils.testCommand("get -1234", ["-1234: nothing to get.\n"])
-                utils.testCommand("get -1156", ["-1156: nothing to get.\n"])
-                
-            }
-            
-        }
+        // Reset Data
+        nuke()
         
-        // Test Deleting w/ Digits in Order
+        // "first"
+        utils.testCommand("first",      ["""
+                                            First 1 Archived Puzzle(s)            
+                                                 #: 589
+                                            Puzzle: [8, 8, 5, 4]
+                                              Date: 04-30-24
+                                            """])
         
-        // Add Some to Delete
-        addDeletables()
+        // first 1
+        utils.testCommand("first 1",      ["""
+                                            First 1 Archived Puzzle(s)            
+                                                 #: 589
+                                            Puzzle: [8, 8, 5, 4]
+                                              Date: 04-30-24
+                                            """])
         
-        confirmUserData(true)
-        utils.testCommand("nuke Y",["[Warning] Nuke successful: user saved puzzle(s) deleted."])
-        confirmUserData(false)
+        // first 3
+        utils.testCommand("first 3",    ["""
+                                            First 3 Archived Puzzle(s)            
+                                                 #: 589
+                                            Puzzle: [8, 8, 5, 4]
+                                              Date: 04-30-24            
+                                                 #: 590
+                                            Puzzle: [6, 3, 3, 3]
+                                              Date: 05-01-24            
+                                                 #: 591
+                                            Puzzle: [9, 7, 5, 2]
+                                              Date: 05-02-24
+                                            """])
         
-        addDeletables()
-        confirmUserData(true)
-        
-        utils.testCommand("nuke N",["Nuke operation aborted."])
-        confirmUserData(true)
-        
+        // "first 5"
+        utils.testCommand("first 5",    ["""
+                                            First 5 Archived Puzzle(s)            
+                                                 #: 589
+                                            Puzzle: [8, 8, 5, 4]
+                                              Date: 04-30-24            
+                                                 #: 590
+                                            Puzzle: [6, 3, 3, 3]
+                                              Date: 05-01-24            
+                                                 #: 591
+                                            Puzzle: [9, 7, 5, 2]
+                                              Date: 05-02-24            
+                                                 #: 592
+                                            Puzzle: [9, 8, 7, 2]
+                                              Date: 05-03-24            
+                                                 #: 593
+                                            Puzzle: [9, 9, 5, 2]
+                                              Date: 05-04-24
+                                            """])
+
     }
     
 }

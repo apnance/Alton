@@ -19,6 +19,10 @@
 		9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F72BC49125009CF74A /* FractionalMathTests.swift */; };
 		9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2F92BC5C4CC009CF74A /* Operand.swift */; };
 		9335D2FC2BC70DE0009CF74A /* TextFieldTintedClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9335D2FB2BC70DDF009CF74A /* TextFieldTintedClearButton.swift */; };
+		9336B97C2E7E347F00A252A0 /* ConsoleViewTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336B97B2E7E347F00A252A0 /* ConsoleViewTestCase.swift */; };
+		9336B97E2E7E385400A252A0 /* FrameworkTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 9336B97D2E7E385400A252A0 /* FrameworkTestSupport */; };
+		9336BA622E7E3FFE00A252A0 /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9336BA612E7E3FFB00A252A0 /* TODO.swift */; };
+		935DC75B2E7DDE3700A6316A /* CommandGetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935DC75A2E7DDE3600A6316A /* CommandGetTests.swift */; };
 		9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BF9D2BBC7C2300425C95 /* Component.swift */; };
 		9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA12BBE004100425C95 /* ExpressionTests.swift */; };
 		9361BFA42BC0B6B300425C95 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361BFA32BC0B6B300425C95 /* Globals.swift */; };
@@ -42,6 +46,14 @@
 		93C40FA52C2651E3001540F5 /* PuzzleArchiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */; };
 		93C40FA72C26561B001540F5 /* puzzle.default.data.txt in Resources */ = {isa = PBXBuildFile; fileRef = 93C40FA62C26561B001540F5 /* puzzle.default.data.txt */; };
 		93C40FAE2C29230C001540F5 /* AltonConsoleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */; };
+		93D225722E81111C00A1C4DB /* CommandSolveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225712E81111C00A1C4DB /* CommandSolveTests.swift */; };
+		93D225742E81FF6700A1C4DB /* CommandAddTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225732E81FF6700A1C4DB /* CommandAddTests.swift */; };
+		93D225762E8202FA00A1C4DB /* CommandDelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225752E8202FA00A1C4DB /* CommandDelTests.swift */; };
+		93D225782E8207A500A1C4DB /* CommandNukeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225772E8207A500A1C4DB /* CommandNukeTests.swift */; };
+		93D2257A2E820AA800A1C4DB /* CommandFirstTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225792E820AA800A1C4DB /* CommandFirstTests.swift */; };
+		93D2257C2E820E5B00A1C4DB /* CommandLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257B2E820E5B00A1C4DB /* CommandLastTests.swift */; };
+		93D2257E2E82106F00A1C4DB /* CommandCSVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257D2E82106F00A1C4DB /* CommandCSVTests.swift */; };
+		93D225802E82118D00A1C4DB /* CommandDiagnosticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257F2E82118D00A1C4DB /* CommandDiagnosticTests.swift */; };
 		93D2D04D2BE18B44009A5FF2 /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */; };
 		93D2D04F2BE19955009A5FF2 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04E2BE19955009A5FF2 /* Difficulty.swift */; };
 		93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */; };
@@ -81,6 +93,9 @@
 		9335D2F72BC49125009CF74A /* FractionalMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FractionalMathTests.swift; sourceTree = "<group>"; };
 		9335D2F92BC5C4CC009CF74A /* Operand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operand.swift; sourceTree = "<group>"; };
 		9335D2FB2BC70DDF009CF74A /* TextFieldTintedClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTintedClearButton.swift; sourceTree = "<group>"; };
+		9336B97B2E7E347F00A252A0 /* ConsoleViewTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleViewTestCase.swift; sourceTree = "<group>"; };
+		9336BA612E7E3FFB00A252A0 /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
+		935DC75A2E7DDE3600A6316A /* CommandGetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandGetTests.swift; sourceTree = "<group>"; };
 		9361BF9C2BBA05E500425C95 /* Alton.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Alton.xctestplan; sourceTree = "<group>"; };
 		9361BF9D2BBC7C2300425C95 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		9361BFA12BBE004100425C95 /* ExpressionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionTests.swift; sourceTree = "<group>"; };
@@ -108,6 +123,14 @@
 		93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleArchiver.swift; sourceTree = "<group>"; };
 		93C40FA62C26561B001540F5 /* puzzle.default.data.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = puzzle.default.data.txt; sourceTree = "<group>"; };
 		93C40FAD2C29230C001540F5 /* AltonConsoleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltonConsoleConfigurator.swift; sourceTree = "<group>"; };
+		93D225712E81111C00A1C4DB /* CommandSolveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandSolveTests.swift; sourceTree = "<group>"; };
+		93D225732E81FF6700A1C4DB /* CommandAddTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandAddTests.swift; sourceTree = "<group>"; };
+		93D225752E8202FA00A1C4DB /* CommandDelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandDelTests.swift; sourceTree = "<group>"; };
+		93D225772E8207A500A1C4DB /* CommandNukeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandNukeTests.swift; sourceTree = "<group>"; };
+		93D225792E820AA800A1C4DB /* CommandFirstTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandFirstTests.swift; sourceTree = "<group>"; };
+		93D2257B2E820E5B00A1C4DB /* CommandLastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLastTests.swift; sourceTree = "<group>"; };
+		93D2257D2E82106F00A1C4DB /* CommandCSVTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCSVTests.swift; sourceTree = "<group>"; };
+		93D2257F2E82118D00A1C4DB /* CommandDiagnosticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandDiagnosticTests.swift; sourceTree = "<group>"; };
 		93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
 		93D2D04E2BE19955009A5FF2 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDeduper.swift; sourceTree = "<group>"; };
@@ -130,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9336B97E2E7E385400A252A0 /* FrameworkTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +218,7 @@
 		93A22E772A1BF8DC0028929F /* Alton */ = {
 			isa = PBXGroup;
 			children = (
+				9336BA612E7E3FFB00A252A0 /* TODO.swift */,
 				93A22EAA2A1BF90A0028929F /* M */,
 				93A22EA92A1BF9060028929F /* V */,
 				93A22EA82A1BF9020028929F /* C */,
@@ -206,7 +231,17 @@
 		93A22E8E2A1BF8DF0028929F /* AltonTests */ = {
 			isa = PBXGroup;
 			children = (
+				9336B97B2E7E347F00A252A0 /* ConsoleViewTestCase.swift */,
 				93A22E8F2A1BF8DF0028929F /* SolverTests.swift */,
+				935DC75A2E7DDE3600A6316A /* CommandGetTests.swift */,
+				93D225712E81111C00A1C4DB /* CommandSolveTests.swift */,
+				93D225732E81FF6700A1C4DB /* CommandAddTests.swift */,
+				93D225752E8202FA00A1C4DB /* CommandDelTests.swift */,
+				93D225772E8207A500A1C4DB /* CommandNukeTests.swift */,
+				93D225792E820AA800A1C4DB /* CommandFirstTests.swift */,
+				93D2257B2E820E5B00A1C4DB /* CommandLastTests.swift */,
+				93D2257D2E82106F00A1C4DB /* CommandCSVTests.swift */,
+				93D2257F2E82118D00A1C4DB /* CommandDiagnosticTests.swift */,
 				9361BFA12BBE004100425C95 /* ExpressionTests.swift */,
 				9335D2F72BC49125009CF74A /* FractionalMathTests.swift */,
 			);
@@ -454,6 +489,7 @@
 				930F91642CAA4AE3003D3C9A /* AltonSolve.swift in Sources */,
 				9335D2FA2BC5C4CC009CF74A /* Operand.swift in Sources */,
 				930F91722CAA4B40003D3C9A /* AltonDiagnostic.swift in Sources */,
+				9336BA622E7E3FFE00A252A0 /* TODO.swift in Sources */,
 				93ADC6702BB6425A00E7C25B /* Operator.swift in Sources */,
 				93C40FAE2C29230C001540F5 /* AltonConsoleConfigurator.swift in Sources */,
 				9361BF9E2BBC7C2400425C95 /* Component.swift in Sources */,
@@ -477,8 +513,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A22E902A1BF8DF0028929F /* SolverTests.swift in Sources */,
+				93D2257C2E820E5B00A1C4DB /* CommandLastTests.swift in Sources */,
+				93D2257E2E82106F00A1C4DB /* CommandCSVTests.swift in Sources */,
 				9335D2F82BC49125009CF74A /* FractionalMathTests.swift in Sources */,
+				9336B97C2E7E347F00A252A0 /* ConsoleViewTestCase.swift in Sources */,
+				93D225742E81FF6700A1C4DB /* CommandAddTests.swift in Sources */,
+				93D225722E81111C00A1C4DB /* CommandSolveTests.swift in Sources */,
 				9361BFA22BBE004100425C95 /* ExpressionTests.swift in Sources */,
+				935DC75B2E7DDE3700A6316A /* CommandGetTests.swift in Sources */,
+				93D225762E8202FA00A1C4DB /* CommandDelTests.swift in Sources */,
+				93D225802E82118D00A1C4DB /* CommandDiagnosticTests.swift in Sources */,
+				93D2257A2E820AA800A1C4DB /* CommandFirstTests.swift in Sources */,
+				93D225782E8207A500A1C4DB /* CommandNukeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +883,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9336B97D2E7E385400A252A0 /* FrameworkTestSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93DEECFC2C53442700473587 /* XCRemoteSwiftPackageReference "ConsoleView" */;
+			productName = FrameworkTestSupport;
+		};
 		93A22EB42A1BFA820028929F /* APNUtil */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93A22EB32A1BFA820028929F /* XCRemoteSwiftPackageReference "APNUtil" */;

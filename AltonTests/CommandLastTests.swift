@@ -1,5 +1,5 @@
 //
-//  CommandFirstTests.swift
+//  CommandLastTests.swift
 //  AltonTests
 //
 //  Created by Aaron Nance on 9/22/25.
@@ -10,58 +10,61 @@ import APNUtil
 
 @testable import Alton
 
-final class CommandFirstTests: ConsoleViewTestCase {
+final class CommandLastTests: ConsoleViewTestCase {
     
-    func testFirstGeneral() {
+    func testLastGeneral() {
+        
+        // Reset Data
+        nuke()
         
         // "first"
-        utils.testCommand("first",      ["""
-                                            First 1 Archived Puzzle(s)            
-                                                 #: -18774
-                                            Puzzle: [1, 2, 3, 4]
-                                              Date: 04-25-71
+        utils.testCommand("last",      ["""
+                                            Last 1 Archived Puzzle(s)            
+                                                 #: 741
+                                            Puzzle: [9, 9, 9, 2]
+                                              Date: 09-29-24
                                             """])
         
         // first 1
-        utils.testCommand("first 1",      ["""
-                                            First 1 Archived Puzzle(s)            
-                                                 #: -18774
-                                            Puzzle: [1, 2, 3, 4]
-                                              Date: 04-25-71
+        utils.testCommand("last 1",      ["""
+                                            Last 1 Archived Puzzle(s)            
+                                                 #: 741
+                                            Puzzle: [9, 9, 9, 2]
+                                              Date: 09-29-24
                                             """])
         
         // first 3
-        utils.testCommand("first 3",    ["""
-                                            First 3 Archived Puzzle(s)            
-                                                 #: -18774
-                                            Puzzle: [1, 2, 3, 4]
-                                              Date: 04-25-71            
-                                                 #: -4758
-                                            Puzzle: [1, 1, 5, 6]
-                                              Date: 09-09-09            
-                                                 #: 589
-                                            Puzzle: [8, 8, 5, 4]
-                                              Date: 04-30-24
+        utils.testCommand("last 3",    ["""
+                                            Last 3 Archived Puzzle(s)            
+                                                 #: 739
+                                            Puzzle: [9, 3, 1, 1]
+                                              Date: 09-27-24            
+                                                 #: 740
+                                            Puzzle: [5, 4, 4, 3]
+                                              Date: 09-28-24            
+                                                 #: 741
+                                            Puzzle: [9, 9, 9, 2]
+                                              Date: 09-29-24
                                             """])
         
         // "first 5"
-        utils.testCommand("first 5",    ["""
-                                            First 5 Archived Puzzle(s)            
-                                                 #: -18774
-                                            Puzzle: [1, 2, 3, 4]
-                                              Date: 04-25-71            
-                                                 #: -4758
-                                            Puzzle: [1, 1, 5, 6]
-                                              Date: 09-09-09            
-                                                 #: 589
-                                            Puzzle: [8, 8, 5, 4]
-                                              Date: 04-30-24            
-                                                 #: 590
-                                            Puzzle: [6, 3, 3, 3]
-                                              Date: 05-01-24            
-                                                 #: 591
-                                            Puzzle: [9, 7, 5, 2]
-                                              Date: 05-02-24
+        utils.testCommand("last 5",    ["""
+                                            Last 5 Archived Puzzle(s)            
+                                                 #: 737
+                                            Puzzle: [9, 6, 4, 2]
+                                              Date: 09-25-24            
+                                                 #: 738
+                                            Puzzle: [7, 6, 2, 2]
+                                              Date: 09-26-24            
+                                                 #: 739
+                                            Puzzle: [9, 3, 1, 1]
+                                              Date: 09-27-24            
+                                                 #: 740
+                                            Puzzle: [5, 4, 4, 3]
+                                              Date: 09-28-24            
+                                                 #: 741
+                                            Puzzle: [9, 9, 9, 2]
+                                              Date: 09-29-24
                                             """])
 
     }
