@@ -42,22 +42,24 @@ struct AltonConsoleConfigurator: ConsoleConfigurator {
         
         var configs = ConsoleViewConfigs()
         
-        configs.aboutScreen                     = "All Ten's worst nightmare...\n\(Console.screen.about)"
-        configs.fontSize                        = 9
-        configs.fgColorScreenOutput             = .white
-        configs.fgColorPrompt                   = .systemYellow.pointEightAlpha
-        configs.fgColorCommandLine              = .systemYellow
-        configs.fgColorScreenInput              = .systemOrange
-        configs.fgColorScreenOutputNote         = .systemBlue
-        configs.bgColor                         = .black
-        configs.borderColor                     = UIColor.white.cgColor
-        configs.borderWidth                     = Configs.UI.View.borderWidth.cgFloat
-        configs.shouldMakeCommandFirstResponder = true
-        configs.shouldHideOnScreenTap           = true
+        configs.aboutScreen                         = "All Ten's worst nightmare...\n\(Console.screen.about)"
+        configs.fontSize                            = 9
+        configs.fgColorScreenOutput                 = .white
+        configs.fgColorPrompt                       = .systemYellow.pointEightAlpha
+        configs.fgColorCommandLine                  = .systemYellow
+        configs.fgColorScreenInput                  = .systemOrange
+        configs.fgColorScreenOutputNote             = .systemBlue
+        configs.bgColor                             = .black
+        configs.borderColor                         = UIColor.white.cgColor
+        configs.borderWidth                         = Configs.UI.View.borderWidth.cgFloat
+        configs.shouldMakeCommandFirstResponder     = true
+        configs.shouldHideOnScreenTap               = true
         
         configs.fgColorHistoryBarCommand            = .systemOrange
         configs.fgColorHistoryBarCommandArgument    = .systemYellow
         configs.bgColorHistoryBarMain               = .black.pointEightAlpha
+        
+        configs.shouldShowOnLoad                    = false
         
         return configs
         

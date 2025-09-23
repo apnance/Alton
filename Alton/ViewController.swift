@@ -46,14 +46,31 @@ class ViewController: UIViewController {
     // MARK: - Custom Methods
     private func uiInit() {
         
+        initConsole()
+        
+        uiStyleElements()
+        uiSetButtons()
+        uiSetVersion()
+        
+        Blink.go(altonLogo)
+        
+    }
+    
+    private func initConsole() {
+        
         // Console - Configurators
         AltonConsoleConfigurator(archiver: PuzzleArchiver.shared)
         DataManagerConfigurator(data: PuzzleArchiver.shared)
         
         // Console - UI
         consoleView.showHide(.hide)
-        consoleView.layer.cornerRadius  = Configs.UI.View.cornerRadius
+        consoleView.layer.cornerRadius      = Configs.UI.View.cornerRadius
         
+        consoleView.keyboardResizeHandler   = KeyboardResizeHandler(consoleView: consoleView)
+        
+    }
+    
+    fileprivate func uiStyleElements() {
         digitsLabel.textColor               = UIColor.white.pointSevenAlpha
         
         displayTextView.layer.borderColor   = Configs.UI.View.borderColor
@@ -61,7 +78,7 @@ class ViewController: UIViewController {
         displayTextView.layer.cornerRadius  = Configs.UI.View.cornerRadius
         displayTextView.clipsToBounds       = true
         
-        displayTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, 
+        displayTextView.addGestureRecognizer(UITapGestureRecognizer(target: self,
                                                                     action: #selector(handleDisplayTap(_:))))
         
         for button in buttonsCollection {
@@ -76,11 +93,6 @@ class ViewController: UIViewController {
                              for: .touchUpInside)
             
         }
-        
-        uiSetButtons()
-        uiSetVersion()
-        
-        Blink.go(altonLogo)
         
     }
     

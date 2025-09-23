@@ -54,6 +54,7 @@
 		93D2257C2E820E5B00A1C4DB /* CommandLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257B2E820E5B00A1C4DB /* CommandLastTests.swift */; };
 		93D2257E2E82106F00A1C4DB /* CommandCSVTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257D2E82106F00A1C4DB /* CommandCSVTests.swift */; };
 		93D225802E82118D00A1C4DB /* CommandDiagnosticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2257F2E82118D00A1C4DB /* CommandDiagnosticTests.swift */; };
+		93D225CA2E83291500A1C4DB /* KeyboardResizeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D225C92E83291500A1C4DB /* KeyboardResizeHandler.swift */; };
 		93D2D04D2BE18B44009A5FF2 /* Puzzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */; };
 		93D2D04F2BE19955009A5FF2 /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D2D04E2BE19955009A5FF2 /* Difficulty.swift */; };
 		93D36ED52BE477E8008AB688 /* ExpressionDeduper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */; };
@@ -131,6 +132,7 @@
 		93D2257B2E820E5B00A1C4DB /* CommandLastTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandLastTests.swift; sourceTree = "<group>"; };
 		93D2257D2E82106F00A1C4DB /* CommandCSVTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandCSVTests.swift; sourceTree = "<group>"; };
 		93D2257F2E82118D00A1C4DB /* CommandDiagnosticTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommandDiagnosticTests.swift; sourceTree = "<group>"; };
+		93D225C92E83291500A1C4DB /* KeyboardResizeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResizeHandler.swift; sourceTree = "<group>"; };
 		93D2D04C2BE18B44009A5FF2 /* Puzzle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Puzzle.swift; sourceTree = "<group>"; };
 		93D2D04E2BE19955009A5FF2 /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionDeduper.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				93D36ED42BE477E8008AB688 /* ExpressionDeduper.swift */,
 				939F38952BCEDE4200463E3E /* Blink.swift */,
 				93C40FA42C2651E3001540F5 /* PuzzleArchiver.swift */,
+				93D225C92E83291500A1C4DB /* KeyboardResizeHandler.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				930F916A2CAA4B0C003D3C9A /* AltonNuke.swift in Sources */,
 				930F916C2CAA4B1B003D3C9A /* AltonFirst.swift in Sources */,
 				930F91682CAA4B03003D3C9A /* AltonDel.swift in Sources */,
+				93D225CA2E83291500A1C4DB /* KeyboardResizeHandler.swift in Sources */,
 				930F91702CAA4B32003D3C9A /* AltonCSV.swift in Sources */,
 				93A22E792A1BF8DC0028929F /* AppDelegate.swift in Sources */,
 				93A22E7B2A1BF8DC0028929F /* SceneDelegate.swift in Sources */,
