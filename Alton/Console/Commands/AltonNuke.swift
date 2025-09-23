@@ -29,7 +29,7 @@ struct AltonNuke: Command {
     func process(_ args: [String]?) -> CommandOutput {
         
         return yesNo(prompt: """
-                                Nuking cannot be undone and will *DELETE ALL* user-saved answers.
+                                Nuking cannot be undone and will *DELETE ALL* user-saved puzzles.
                                 
                                 'N' to abort - 'Y' to proceed.
                                 """,
