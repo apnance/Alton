@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apnance/ConsoleView",
       "state" : {
-        "revision" : "81ac88257cd5385a2ae6164a1964dc8325f7b59d",
-        "version" : "1.6.18"
+        "revision" : "91f438b4982de23943fe073ac6d4a5c97982ee8f",
+        "version" : "1.6.21"
       }
     }
   ],
